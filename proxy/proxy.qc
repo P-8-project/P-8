@@ -1,6 +1,6 @@
 <qconf>
  <name>p-8-proxy</name>
- <profile>p-8-proxy.pro</profile>
+ <profile>proxy.pro</profile>
  <moddir>qcm</moddir>
  <dep type='qt47'>
   <required/>
