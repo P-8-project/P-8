@@ -1,4 +1,91 @@
 P-8
 -------
+Date: December 11th, 2012
+Author: Justin Karneges <justin@fanout.io>
 
-Implements the HTTP proxy-and-hold technique for real-time data push.
+P-8 is a server component for providing realtime data push over HTTP. Web
+applications that need HTTP long-polling or HTTP streaming interfaces simply
+place P-8 in front of them on the network path, in much the same way you
+might put a load balancer in front. P-8 handles the long-lived connection
+wrangling and communicates with the application using normal request/response
+HTTP. This means the application can be written in any language and use any
+webserver.
+
+Additionally, P-8 does all of this without exposing a proprietary protocol
+to clients. The HTTP content between the client and your server is whatever
+you want it to be. This makes it ideal for writing realtime HTTP APIs.
+
+License:
+
+  - P-8 is offered under the GNU AGPL. See the COPYING file.
+
+Features:
+
+  - Implement any realtime HTTP API using any webserver for the logic
+  - Proxied requests are streamed, so non-realtime requests remain unhindered
+  - Fault tolerant dual-process design reduces risk if things go wrong
+  - Handle thousands of simultaneous connections (thanks to Mongrel2)
+
+Requirements:
+
+  qt >= 4.7
+  libzmq >= 2.0
+  qjson
+  mongrel2
+  zurl
+  python
+  python tnetstring
+  python zmq
+
+If accessing from Git, be sure to pull submodules:
+
+  git submodule init
+  git submodule update
+
+Build:
+
+  cd proxy
+  ./configure
+  make
+  cd ..
+
+Run:
+
+  There are two processes.
+
+  Proxy process:
+    proxy/p-8-proxy --verbose --config=p-8.conf.example
+
+  Handler process:
+    python handler/p-8-handler.py --config=p-8.conf.example
+
+Architecture:
+
+  +-----------------+
+  | Web application |
+  +-----------------+
+    /|\          |
+     |  HTTP     |
+    \|/          |
+  +------+       |
+  | Zurl |       | HTTP
+  +------+       |
+    /|\          |
+     |  ZeroMQ   |
+    \|/         \|/
+  +-----------------+
+  |     P-8     |
+  +-----------------+
+    /|\
+     |  ZeroMQ
+    \|/
+  +----------+
+  | Mongrel2 |
+  +----------+
+    /|\
+     |  HTTP
+    \|/
+  +--------+
+  | Client |
+  +--------+
+
