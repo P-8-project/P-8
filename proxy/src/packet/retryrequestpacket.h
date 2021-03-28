@@ -17,37 +17,26 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef M2RESPONSE_H
-#define M2RESPONSE_H
+#ifndef RETRYREQUESTPACKET_H
+#define RETRYREQUESTPACKET_H
 
-#include <QObject>
-#include "packet/httpheaders.h"
-#include "m2request.h"
+#include <QVariant>
+#include "httprequestdata.h"
+#include "inspectresponsepacket.h"
 
-class M2Manager;
-
-class M2Response : public QObject
+class RetryRequestPacket
 {
-	Q_OBJECT
-
 public:
-	~M2Response();
+	typedef QPair<QByteArray, QByteArray> Rid;
+	QList<Rid> rids;
+	HttpRequestData request;
 
-	void start(int code, const QByteArray &status, const HttpHeaders &headers);
-	void write(const QByteArray &body);
-	void close();
+	bool haveInspectInfo;
+	InspectResponsePacket inspectInfo;
 
-signals:
-	void finished();
+	RetryRequestPacket();
 
-private:
-	class Private;
-	friend class Private;
-	Private *d;
-
-	friend class M2Manager;
-	M2Response(QObject *parent = 0);
-	void handle(M2Manager *manager, const M2Request::Rid &rid);
+	bool fromVariant(const QVariant &in);
 };
 
 #endif

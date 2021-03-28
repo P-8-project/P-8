@@ -22,6 +22,7 @@
 
 #include <QObject>
 
+class InspectData;
 class AcceptData;
 class ZurlManager;
 class DomainMap;
@@ -35,10 +36,13 @@ public:
 	ProxySession(ZurlManager *zurlManager, DomainMap *domainMap, QObject *parent = 0);
 	~ProxySession();
 
+	void setInspectData(const InspectData &idata);
+
 	// takes ownership
 	void add(RequestSession *rs);
 
 signals:
+	void addNotPossible(); // emitted if response gets too big
 	void finishedByPassthrough();
 	void finishedForAccept(const AcceptData &adata);
 
