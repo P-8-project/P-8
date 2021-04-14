@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Fan Out Networks, Inc.
+ * Copyright (C) 2013 Fan Out Networks, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,31 +17,32 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef M2REQUESTPACKET_H
-#define M2REQUESTPACKET_H
+#ifndef LAYERTRACKER_H
+#define LAYERTRACKER_H
 
-#include <QVariant>
-#include "httpheaders.h"
+#include <QList>
 
-class M2RequestPacket
+class LayerTracker
 {
 public:
-	QByteArray sender;
-	QByteArray id;
+	LayerTracker();
 
-	bool isDisconnect;
+	void reset();
 
-	QString method;
-	QByteArray path;
-	HttpHeaders headers;
-	QByteArray body;
+	void addPlain(int plain);
+	void specifyEncoded(int encoded, int plain);
+	int finished(int encoded);
 
-	QString uploadFile;
-	bool uploadDone;
+private:
+	class Item
+	{
+	public:
+		int plain;
+		int encoded;
+	};
 
-	M2RequestPacket();
-
-	bool fromByteArray(const QByteArray &in);
+	int plain_;
+	QList<Item> items_;
 };
 
 #endif

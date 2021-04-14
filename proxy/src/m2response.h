@@ -33,6 +33,8 @@ class M2Response : public QObject
 public:
 	~M2Response();
 
+	M2Request::Rid rid() const;
+
 	void start(int code, const QByteArray &status, const HttpHeaders &headers);
 	void write(const QByteArray &body);
 	void close();
@@ -40,6 +42,7 @@ public:
 signals:
 	void bytesWritten(int count);
 	void finished();
+	void error();
 
 private:
 	class Private;
@@ -49,6 +52,7 @@ private:
 	friend class M2Manager;
 	M2Response(QObject *parent = 0);
 	void handle(M2Manager *manager, const M2Request::Rid &rid);
+	void disconnected();
 };
 
 #endif
