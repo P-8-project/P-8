@@ -1,6 +1,6 @@
 P-8
 -------
-Date: February 9th, 2013
+Date: March 21st, 2013
 Author: Justin Karneges <justin@fanout.io>
 
 Read: http://blog.fanout.io/2013/02/10/http-grip-proxy-hold-technique/
@@ -53,13 +53,27 @@ Build:
 
 Run:
 
-  There are two processes.
+  python runner/p-8-runner.py --config=p-8.conf.example
+
+  P-8 consists of 4 processes: mongrel2, zurl, p-8-proxy, and
+  p-8-handler. P-8-runner launches them all in one shot.
+
+  If you'd prefer to individually manage any of these processes yourself, then
+  adjust the "services" field in p-8.conf. You can even choose to not use
+  the runner at all. In that case, p-8's own processes can be launched
+  as follows:
 
   Proxy process:
     proxy/p-8-proxy --verbose --config=p-8.conf.example
 
   Handler process:
     python handler/p-8-handler.py --config=p-8.conf.example
+
+Test:
+
+  By default, P-8 listens on port 7999 and forwards to localhost port 80.
+  If you've got a webserver running on port 80, you can confirm that proxying
+  works by browsing to http://localhost:7999/
 
 Architecture:
 
