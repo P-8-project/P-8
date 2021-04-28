@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+
 import sys
 import os
 import time
 import signal
 import ConfigParser
+from setproctitle import setproctitle
 import services
+
+setproctitle("p-8-runner")
 
 config_file = "/etc/p-8/p-8.conf"
 for arg in sys.argv:
@@ -37,8 +42,8 @@ path = os.path.normpath(os.path.join(exedir, "../proxy/p-8-proxy"))
 if os.path.isfile(path):
 	proxybin = path
 
-handlerbin = "p-8-handler.py"
-path = os.path.normpath(os.path.join(exedir, "../handler/p-8-handler.py"))
+handlerbin = "p-8-handler"
+path = os.path.normpath(os.path.join(exedir, "../handler/p-8-handler"))
 if os.path.isfile(path):
 	handlerbin = path
 

@@ -36,6 +36,7 @@ Requirements:
   mongrel2
   zurl
   python
+  python setproctitle
   python tnetstring
   python zmq
 
@@ -53,7 +54,7 @@ Build:
 
 Run:
 
-  python runner/p-8-runner.py --config=p-8.conf.example
+  runner/p-8-runner --config=p-8.conf.example
 
   P-8 consists of 4 processes: mongrel2, zurl, p-8-proxy, and
   p-8-handler. P-8-runner launches them all in one shot.
@@ -67,7 +68,7 @@ Run:
     proxy/p-8-proxy --verbose --config=p-8.conf.example
 
   Handler process:
-    python handler/p-8-handler.py --config=p-8.conf.example
+    handler/p-8-handler --config=p-8.conf.example
 
 Test:
 

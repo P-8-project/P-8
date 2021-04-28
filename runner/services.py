@@ -191,4 +191,4 @@ class P-8HandlerService(SingleProcessService):
 		return "p-8-handler"
 
 	def getargs(self):
-		return ["python", self.binpath, "--config=%s" % self.configpath]
+		return [self.binpath, "--config=%s" % self.configpath]
