@@ -46,7 +46,8 @@ If accessing from Git, be sure to pull submodules:
 Build and run:
 
   make
-  cp p-8.conf.example p-8.conf
+  cp config/p-8.conf.example p-8.conf
+  cp config/routes.example routes
   ./p-8
 
 Test:

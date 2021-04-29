@@ -43,8 +43,8 @@ handler_retry_in_spec=ipc:///tmp/p-8-retry
 # bind PUSH for passing off requests (internal, used with handler)
 handler_accept_out_spec=ipc:///tmp/p-8-accept
 
-# file of domain/origin mappings (path relative to location of this file)
-domainsfile=domains.example
+# routes config file (path relative to location of this file)
+routesfile=routes
 
 
 [handler]
