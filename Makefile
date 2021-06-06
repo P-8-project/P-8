@@ -45,6 +45,6 @@ install:
 	cp handler/*.py $(libdir)/handler
 	cp runner/*.py $(libdir)/runner
 	cp runner/*.conf runner/*.template $(configdir)/runner
-	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 > $(bindir)/p-8
+	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 > $(bindir)/p-8 && chmod a+x $(bindir)/p-8
 	test -e $(configdir)/p-8.conf || sed -e "s,libdir=.*,libdir=$(libdir),g" -e "s,configdir=.*,configdir=$(configdir)/runner,g" -e "s,rundir=.*,rundir=$(rundir),g" -e "s,logdir=.*,logdir=$(logdir),g" config/p-8.conf.example > $(configdir)/p-8.conf
 	test -e $(configdir)/routes || cp config/routes.example $(configdir)/routes
