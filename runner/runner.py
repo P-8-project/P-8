@@ -78,7 +78,7 @@ def run(exedir, config_file, verbose):
 		service_objs.append(services.P-8ProxyService(proxybin, config_file, verbose, rundir, logdir))
 
 	if "p-8-handler" in service_names:
-		service_objs.append(services.P-8HandlerService(handlerbin, config_file, rundir, logdir))
+		service_objs.append(services.P-8HandlerService(handlerbin, config_file, verbose, rundir, logdir))
 
 	print "starting..."
 

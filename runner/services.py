@@ -135,12 +135,16 @@ class ZurlService(Service):
 	def name(self):
 		return "zurl"
 
+	def getlogfile(self):
+		return None
+
 	def getargs(self):
 		args = list()
 		args.append(self.binpath)
 		if self.verbose:
 			args.append("--verbose")
 		args.append("--config=%s" % self.configpath)
+		args.append("--logfile=%s" % super(ZurlService, self).getlogfile())
 		return args
 
 class M2AdapterService(Service):
@@ -153,12 +157,16 @@ class M2AdapterService(Service):
 	def name(self):
 		return "m2adapter"
 
+	def getlogfile(self):
+		return None
+
 	def getargs(self):
 		args = list()
 		args.append(self.binpath)
 		if self.verbose:
 			args.append("--verbose")
 		args.append("--config=%s" % self.configpath)
+		args.append("--logfile=%s" % super(M2AdapterService, self).getlogfile())
 		return args
 
 class P-8ProxyService(Service):
@@ -171,22 +179,36 @@ class P-8ProxyService(Service):
 	def name(self):
 		return "p-8-proxy"
 
+	def getlogfile(self):
+		return None
+
 	def getargs(self):
 		args = list()
 		args.append(self.binpath)
 		if self.verbose:
 			args.append("--verbose")
 		args.append("--config=%s" % self.configpath)
+		args.append("--logfile=%s" % super(P-8ProxyService, self).getlogfile())
 		return args
 
 class P-8HandlerService(Service):
-	def __init__(self, binpath, configpath, rundir, logdir):
+	def __init__(self, binpath, configpath, verbose, rundir, logdir):
 		super(P-8HandlerService, self).__init__(rundir, logdir)
 		self.binpath = binpath
 		self.configpath = configpath
+		self.verbose = verbose
 
 	def name(self):
 		return "p-8-handler"
 
+	def getlogfile(self):
+		return None
+
 	def getargs(self):
-		return [self.binpath, "--config=%s" % self.configpath]
+		args = list()
+		args.append(self.binpath)
+		if self.verbose:
+			args.append("--verbose")
+		args.append("--config=%s" % self.configpath)
+		args.append("--logfile=%s" % super(P-8HandlerService, self).getlogfile())
+		return args
