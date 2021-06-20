@@ -77,6 +77,9 @@ class Service(object):
 	def getargs(self):
 		pass
 
+	def accept_sighup(self):
+		return False
+
 	def pre_start(self):
 		pass
 
@@ -117,6 +120,9 @@ class Mongrel2Service(Service):
 	def getargs(self):
 		return [self.binpath, self.sqlconfigpath, "default_%d" % self.port]
 
+	def accept_sighup(self):
+		return True
+
 	def pre_start(self):
 		super(Mongrel2Service, self).pre_start()
 
@@ -147,6 +153,9 @@ class ZurlService(Service):
 		args.append("--logfile=%s" % super(ZurlService, self).getlogfile())
 		return args
 
+	def accept_sighup(self):
+		return True
+
 class M2AdapterService(Service):
 	def __init__(self, binpath, configpath, verbose, rundir, logdir):
 		super(M2AdapterService, self).__init__(rundir, logdir)
@@ -169,6 +178,9 @@ class M2AdapterService(Service):
 		args.append("--logfile=%s" % super(M2AdapterService, self).getlogfile())
 		return args
 
+	def accept_sighup(self):
+		return True
+
 class P-8ProxyService(Service):
 	def __init__(self, binpath, configpath, verbose, rundir, logdir):
 		super(P-8ProxyService, self).__init__(rundir, logdir)
@@ -190,6 +202,9 @@ class P-8ProxyService(Service):
 		args.append("--config=%s" % self.configpath)
 		args.append("--logfile=%s" % super(P-8ProxyService, self).getlogfile())
 		return args
+
+	def accept_sighup(self):
+		return True
 
 class P-8HandlerService(Service):
 	def __init__(self, binpath, configpath, verbose, rundir, logdir):
