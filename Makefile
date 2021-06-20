@@ -6,7 +6,16 @@ libdir = $(prefix)/lib/p-8
 rundir = $(varprefix)/run/p-8
 logdir = $(varprefix)/log/p-8
 
-all: make-m2adapter make-p-8-proxy
+CHK_DIR_EXISTS  = test -d
+COPY            = cp -f
+COPY_DIR        = $(COPY) -r
+INSTALL_FILE    = install -m 644 -p
+INSTALL_DIR     = $(COPY_DIR)
+INSTALL_PROGRAM = install -m 755 -p
+MKDIR           = mkdir -p
+STRIP           = strip
+
+all: make-m2adapter make-p-8-proxy p-8.inst
 
 clean:
 	if [ -f m2adapter/Makefile ]; then cd m2adapter && make clean; fi
@@ -30,21 +39,26 @@ m2adapter/conf.pri:
 proxy/conf.pri:
 	cd proxy && ./configure
 
+p-8.inst: p-8
+	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 > p-8.inst && chmod 755 p-8.inst
+
 install:
-	mkdir -p $(bindir)
-	mkdir -p $(configdir)
-	mkdir -p $(configdir)/runner
-	mkdir -p $(configdir)/runner/certs
-	mkdir -p $(libdir)/handler
-	mkdir -p $(libdir)/runner
-	mkdir -p $(rundir)
-	mkdir -p $(logdir)
-	cp m2adapter/m2adapter $(bindir)
-	cp proxy/p-8-proxy $(bindir)
-	cp handler/p-8-handler $(bindir)
-	cp handler/*.py $(libdir)/handler
-	cp runner/*.py $(libdir)/runner
-	cp runner/*.conf runner/*.template $(configdir)/runner
-	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 > $(bindir)/p-8 && chmod a+x $(bindir)/p-8
-	test -e $(configdir)/p-8.conf || sed -e "s,libdir=.*,libdir=$(libdir),g" -e "s,configdir=.*,configdir=$(configdir)/runner,g" -e "s,rundir=.*,rundir=$(rundir),g" -e "s,logdir=.*,logdir=$(logdir),g" config/p-8.conf.example > $(configdir)/p-8.conf
-	test -e $(configdir)/routes || cp config/routes.example $(configdir)/routes
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(bindir) || $(MKDIR) $(INSTALL_ROOT)$(bindir)
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(configdir) || $(MKDIR) $(INSTALL_ROOT)$(configdir)
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(configdir)/runner || $(MKDIR) $(INSTALL_ROOT)$(configdir)/runner
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(configdir)/runner/certs || $(MKDIR) $(INSTALL_ROOT)$(configdir)/runner/certs
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(libdir)/handler || $(MKDIR) $(INSTALL_ROOT)$(libdir)/handler
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(libdir)/runner || $(MKDIR) $(INSTALL_ROOT)$(libdir)/runner
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(rundir) || $(MKDIR) $(INSTALL_ROOT)$(rundir)
+	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(logdir) || $(MKDIR) $(INSTALL_ROOT)$(logdir)
+	-$(INSTALL_PROGRAM) m2adapter/m2adapter "$(INSTALL_ROOT)$(bindir)/m2adapter"
+	-$(STRIP) "$(INSTALL_ROOT)$(bindir)/m2adapter"
+	-$(INSTALL_PROGRAM) proxy/p-8-proxy "$(INSTALL_ROOT)$(bindir)/p-8-proxy"
+	-$(STRIP) "$(INSTALL_ROOT)$(bindir)/p-8-proxy"
+	-$(INSTALL_PROGRAM) handler/p-8-handler "$(INSTALL_ROOT)$(bindir)/p-8-handler"
+	-$(INSTALL_PROGRAM) p-8.inst $(INSTALL_ROOT)$(bindir)/p-8
+	$(COPY) handler/*.py $(INSTALL_ROOT)$(libdir)/handler
+	$(COPY) runner/*.py $(INSTALL_ROOT)$(libdir)/runner
+	$(COPY) runner/*.conf runner/*.template $(INSTALL_ROOT)$(configdir)/runner
+	test -e $(INSTALL_ROOT)$(configdir)/p-8.conf || sed -e "s,libdir=.*,libdir=$(libdir),g" -e "s,configdir=.*,configdir=$(configdir)/runner,g" -e "s,rundir=.*,rundir=$(rundir),g" -e "s,logdir=.*,logdir=$(logdir),g" config/p-8.conf.example > $(INSTALL_ROOT)$(configdir)/p-8.conf
+	test -e $(INSTALL_ROOT)$(configdir)/routes || cp config/routes.example $(INSTALL_ROOT)$(configdir)/routes
