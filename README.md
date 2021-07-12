@@ -70,8 +70,8 @@ If you'd prefer to individually manage any of these processes yourself, then adj
 
 Proxy process:
 
-    proxy/p-8-proxy --config=/path/to/p-8.conf
+    p-8-proxy --config=/path/to/p-8.conf
 
 Handler process:
 
-    handler/p-8-handler --config=/path/to/p-8.conf
+    p-8-handler --config=/path/to/p-8.conf
