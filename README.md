@@ -45,7 +45,7 @@ Requirements
 Install guide
 -------------
 
-https://github.com/fanout/p-8/wiki/Install
+READ: https://github.com/fanout/p-8/wiki/Install
 
 If accessing from Git, be sure to pull submodules:
 
