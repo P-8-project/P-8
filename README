@@ -1,10 +1,12 @@
 P-8
 -------
-Date: April 8th, 2013
+Date: October 27th, 2013
 Author: Justin Karneges <justin@fanout.io>
 Mailing List: http://lists.fanout.io/listinfo.cgi/fanout-users-fanout.io
 
-Read: http://blog.fanout.io/2013/02/10/http-grip-proxy-hold-technique/
+Read:
+  http://blog.fanout.io/2013/02/10/http-grip-proxy-hold-technique/
+  http://blog.fanout.io/2013/04/09/an-http-reverse-proxy-for-realtime/
 
 P-8 is an HTTP reverse proxy server that makes it easy to implement
 streaming and long-polling services. It communicates with backend web
@@ -24,8 +26,8 @@ Features:
 
   - Implement any realtime HTTP API using any webserver for the logic
   - Proxied requests are streamed, so non-realtime requests remain unhindered
-  - Fault tolerant dual-process design reduces risk if things go wrong
-  - Handle thousands of simultaneous connections (thanks to Mongrel2)
+  - Fault tolerant multiprocess design reduces risk if things go wrong
+  - Handle thousands of simultaneous connections
 
 Requirements:
 
@@ -33,8 +35,8 @@ Requirements:
   qca >= 2.0 (and an hmac(sha256)-supporting plugin, like qca-ossl)
   libzmq >= 2.0
   qjson
-  mongrel2 (**fanout develop branch**)
-  zurl (**master branch**)
+  mongrel2 (git release/1.9.0 or develop branch)
+  zurl (git v1.0.0 tag)
   python
   python setproctitle
   python tnetstring
@@ -43,8 +45,6 @@ Requirements:
 
 Install guide:
 
-  (**Note: binary dependency packages mentioned in the wiki are likely not new
-     enough. install from source where necessary.)
   https://github.com/fanout/p-8/wiki/Install
 
 If accessing from Git, be sure to pull submodules:
@@ -59,7 +59,7 @@ Build and run:
   cp config/routes.example routes
   ./p-8
 
-Test:
+Check that it works:
 
   By default, P-8 listens on port 7999 and forwards to localhost port 80.
   If you've got a webserver running on port 80, you can confirm that proxying
@@ -67,9 +67,10 @@ Test:
 
 Multiprocess design:
 
-  P-8 consists of 4 processes: mongrel2, zurl, p-8-proxy, and
-  p-8-handler. The main p-8 program (the "runner") launches them all
-  in one shot.
+  P-8 consists of five processes: mongrel2, zurl, p-8-proxy,
+  p-8-handler, and p-8 (the "runner"). In a basic setup you don't
+  really need to think about this. Just run p-8 to start everything up,
+  and terminate the process (or ctrl-c) to shut everything down.
 
   If you'd prefer to individually manage any of these processes yourself, then
   adjust the "services" field in p-8.conf. You can even choose to not use
@@ -81,34 +82,3 @@ Multiprocess design:
 
   Handler process:
     handler/p-8-handler --config=/path/to/p-8.conf
-
-Architecture:
-
-  +-----------------+
-  | Web application |
-  +-----------------+
-    /|\          |
-     |  HTTP     |
-    \|/          |
-  +------+       |
-  | Zurl |       | HTTP
-  +------+       |
-    /|\          |
-     |  ZeroMQ   |
-    \|/         \|/
-  +-----------------+
-  |     P-8     |
-  +-----------------+
-    /|\
-     |  ZeroMQ
-    \|/
-  +----------+
-  | Mongrel2 |
-  +----------+
-    /|\
-     |  HTTP
-    \|/
-  +--------+
-  | Client |
-  +--------+
-
