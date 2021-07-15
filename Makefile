@@ -43,6 +43,9 @@ proxy/conf.pri:
 p-8.inst: p-8
 	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 > p-8.inst && chmod 755 p-8.inst
 
+check:
+	cd proxy && make check
+
 install:
 	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(bindir) || $(MKDIR) $(INSTALL_ROOT)$(bindir)
 	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(configdir) || $(MKDIR) $(INSTALL_ROOT)$(configdir)
