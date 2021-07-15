@@ -17,5 +17,7 @@ proxy/conf.log
 proxy/conf.pri
 proxy/p-8-proxy
 proxy/src/Makefile
+proxy/src/libp-8-proxy.a
 runner/run
 runner/log
+p-8.inst
