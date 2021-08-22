@@ -64,9 +64,13 @@ By default, P-8 listens on port 7999 and forwards to localhost port 80. If you'v
 Multiprocess design
 -------------------
 
-P-8 consists of five processes: mongrel2, zurl, p-8-proxy, p-8-handler, and p-8 (the "runner"). In a basic setup you don't really need to think about this. Just run p-8 to start everything up, and terminate the process (or ctrl-c) to shut everything down.
+P-8 consists of six processes: mongrel2, zurl, m2adapter, p-8-proxy, p-8-handler, and p-8 (the "runner"). In a basic setup you don't really need to think about this. Just run p-8 to start everything up, and terminate the process (or ctrl-c) to shut everything down.
 
 If you'd prefer to individually manage any of these processes yourself, then adjust the "services" field in p-8.conf. You can even choose to not use the runner at all. In that case, P-8's own processes can be launched as follows:
+
+M2adapter process:
+
+    m2adapter --config=/path/to/m2adapter.conf
 
 Proxy process:
 
