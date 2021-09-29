@@ -1,6 +1,6 @@
 P-8
 -------
-Date: October 27th, 2013
+Date: June 20th, 2014
 
 Author: Justin Karneges <justin@fanout.io>
 
@@ -55,8 +55,8 @@ If accessing from Git, be sure to pull submodules:
 Build and run:
 
     make
-    cp config/p-8.conf.example p-8.conf
-    cp config/routes.example routes
+    cp config/p-8.conf p-8.conf
+    cp config/routes routes
     ./p-8
 
 By default, P-8 listens on port 7999 and forwards to localhost port 80. If you've got a webserver running on port 80, you can confirm that proxying works by browsing to http://localhost:7999/
