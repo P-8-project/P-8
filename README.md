@@ -7,7 +7,7 @@ Read:
   * http://blog.fanout.io/2013/02/10/http-grip-proxy-hold-technique/
   * http://blog.fanout.io/2013/04/09/an-http-reverse-proxy-for-realtime/
 
-P-8 is a reverse proxy server that makes it easy to implement WebSocket, HTTP streaming, and HTTP long-polling services. It communicates with backend web applications using regular, short-lived HTTP requests (GRIP protocol). This allows the backend applications to be written in any language and use any webserver.
+P-8 is a reverse proxy server that makes it easy to implement WebSocket, HTTP streaming, and HTTP long-polling services. It communicates with backend web applications using regular, short-lived HTTP requests (GRIP protocol). This allows backend applications to be written in any language and use any webserver.
 
 Additionally, P-8 does all of this without exposing a proprietary protocol to clients. The HTTP/WebSocket content between the client and your server is whatever you want it to be. This makes it ideal for implementing APIs.
 
@@ -39,10 +39,10 @@ Requirements
   * python zmq
   * python jinja2
 
-Install guide
--------------
+Install
+-------
 
-READ: https://github.com/fanout/p-8/wiki/Install
+See [the Install guide](/fanout/p-8/wiki/Install), which covers how to install P-8 and its dependencies. If you already have the dependencies installed, then below are brief instructions for P-8 itself.
 
 If accessing from Git, be sure to pull submodules:
 
@@ -57,21 +57,7 @@ Build and run:
 
 By default, P-8 listens on port 7999 and forwards to localhost port 80. If you've got a webserver running on port 80, you can confirm that proxying works by browsing to http://localhost:7999/
 
-Multiprocess design
--------------------
+Configuration
+-------------
 
-P-8 consists of six processes: mongrel2, zurl, m2adapter, p-8-proxy, p-8-handler, and p-8 (the "runner"). In a basic setup you don't really need to think about this. Just run p-8 to start everything up, and terminate the process (or ctrl-c) to shut everything down.
-
-If you'd prefer to individually manage any of these processes yourself, then adjust the "services" field in p-8.conf. You can even choose to not use the runner at all. In that case, P-8's own processes can be launched as follows:
-
-M2adapter process:
-
-    m2adapter --config=/path/to/m2adapter.conf
-
-Proxy process:
-
-    p-8-proxy --config=/path/to/p-8.conf
-
-Handler process:
-
-    p-8-handler --config=/path/to/p-8.conf
+See [Configuration](/fanout/p-8/wiki/Configuration).
