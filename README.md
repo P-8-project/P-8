@@ -42,7 +42,7 @@ Requirements
 Install
 -------
 
-See [the Install guide](/fanout/p-8/wiki/Install), which covers how to install P-8 and its dependencies. If you already have the dependencies installed, then below are brief instructions for P-8 itself.
+See [the Install guide](https://github.com/fanout/p-8/wiki/Install), which covers how to install P-8 and its dependencies. If you already have the dependencies installed, then below are brief instructions for P-8 itself.
 
 If accessing from Git, be sure to pull submodules:
 
@@ -60,4 +60,4 @@ By default, P-8 listens on port 7999 and forwards to localhost port 80. If you'v
 Configuration
 -------------
 
-See [Configuration](/fanout/p-8/wiki/Configuration).
+See [Configuration](https://github.com/fanout/p-8/wiki/Configuration).
