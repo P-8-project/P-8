@@ -28,16 +28,16 @@ distclean:
 	rm -f proxy/conf.pri proxy/conf.log
 	rm -f p-8.inst
 
-make-m2adapter: m2adapter/conf.pri
+make-m2adapter: m2adapter/Makefile
 	cd m2adapter && make
 
-make-p-8-proxy: proxy/conf.pri
+make-p-8-proxy: proxy/Makefile
 	cd proxy && make
 
-m2adapter/conf.pri:
+m2adapter/Makefile:
 	cd m2adapter && ./configure
 
-proxy/conf.pri:
+proxy/Makefile:
 	cd proxy && ./configure
 
 p-8.inst: p-8
