@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Fanout, Inc.
+ * Copyright (C) 2015 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,26 +17,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INSPECTREQUESTPACKET_H
-#define INSPECTREQUESTPACKET_H
+#ifndef ZRPCCHECKER_H
+#define ZRPCCHECKER_H
 
-#include <QVariant>
-#include <QUrl>
-#include "httpheaders.h"
+#include <QObject>
 
-class InspectRequestPacket
+class ZrpcRequest;
+
+// all requests should be passed to this class for monitoring. use
+//   watch() to have it monitor a request, but not own it. use give() to have
+//   this class take ownership of an already-watched request.
+
+class ZrpcChecker : public QObject
 {
-public:
-	QByteArray id;
-	bool https;
-	QString method;
-	QUrl uri;
-	HttpHeaders headers;
-	QByteArray body;
-	bool truncated;
+	Q_OBJECT
 
-	InspectRequestPacket();
-	QVariant toVariant() const;
+public:
+	ZrpcChecker(QObject *parent = 0);
+	~ZrpcChecker();
+
+	bool isInterfaceAvailable() const;
+	void setInterfaceAvailable(bool available);
+
+	void watch(ZrpcRequest *req);
+	void give(ZrpcRequest *req);
+
+private:
+	class Private;
+	Private *d;
 };
 
 #endif
