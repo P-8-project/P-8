@@ -15,6 +15,9 @@ INSTALL_PROGRAM = install -m 755 -p
 MKDIR           = mkdir -p
 STRIP           = strip
 
+ifdef $($(shell sh ./init.sh))
+endif
+
 all: make-m2adapter make-p-8-proxy p-8.inst
 
 clean:
