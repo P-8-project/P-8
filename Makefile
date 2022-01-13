@@ -61,6 +61,7 @@ install:
 	-$(INSTALL_PROGRAM) proxy/p-8-proxy "$(INSTALL_ROOT)$(bindir)/p-8-proxy"
 	-$(STRIP) "$(INSTALL_ROOT)$(bindir)/p-8-proxy"
 	-$(INSTALL_PROGRAM) handler/p-8-handler "$(INSTALL_ROOT)$(bindir)/p-8-handler"
+	-$(INSTALL_PROGRAM) tools/publish "$(INSTALL_ROOT)$(bindir)/p-8-publish"
 	-$(INSTALL_PROGRAM) p-8.inst $(INSTALL_ROOT)$(bindir)/p-8
 	$(COPY) handler/*.py $(INSTALL_ROOT)$(libdir)/handler
 	$(COPY) runner/*.py $(INSTALL_ROOT)$(libdir)/runner
