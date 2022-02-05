@@ -21,7 +21,7 @@ import sys
 import os
 import ConfigParser
 
-version = '1.3.1'
+version = '1.3.2'
 
 config_file = "/etc/p-8/p-8.conf"
 log_file = None
