@@ -56,10 +56,10 @@ proxy/Makefile:
 	cd proxy && ./configure
 
 handler/p-8-handler.inst: handler/p-8-handler version
-	sed -e "s,^version =.*,version = \"$(version)\",g" handler/p-8-handler > handler/p-8-handler.inst && chmod 755 handler/p-8-handler.inst
+	sed -e "s,^default_libdir = .*,default_libdir = \'$(libdir)\',g" handler/p-8-handler | sed -e "s,^version =.*,version = \'$(version)\',g" > handler/p-8-handler.inst && chmod 755 handler/p-8-handler.inst
 
 p-8.inst: p-8 version
-	sed -e "s,^default_config_dir =.*,default_config_dir = \"$(configdir)\",g" p-8 | sed -e "s,^version =.*,version = \"$(version)\",g" > p-8.inst && chmod 755 p-8.inst
+	sed -e "s,^default_libdir = .*,default_libdir = \'$(libdir)\',g" p-8 | sed -e "s,^default_configdir =.*,default_configdir = \"$(configdir)\",g" | sed -e "s,^version =.*,version = \"$(version)\",g" > p-8.inst && chmod 755 p-8.inst
 
 check:
 	cd proxy && make check
