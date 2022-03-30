@@ -24,7 +24,15 @@ moc_*
 /proxy/tests/Makefile
 /proxy/tests/pro/*/Makefile
 /proxy/tests/*test
-/handler/p-8-handler.inst
+/handler/version.h
+/handler/Makefile
+/handler/conf.log
+/handler/conf.pri
+/handler/p-8-handler
+/handler/src/pro/libp-8-handler/Makefile
+/handler/src/pro/p-8-handler/Makefile
+/handler/src/libp-8-handler.a
+/handler/tests/Makefile
 /runner/run
 /runner/log
 /p-8.inst
