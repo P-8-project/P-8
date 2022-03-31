@@ -72,7 +72,8 @@ p-8.inst: p-8 version
 	sed -e "s,^default_libdir = .*,default_libdir = \'$(libdir)\',g" p-8 | sed -e "s,^default_configdir =.*,default_configdir = \"$(configdir)\",g" | sed -e "s,^version =.*,version = \"$(version)\",g" > p-8.inst && chmod 755 p-8.inst
 
 check:
-	cd proxy && make check
+	cd proxy && make check && cd ..
+	cd handler && make check
 
 install:
 	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)$(bindir) || $(MKDIR) $(INSTALL_ROOT)$(bindir)
