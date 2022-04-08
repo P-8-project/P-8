@@ -14,6 +14,7 @@ PRE_TARGETDEPS += $$PWD/../src/libp-8-handler.a
 include($$PWD/../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR
+INCLUDEPATH += $$CORE_DIR
 INCLUDEPATH += $$QZMQ_DIR/src
 
 INCLUDEPATH += $$COMMON_DIR
