@@ -9,7 +9,7 @@ fi
 VERSION=$1
 
 mkdir -p build/p-8-$VERSION
-cp -a .gitignore CHANGELOG.md common COPYING doc examples handler init.sh m2adapter Makefile proxy p-8 qzmq README.md runner tools build/p-8-$VERSION
+cp -a .gitignore CHANGELOG.md COPYING corelib doc examples handler init.sh m2adapter Makefile proxy p-8 README.md runner tools build/p-8-$VERSION
 rm -rf build/p-8-$VERSION/qzmq/.git build/p-8-$VERSION/common/.git
 echo $VERSION > build/p-8-$VERSION/version
 cd build
