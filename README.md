@@ -26,9 +26,9 @@ To assist with integration, there are [libraries](http://p-8.org/docs/#libraries
 Example
 -------
 
-For example, to create an HTTP streaming connection, respond to a proxied request with `Grip-Hold` and `Grip-Channel`<sup>[2](#grip)</sup> headers:
+To create an HTTP streaming connection, respond to a proxied request with `Grip-Hold` and `Grip-Channel`<sup>[2](#grip)</sup> headers:
 
-```
+```http
 HTTP/1.1 200 OK
 Grip-Hold: stream
 Grip-Channel: test
@@ -40,7 +40,7 @@ welcome to the stream
 
 When P-8 receives the above response from the backend, it will process it and send an initial response to the client that instead looks like this:
 
-```
+```http
 HTTP/1.1 200 OK
 Content-Type: text/plain
 Transfer-Encoding: chunked
@@ -53,13 +53,15 @@ P-8 eats the GRIP headers and switches to chunked encoding (notice there's no `C
 
 Data can then be pushed to the client by publishing data on the `test` channel:
 
-```
+```bash
 curl -d '{ "items": [ { "channel": "test", "http-stream": \
     { "content": "hello there\n" } } ] }' \
     http://localhost:5561/publish
 ```
 
 The client would then see the line "hello there" appended to the response stream. Ta-da, transparent realtime push!
+
+For more details, see the [HTTP streaming](http://p-8.org/docs/#http-streaming) section of the documentation. P-8 also supports [HTTP long-polling](http://p-8.org/docs/#http-long-polling) and [WebSockets](http://p-8.org/docs/#websockets).
 
 Why another realtime solution?
 ------------------------------
