@@ -18,7 +18,7 @@ P-8 is placed in the network path between the backend and any clients:
 
 P-8 communicates with backend web applications using regular, short-lived HTTP requests. This allows backend applications to be written in any language and use any webserver. There are two main integration points:
 
-1. The backend must handle proxied requests. For HTTP, each incoming request is proxied to the backend. For WebSockets, the activity of each connection is translated into a series of HTTP requests<sup>[1](#proxy-modes)</sup> sent to the backend. P-8's behavior is determined based on how the backend responds to these requests.
+1. The backend must handle proxied requests. For HTTP, each incoming request is proxied to the backend. For WebSockets, the activity of each connection is translated into a series of HTTP requests<sup>[1](#proxy-modes)</sup> sent to the backend. P-8's behavior is determined by how the backend responds to these requests.
 2. The backend must tell P-8 to push data. Regardless of how clients are connected, data may be pushed to them by making an HTTP POST request to P-8's private control API (`http://localhost:5561/publish/` by default). P-8 will inject this data into any client connections as necessary.
 
 To assist with integration, there are [libraries](http://p-8.org/docs/#libraries) for many backend languages and frameworks. P-8 has no libraries on the client side because it is transparent to clients.
