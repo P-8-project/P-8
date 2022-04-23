@@ -3,15 +3,15 @@ CONFIG -= app_bundle
 QT -= gui
 QT += network
 TARGET = p-8-proxy
-DESTDIR = ../../..
+DESTDIR = ../../../bin
 
 MOC_DIR = $$OUT_PWD/_moc
 OBJECTS_DIR = $$OUT_PWD/_obj
 
-LIBS += -L$$PWD/../.. -lp-8-proxy
-PRE_TARGETDEPS += $$PWD/../../libp-8-proxy.a
+LIBS += -L$$PWD/.. -lp-8-proxy
+PRE_TARGETDEPS += $$PWD/../libp-8-proxy.a
 
-include($$OUT_PWD/../../../../conf.pri)
+include($$OUT_PWD/../../../conf.pri)
 include(p-8-proxy.pri)
 
 unix:!isEmpty(BINDIR) {

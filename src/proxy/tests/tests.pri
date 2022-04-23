@@ -4,15 +4,15 @@ QT -= gui
 QT *= network testlib
 
 TESTS_DIR = $$PWD
-SRC_DIR = $$PWD/../src
+SRC_DIR = $$PWD/..
 CORE_DIR = $$PWD/../../corelib
 QZMQ_DIR = $$CORE_DIR/qzmq
 COMMON_DIR = $$CORE_DIR/common
 DESTDIR = $$TESTS_DIR
 
 LIBS += -L$$SRC_DIR -lp-8-proxy
-PRE_TARGETDEPS += $$PWD/../src/libp-8-proxy.a
-include($$PWD/../../conf.pri)
+PRE_TARGETDEPS += $$PWD/../libp-8-proxy.a
+include($$PWD/../../../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR
 INCLUDEPATH += $$CORE_DIR
