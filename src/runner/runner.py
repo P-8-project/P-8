@@ -43,17 +43,17 @@ def run(exedir, config_file, verbose):
 		logdir = os.path.abspath(logdir)
 
 	m2abin = "m2adapter"
-	path = os.path.normpath(os.path.join(exedir, "m2adapter/m2adapter"))
+	path = os.path.normpath(os.path.join(exedir, "bin/m2adapter"))
 	if os.path.isfile(path):
 		m2abin = path
 
 	proxybin = "p-8-proxy"
-	path = os.path.normpath(os.path.join(exedir, "proxy/p-8-proxy"))
+	path = os.path.normpath(os.path.join(exedir, "bin/p-8-proxy"))
 	if os.path.isfile(path):
 		proxybin = path
 
 	handlerbin = "p-8-handler"
-	path = os.path.normpath(os.path.join(exedir, "handler/p-8-handler"))
+	path = os.path.normpath(os.path.join(exedir, "bin/p-8-handler"))
 	if os.path.isfile(path):
 		handlerbin = path
 
