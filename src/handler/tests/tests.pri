@@ -12,6 +12,10 @@ DESTDIR = $$TESTS_DIR
 
 LIBS += -L$$SRC_DIR -lp-8-handler
 PRE_TARGETDEPS += $$PWD/../libp-8-handler.a
+
+LIBS += -L$$PWD/../../corelib -lp-8-core
+PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
+
 include($$PWD/../../../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR

@@ -20,8 +20,8 @@ INCLUDEPATH += $$QZMQ_DIR/src
 INCLUDEPATH += $$COMMON_DIR
 DEFINES += NO_IRISNET
 
-HEADERS += $$COMMON_DIR/tnetstring.h
-SOURCES += $$COMMON_DIR/tnetstring.cpp
+LIBS += -L$$PWD/../../src/corelib -lp-8-core
+PRE_TARGETDEPS += $$PWD/../../src/corelib/libp-8-core.a
 
 SOURCES += main.cpp
 
