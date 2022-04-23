@@ -19,7 +19,7 @@ STRIP           = strip
 ifdef $($(shell sh ./init.sh))
 endif
 
-all: make-m2adapter make-p-8-proxy make-p-8-handler p-8.inst
+all: make-m2adapter make-p-8-proxy make-p-8-handler p-8.inst make-p-8-publish
 
 clean:
 	if [ -f m2adapter/Makefile ]; then cd m2adapter && make clean; fi
@@ -28,6 +28,8 @@ clean:
 	rm -f proxy/version.h
 	if [ -f handler/Makefile ]; then cd handler && make clean; fi
 	rm -f handler/version.h
+	if [ -f tools/publish/Makefile ]; then cd tools/publish && make clean; fi
+	rm -f tools/publish/version.h
 
 distclean:
 	if [ -f m2adapter/Makefile ]; then cd m2adapter && make distclean; fi
@@ -40,6 +42,8 @@ distclean:
 	rm -f handler/conf.pri handler/conf.log
 	rm -f handler/version.h
 	rm -f p-8.inst
+	if [ -f tools/publish/Makefile ]; then cd tools/publish && make distclean; fi
+	rm -f tools/publish/version.h
 
 make-m2adapter: m2adapter/version.h m2adapter/Makefile
 	cd m2adapter && make
@@ -49,6 +53,9 @@ make-p-8-proxy: proxy/version.h proxy/Makefile
 
 make-p-8-handler: handler/version.h handler/Makefile
 	cd handler && make
+
+make-p-8-publish: tools/publish/version.h tools/publish/Makefile
+	cd tools/publish && make
 
 m2adapter/version.h: version
 	echo "#define VERSION \"$(version)\"" > m2adapter/version.h
@@ -67,6 +74,12 @@ handler/version.h: version
 
 handler/Makefile:
 	cd handler && ./configure
+
+tools/publish/version.h: version
+	echo "#define VERSION \"$(version)\"" > tools/publish/version.h
+
+tools/publish/Makefile:
+	cd tools/publish && ./configure
 
 p-8.inst: p-8 version
 	sed -e "s,^default_libdir = .*,default_libdir = \'$(libdir)\',g" p-8 | sed -e "s,^default_configdir =.*,default_configdir = \"$(configdir)\",g" | sed -e "s,^version =.*,version = \"$(version)\",g" > p-8.inst && chmod 755 p-8.inst
@@ -88,7 +101,8 @@ install:
 	-$(INSTALL_PROGRAM) handler/p-8-handler "$(INSTALL_ROOT)$(bindir)/p-8-handler"
 	-$(STRIP) "$(INSTALL_ROOT)$(bindir)/p-8-handler"
 	-$(INSTALL_PROGRAM) p-8.inst $(INSTALL_ROOT)$(bindir)/p-8
-	-$(INSTALL_PROGRAM) tools/publish "$(INSTALL_ROOT)$(bindir)/p-8-publish"
+	-$(INSTALL_PROGRAM) tools/publish/p-8-publish "$(INSTALL_ROOT)$(bindir)/p-8-publish"
+	-$(STRIP) "$(INSTALL_ROOT)$(bindir)/p-8-publish"
 	$(COPY) runner/*.py $(INSTALL_ROOT)$(libdir)/runner
 	$(COPY) runner/*.template $(INSTALL_ROOT)$(configdir)/runner
 	sed -e "s,libdir=.*,libdir=$(libdir),g" -e "s,configdir=.*,configdir=$(configdir)/runner,g" -e "s,rundir=.*,rundir=$(rundir),g" -e "s,logdir=.*,logdir=$(logdir),g" examples/config/internal.conf > $(INSTALL_ROOT)$(configdir)/internal.conf
