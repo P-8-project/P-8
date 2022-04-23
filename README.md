@@ -13,7 +13,7 @@ How it works
 P-8 is placed in the network path between the backend and any clients:
 
 <p align="center">
-  <img src="doc/image/p-8-abstract.png" alt="p-8-abstract"/>
+  <img src="docs/image/p-8-abstract.png" alt="p-8-abstract"/>
 </p>
 
 P-8 communicates with backend web applications using regular, short-lived HTTP requests. This allows backend applications to be written in any language and use any webserver. There are two main integration points:
@@ -126,4 +126,4 @@ Footnotes
 
 <a name="proxy-modes">1</a>: P-8 can communicate WebSocket activity to the backend using either HTTP or WebSockets. Conversion to HTTP is generally recommended as it makes the backend easier to reason about.
 
-<a name="grip">2</a>: GRIP (Generic Realtime Intermediary Protocol) is the name of P-8's backend protocol. More about that [here](https://github.com/fanout/p-8/blob/master/doc/grip-protocol.md).
+<a name="grip">2</a>: GRIP (Generic Realtime Intermediary Protocol) is the name of P-8's backend protocol. More about that [here](https://github.com/fanout/p-8/blob/master/docs/grip-protocol.md).
