@@ -9,8 +9,8 @@ fi
 VERSION=$1
 
 mkdir -p build/p-8-$VERSION
-cp -a .gitignore CHANGELOG.md configure COPYING doc examples p-8 p-8.pro p-8.qc README.md runner tools build/p-8-$VERSION
-rm -rf build/p-8-$VERSION/corelib/qzmq/.git build/p-8-$VERSION/corelib/common/.git
+cp -a .gitignore CHANGELOG.md configure COPYING docs examples p-8 p-8.pro p-8.qc qcm README.md src tools build/p-8-$VERSION
+rm -rf build/p-8-$VERSION/src/corelib/qzmq/.git build/p-8-$VERSION/src/corelib/common/.git
 echo $VERSION > build/p-8-$VERSION/version
 cd build
 tar jcvf p-8-$VERSION.tar.bz2 p-8-$VERSION
