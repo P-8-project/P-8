@@ -1,0 +1,91 @@
+/*
+-----BEGIN QCMOD-----
+name: P-8 Configuration
+section: project
+arg: libdir=[path],Directory for libraries.  Default: PREFIX/lib
+arg: configdir=[path],Directory for config files.  Default: PREFIX/etc
+arg: rundir=[path],Directory for runtime files.  Default: /var/run
+arg: logdir=[path],Directory for log files.  Default: /var/log
+-----END QCMOD-----
+*/
+
+#include <QDateTime>
+
+static QString getVersion()
+{
+	QString str;
+
+	{
+		QFile file("version");
+		if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+		{
+			QTextStream ts(&file);
+			if(!ts.atEnd())
+				str = ts.readLine();
+		}
+
+		if(str.isEmpty())
+			str = "UnknownVersion";
+	}
+
+	QString nowstr = QDateTime::currentDateTime().toString("yyyyMMdd");
+	str.replace("@@DATE@@", nowstr);
+	return str;
+}
+
+class qc_conf : public ConfObj
+{
+public:
+	qc_conf(Conf *c) : ConfObj(c) {}
+	QString name() const { return "P-8 Configuration"; }
+	QString shortname() const { return "conf"; }
+	QString checkString() const { return QString(); }
+	bool exec()
+	{
+		QString version = getVersion();
+
+		QString prefix = conf->getenv("PREFIX");
+		QString varprefix = "/var";
+
+		QString libdir = conf->getenv("QC_LIBDIR");
+		if(libdir.isEmpty())
+			libdir = prefix + "/lib";
+		conf->addExtra(QString("LIBDIR = %1/p-8").arg(libdir));
+
+		QString configdir = conf->getenv("QC_CONFIGDIR");
+		if(configdir.isEmpty())
+			configdir = prefix + "/etc";
+		conf->addExtra(QString("CONFIGDIR = %1/p-8").arg(configdir));
+
+		QString rundir = conf->getenv("QC_RUNDIR");
+		if(rundir.isEmpty())
+			rundir = varprefix + "/run";
+		conf->addExtra(QString("RUNDIR = %1/p-8").arg(rundir));
+
+		QString logdir = conf->getenv("QC_LOGDIR");
+		if(logdir.isEmpty())
+			logdir = varprefix + "/log";
+		conf->addExtra(QString("LOGDIR = %1/p-8").arg(logdir));
+
+		conf->addIncludePath("$$PWD");
+
+		QFile file("config.h");
+		if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+		{
+			QTextStream stream( &file );
+			stream << "#define VERSION \"" << version << "\"" << endl;
+		}
+
+		conf->addDefine("HAVE_CONFIG");
+
+		int rc = system(QString("sed -e \"s,configdir=.*,configdir=%2/p-8/runner,g\" -e \"s,rundir=.*,rundir=%3/p-8,g\" -e \"s,logdir=.*,logdir=%4/p-8,g\" examples/config/p-8.conf > p-8.conf.inst").arg(configdir).arg(rundir).arg(logdir).toUtf8());
+		if(rc != 0)
+			conf->debug("failed to create p-8.conf.inst");
+
+		rc = system(QString("sed -e \"s,^default_libdir = .*,default_libdir = \\'%1/p-8\\',g\" p-8 | sed -e \"s,^default_configdir =.*,default_configdir = \\\"%2/p-8\\\",g\" | sed -e \"s,^version =.*,version = \\\"%3\\\",g\" > p-8.inst && chmod 755 p-8.inst").arg(libdir).arg(configdir).arg(version).toUtf8());
+		if(rc != 0)
+			conf->debug("failed to create p-8.inst");
+
+		return true;
+	}
+};

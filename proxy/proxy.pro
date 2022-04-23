@@ -6,6 +6,8 @@ sub_p-8_proxy.depends = sub_libp-8_proxy
 sub_tests.subdir = tests
 sub_tests.depends = sub_libp-8_proxy
 
+sub_tests.CONFIG += no_default_install
+
 SUBDIRS += \
 	sub_libp-8_proxy \
 	sub_p-8_proxy \
