@@ -44,6 +44,8 @@ public:
 	{
 		QString version = getVersion();
 
+		conf->addExtra(QString("APP_VERSION = %1").arg(version));
+
 		QString prefix = conf->getenv("PREFIX");
 		QString varprefix = "/var";
 
@@ -77,14 +79,6 @@ public:
 		}
 
 		conf->addDefine("HAVE_CONFIG");
-
-		int rc = system(QString("sed -e \"s,configdir=.*,configdir=%2/p-8/runner,g\" -e \"s,rundir=.*,rundir=%3/p-8,g\" -e \"s,logdir=.*,logdir=%4/p-8,g\" examples/config/p-8.conf > p-8.conf.inst").arg(configdir).arg(rundir).arg(logdir).toUtf8());
-		if(rc != 0)
-			conf->debug("failed to create p-8.conf.inst");
-
-		rc = system(QString("sed -e \"s,^default_libdir = .*,default_libdir = \\'%1/p-8\\',g\" p-8 | sed -e \"s,^default_configdir =.*,default_configdir = \\\"%2/p-8\\\",g\" | sed -e \"s,^version =.*,version = \\\"%3\\\",g\" > p-8.inst && chmod 755 p-8.inst").arg(libdir).arg(configdir).arg(version).toUtf8());
-		if(rc != 0)
-			conf->debug("failed to create p-8.inst");
 
 		return true;
 	}

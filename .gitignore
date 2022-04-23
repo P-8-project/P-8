@@ -32,6 +32,7 @@ moc_*
 /src/handler/tests/*test/*test
 /src/runner/certs/*.crt
 /src/runner/certs/*.key
+/src/p-8/Makefile
 /tools/Makefile
 /tools/publish/Makefile
 /p-8.conf.inst
