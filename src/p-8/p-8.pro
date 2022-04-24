@@ -25,10 +25,10 @@ PRE_TARGETDEPS += p-8.inst
 # FIXME: if runner becomes a qmake project, move this
 
 runnerlibfiles.path = $$LIBDIR/runner
-runnerlibfiles.files = ../runner/processmanager.py ../runner/services.py ../runner/runner.py
+runnerlibfiles.files = ../runner/*.py ../runner/*.template
 
 runnerconfigfiles.path = $$CONFIGDIR/runner
-runnerconfigfiles.files = ../runner/mongrel2.conf.template ../runner/m2adapter.conf.template ../runner/zurl.conf.template ../runner/certs
+runnerconfigfiles.files = ../runner/certs
 
 runnerbinfiles.path = $$BINDIR
 runnerbinfiles.extra = cp -f p-8.inst $(INSTALL_ROOT)$$runnerbinfiles.path/p-8
