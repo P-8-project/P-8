@@ -35,10 +35,12 @@ runnerbinfiles.extra = cp -f p-8.inst $(INSTALL_ROOT)$$runnerbinfiles.path/p-8
 
 INSTALLS += runnerlibfiles runnerconfigfiles runnerbinfiles
 
-# install config files
+# install general lib files
 
-p-8configfiles.path = $$CONFIGDIR
-p-8configfiles.files = ../../examples/config/internal.conf
+libfiles.path = $$LIBDIR
+libfiles.files = internal.conf
+
+# install config files
 
 routes.path = $$CONFIGDIR
 routes.extra = test -e $(INSTALL_ROOT)$$routes.path/routes || cp -f ../../examples/config/routes $(INSTALL_ROOT)$$routes.path/routes
@@ -46,4 +48,4 @@ routes.extra = test -e $(INSTALL_ROOT)$$routes.path/routes || cp -f ../../exampl
 p-8conf.path = $$CONFIGDIR
 p-8conf.extra = test -e $(INSTALL_ROOT)$$p-8conf.path/p-8.conf || cp -f p-8.conf.inst $(INSTALL_ROOT)$$p-8conf.path/p-8.conf
 
-INSTALLS += p-8configfiles routes p-8conf
+INSTALLS += libfiles routes p-8conf
