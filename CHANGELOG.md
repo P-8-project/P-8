@@ -1,6 +1,14 @@
 P-8 Changelog
 =================
 
+v. 1.8.0 (2016-02-22)
+
+  * Fix issue proxying large responses.
+  * Refactor README.
+  * Port server code to Qt 5.
+  * Rewrite p-8-publish tool from Python to C++.
+  * Move internal.conf into LIBDIR.
+
 v. 1.7.0 (2016-01-10)
 
   * Rewrite p-8-handler from Python to C++.
