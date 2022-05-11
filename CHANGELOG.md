@@ -1,6 +1,13 @@
 P-8 Changelog
 =================
 
+v. 1.9.0 (2016-04-14)
+
+  * More practical logging. Non-verbose output more informative.
+  * New config option: accept_x_forwarded_protocol.
+  * Support JSON responses in HTTP control endpoint.
+  * More accurate WebSocket activity counting.
+
 v. 1.8.0 (2016-02-22)
 
   * Fix issue proxying large responses.
