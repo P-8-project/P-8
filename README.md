@@ -250,7 +250,7 @@ cp -r examples/config .
 ./p-8
 ```
 
-By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm P-8 is working by browsing to `http://localhost:7999/`. Next, you should modify P-8's `routes` file to route requests to your backend web server. See [Configuration](http://p-8.org/docs/#configuration).
+By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm the server is working by browsing to `http://localhost:7999/`. Next, you should modify the `routes` config file to route requests to your backend webserver. See [Configuration](http://p-8.org/docs/#configuration).
 
 Scalability
 -----------
