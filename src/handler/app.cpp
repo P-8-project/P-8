@@ -120,7 +120,7 @@ public:
 
 		QString configFile = options.value("config");
 		if(configFile.isEmpty())
-			configFile = "/etc/p-8/p-8.conf";
+			configFile = QDir(CONFIGDIR).filePath("p-8.conf");
 
 		// QSettings doesn't inform us if the config file doesn't exist, so do that ourselves
 		{
