@@ -20,10 +20,12 @@
 #include "p-8proxyservice.h"
 
 #include <QDir>
+#include <QProcess>
 
 P-8ProxyService::P-8ProxyService(
 	const QString &binFile,
 	const QString &configFile,
+	const QString &runDir,
 	const QString &logDir,
 	bool verbose,
 	QObject *parent) :
@@ -33,15 +35,16 @@ P-8ProxyService::P-8ProxyService(
 	args_ += "--config=" + configFile;
 
 	if(!logDir.isEmpty())
+	{
 		args_ += "--logfile=" + QDir(logDir).filePath("p-8-proxy.log");
+		setStandardOutputFile(QProcess::nullDevice());
+	}
 
 	if(verbose)
 		args_ += "--verbose";
-}
 
-QString P-8ProxyService::name() const
-{
-	return "proxy";
+	setName("proxy");
+	setPidFile(QDir(runDir).filePath("p-8-proxy.pid"));
 }
 
 QStringList P-8ProxyService::arguments() const

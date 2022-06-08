@@ -20,10 +20,12 @@
 #include "p-8handlerservice.h"
 
 #include <QDir>
+#include <QProcess>
 
 P-8HandlerService::P-8HandlerService(
 	const QString &binFile,
 	const QString &configFile,
+	const QString &runDir,
 	const QString &logDir,
 	bool verbose,
 	QObject *parent) :
@@ -33,15 +35,16 @@ P-8HandlerService::P-8HandlerService(
 	args_ += "--config=" + configFile;
 
 	if(!logDir.isEmpty())
+	{
 		args_ += "--logfile=" + QDir(logDir).filePath("p-8-handler.log");
+		setStandardOutputFile(QProcess::nullDevice());
+	}
 
 	if(verbose)
 		args_ += "--verbose";
-}
 
-QString P-8HandlerService::name() const
-{
-	return "handler";
+	setName("handler");
+	setPidFile(QDir(runDir).filePath("p-8-handler.pid"));
 }
 
 QStringList P-8HandlerService::arguments() const
