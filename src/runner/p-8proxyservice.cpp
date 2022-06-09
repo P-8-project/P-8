@@ -30,6 +30,7 @@ P-8ProxyService::P-8ProxyService(
 	const QString &ipcPrefix,
 	const QString &filePrefix,
 	bool verbose,
+	const QStringList &routeLines,
 	QObject *parent) :
 	Service(parent)
 {
@@ -47,6 +48,9 @@ P-8ProxyService::P-8ProxyService(
 
 	if(verbose)
 		args_ += "--verbose";
+
+	foreach(const QString &route, routeLines)
+		args_ += "--route=" + route;
 
 	setName("proxy");
 	setPidFile(QDir(runDir).filePath(filePrefix + "p-8-proxy.pid"));
