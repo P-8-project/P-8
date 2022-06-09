@@ -27,6 +27,8 @@ P-8ProxyService::P-8ProxyService(
 	const QString &configFile,
 	const QString &runDir,
 	const QString &logDir,
+	const QString &ipcPrefix,
+	const QString &filePrefix,
 	bool verbose,
 	QObject *parent) :
 	Service(parent)
@@ -34,9 +36,12 @@ P-8ProxyService::P-8ProxyService(
 	args_ += binFile;
 	args_ += "--config=" + configFile;
 
+	if(!ipcPrefix.isEmpty())
+		args_ += "--ipc-prefix=" + ipcPrefix;
+
 	if(!logDir.isEmpty())
 	{
-		args_ += "--logfile=" + QDir(logDir).filePath("p-8-proxy.log");
+		args_ += "--logfile=" + QDir(logDir).filePath(filePrefix + "p-8-proxy.log");
 		setStandardOutputFile(QProcess::nullDevice());
 	}
 
@@ -44,7 +49,7 @@ P-8ProxyService::P-8ProxyService(
 		args_ += "--verbose";
 
 	setName("proxy");
-	setPidFile(QDir(runDir).filePath("p-8-proxy.pid"));
+	setPidFile(QDir(runDir).filePath(filePrefix + "p-8-proxy.pid"));
 }
 
 QStringList P-8ProxyService::arguments() const

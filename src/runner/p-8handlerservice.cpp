@@ -27,6 +27,9 @@ P-8HandlerService::P-8HandlerService(
 	const QString &configFile,
 	const QString &runDir,
 	const QString &logDir,
+	const QString &ipcPrefix,
+	const QString &filePrefix,
+	int portOffset,
 	bool verbose,
 	QObject *parent) :
 	Service(parent)
@@ -34,9 +37,15 @@ P-8HandlerService::P-8HandlerService(
 	args_ += binFile;
 	args_ += "--config=" + configFile;
 
+	if(!ipcPrefix.isEmpty())
+		args_ += "--ipc-prefix=" + ipcPrefix;
+
+	if(portOffset > 0)
+		args_ += "--port-offset=" + QString::number(portOffset);
+
 	if(!logDir.isEmpty())
 	{
-		args_ += "--logfile=" + QDir(logDir).filePath("p-8-handler.log");
+		args_ += "--logfile=" + QDir(logDir).filePath(filePrefix + "p-8-handler.log");
 		setStandardOutputFile(QProcess::nullDevice());
 	}
 
@@ -44,7 +53,7 @@ P-8HandlerService::P-8HandlerService(
 		args_ += "--verbose";
 
 	setName("handler");
-	setPidFile(QDir(runDir).filePath("p-8-handler.pid"));
+	setPidFile(QDir(runDir).filePath(filePrefix + "p-8-handler.pid"));
 }
 
 QStringList P-8HandlerService::arguments() const
