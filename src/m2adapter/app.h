@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Fanout, Inc.
+ * Copyright (C) 2016 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -33,7 +33,7 @@ public:
 	void start();
 
 signals:
-	void quit();
+	void quit(int returnCode = 0);
 
 private:
 	class Private;

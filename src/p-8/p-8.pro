@@ -11,30 +11,6 @@ p-8_conf_inst.depends = ../../examples/config/p-8.conf
 QMAKE_EXTRA_TARGETS += p-8_conf_inst
 PRE_TARGETDEPS += p-8.conf.inst
 
-# generate p-8 launcher for installation
-# FIXME: if runner becomes a qmake project, move this
-
-p-8_inst.target = p-8.inst
-p-8_inst.commands = sed -e \"s,^default_libdir = .*,default_libdir = \'$$LIBDIR\',g\" ../../p-8 | sed -e \"s,^default_configdir =.*,default_configdir = \'$$CONFIGDIR\',g\" | sed -e \"s,^version =.*,version = \'$$APP_VERSION\',g\" > p-8.inst && chmod 755 p-8.inst
-p-8_inst.depends = ../../p-8
-
-QMAKE_EXTRA_TARGETS += p-8_inst
-PRE_TARGETDEPS += p-8.inst
-
-# install runner files
-# FIXME: if runner becomes a qmake project, move this
-
-runnerlibfiles.path = $$LIBDIR/runner
-runnerlibfiles.files = ../runner/*.py ../runner/*.template
-
-runnerconfigfiles.path = $$CONFIGDIR/runner
-runnerconfigfiles.files = ../runner/certs
-
-runnerbinfiles.path = $$BINDIR
-runnerbinfiles.extra = cp -f p-8.inst $(INSTALL_ROOT)$$runnerbinfiles.path/p-8
-
-INSTALLS += runnerlibfiles runnerconfigfiles runnerbinfiles
-
 # install general lib files
 
 libfiles.path = $$LIBDIR
