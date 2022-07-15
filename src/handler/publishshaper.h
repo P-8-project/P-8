@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Fanout, Inc.
+ * Copyright (C) 2016 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,40 +17,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WSCONTROLMANAGER_H
-#define WSCONTROLMANAGER_H
+#ifndef PUBLISHSHAPER_H
+#define PUBLISHSHAPER_H
 
 #include <QObject>
-#include "packet/wscontrolpacket.h"
 
-class WsControlSession;
+class PublishFormat;
 
-class WsControlManager : public QObject
+class PublishShaper : public QObject
 {
 	Q_OBJECT
 
 public:
-	WsControlManager(QObject *parent = 0);
-	~WsControlManager();
+	PublishShaper(QObject *parent = 0);
+	~PublishShaper();
 
-	void setIpcFileMode(int mode);
+	void setRate(int messagesPerSecond);
+	void setHwm(int hwm);
 
-	bool setInSpec(const QString &spec);
-	bool setOutSpec(const QString &spec);
+	bool addMessage(QObject *target, const PublishFormat &format, const QString &route = QString(), const QList<QByteArray> &exposeHeaders = QList<QByteArray>());
 
-	WsControlSession *createSession(const QByteArray &cid);
+signals:
+	void send(QObject *target, const PublishFormat &format, const QList<QByteArray> &exposeHeaders);
 
 private:
 	class Private;
+	friend class Private;
 	Private *d;
-
-	friend class WsControlSession;
-	void link(WsControlSession *s, const QByteArray &cid);
-	void unlink(const QByteArray &cid);
-	bool canWriteImmediately() const;
-	void write(const WsControlPacket::Item &item);
-	void registerKeepAlive(WsControlSession *s);
-	void unregisterKeepAlive(WsControlSession *s);
 };
 
 #endif
