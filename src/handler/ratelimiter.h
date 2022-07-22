@@ -17,37 +17,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESPONSELASTIDS_H
-#define RESPONSELASTIDS_H
+#ifndef RATELIMITER_H
+#define RATELIMITER_H
 
-#include <QString>
-#include <QDateTime>
-#include <QMap>
-#include <QHash>
+#include <QObject>
 
-// cache with LRU expiration
-class ResponseLastIds
+class RateLimiter : public QObject
 {
+	Q_OBJECT
+
 public:
-	ResponseLastIds(int maxCapacity);
-	void set(const QString &channel, const QString &id);
-	void remove(const QString &channel);
-	QString value(const QString &channel);
-
-private:
-	typedef QPair<QDateTime, QString> TimeStringPair;
-
-	class Item
+	class Action
 	{
 	public:
-		QString channel;
-		QString id;
-		QDateTime time;
+		virtual ~Action() {}
+
+		virtual bool execute() = 0;
 	};
 
-	QHash<QString, Item> table_;
-	QMap<TimeStringPair, Item> recentlyUsed_;
-	int maxCapacity_;
+	RateLimiter(QObject *parent = 0);
+	~RateLimiter();
+
+	void setRate(int actionsPerSecond);
+	void setHwm(int hwm);
+	void setBatchWaitEnabled(bool on);
+
+	bool addAction(const QString &key, Action *action);
+	Action *lastAction(const QString &key) const;
+
+private:
+	class Private;
+	Private *d;
 };
 
 #endif

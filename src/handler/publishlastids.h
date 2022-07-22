@@ -17,33 +17,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PUBLISHSHAPER_H
-#define PUBLISHSHAPER_H
+#ifndef PUBLISHLASTIDS_H
+#define PUBLISHLASTIDS_H
 
-#include <QObject>
+#include <QString>
+#include <QDateTime>
+#include <QMap>
+#include <QHash>
 
-class PublishItem;
-
-class PublishShaper : public QObject
+// cache with LRU expiration
+class PublishLastIds
 {
-	Q_OBJECT
-
 public:
-	PublishShaper(QObject *parent = 0);
-	~PublishShaper();
-
-	void setRate(int messagesPerSecond);
-	void setHwm(int hwm);
-
-	bool addMessage(QObject *target, const PublishItem &item, const QString &route = QString(), const QList<QByteArray> &exposeHeaders = QList<QByteArray>());
-
-signals:
-	void send(QObject *target, const PublishItem &item, const QList<QByteArray> &exposeHeaders);
+	PublishLastIds(int maxCapacity);
+	void set(const QString &channel, const QString &id);
+	void remove(const QString &channel);
+	QString value(const QString &channel);
 
 private:
-	class Private;
-	friend class Private;
-	Private *d;
+	typedef QPair<QDateTime, QString> TimeStringPair;
+
+	class Item
+	{
+	public:
+		QString channel;
+		QString id;
+		QDateTime time;
+	};
+
+	QHash<QString, Item> table_;
+	QMap<TimeStringPair, Item> recentlyUsed_;
+	int maxCapacity_;
 };
 
 #endif
