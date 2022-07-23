@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 Fanout, Inc.
+ * Copyright (C) 2016 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,30 +17,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INSPECTREQUEST_H
-#define INSPECTREQUEST_H
+#ifndef RATELIMITER_H
+#define RATELIMITER_H
 
 #include <QObject>
-#include "zrpcrequest.h"
 
-class HttpRequestData;
-class InspectData;
-class ZrpcManager;
-
-class InspectRequest : public ZrpcRequest
+class RateLimiter : public QObject
 {
 	Q_OBJECT
 
 public:
-	InspectRequest(ZrpcManager *manager, QObject *parent = 0);
-	~InspectRequest();
+	class Action
+	{
+	public:
+		virtual ~Action() {}
 
-	InspectData result() const;
+		virtual bool execute() = 0;
+	};
 
-	void start(const HttpRequestData &hdata, bool truncated, bool getSession, bool autoShare);
+	RateLimiter(QObject *parent = 0);
+	~RateLimiter();
 
-protected:
-	virtual void onSuccess();
+	void setRate(int actionsPerSecond);
+	void setHwm(int hwm);
+	void setBatchWaitEnabled(bool on);
+
+	bool addAction(const QString &key, Action *action);
+	Action *lastAction(const QString &key) const;
 
 private:
 	class Private;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 Fanout, Inc.
+ * Copyright (C) 2016 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,30 +17,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INSPECTREQUEST_H
-#define INSPECTREQUEST_H
+#ifndef HTTPSESSIONUPDATEMANAGER_H
+#define HTTPSESSIONUPDATEMANAGER_H
 
 #include <QObject>
-#include "zrpcrequest.h"
 
-class HttpRequestData;
-class InspectData;
-class ZrpcManager;
+class QUrl;
+class HttpSession;
 
-class InspectRequest : public ZrpcRequest
+class HttpSessionUpdateManager : public QObject
 {
-	Q_OBJECT
-
 public:
-	InspectRequest(ZrpcManager *manager, QObject *parent = 0);
-	~InspectRequest();
+	HttpSessionUpdateManager(QObject *parent = 0);
+	~HttpSessionUpdateManager();
 
-	InspectData result() const;
-
-	void start(const HttpRequestData &hdata, bool truncated, bool getSession, bool autoShare);
-
-protected:
-	virtual void onSuccess();
+	void registerSession(HttpSession *hs, int timeout, const QUrl &uri);
+	void unregisterSession(HttpSession *hs);
 
 private:
 	class Private;
