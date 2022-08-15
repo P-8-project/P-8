@@ -1,6 +1,24 @@
 P-8 Changelog
 =================
 
+v. 1.15.0 (2017-01-22)
+
+  * Publish hint action for triggering recovery requests.
+  * Recover command for triggering recovery requests.
+  * Refresh command for triggering WebSocket-Over-HTTP requests.
+  * Improve reliability of long-polling when previous ID is used.
+  * WebSocket-Over-HTTP: ensure DISCONNECT events get sent.
+  * WebSocket: new control messages: send-delayed, flush-delayed.
+  * WebSocket: break large published messages into frames.
+  * Allow unknown previous ID for first message to channel.
+  * Forget previous ID when channel has no subscribers.
+  * Reduce timeout of out-of-order messages to 5 seconds.
+  * p-8-publish: --hint option
+  * p-8-publish: --no-eol option
+  * p-8-publish: ability to use file source (@filename)
+  * New config option: message_block_size
+  * Remove docs files from repository. Content moved to p-8.org.
+
 v. 1.14.0 (2016-11-15)
 
   * Reliable HTTP streaming (stream hold + "GRIP Next").
