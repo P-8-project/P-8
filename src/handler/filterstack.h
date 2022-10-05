@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fanout, Inc.
+ * Copyright (C) 2017 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,25 +17,29 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "filters.h"
+#ifndef FILTERSTACK_H
+#define FILTERSTACK_H
 
-namespace Filters {
+#include <QStringList>
+#include "filter.h"
 
-// TODO: support more than one filter, payload modification, etc
-bool applyFilters(const QHash<QString, QString> &subscriptionMeta, const QHash<QString, QString> &publishMeta, const QStringList &filters)
+class FilterStack : public Filter
 {
-	foreach(const QString &f, filters)
-	{
-		if(f == "skip-self")
-		{
-			QString user = subscriptionMeta.value("user");
-			QString sender = publishMeta.value("sender");
-			if(!user.isEmpty() && !sender.isEmpty() && sender == user)
-				return false;
-		}
-	}
+public:
+	FilterStack(const Filter::Context &context, const QStringList &filters);
 
-	return true;
-}
+	// takes ownership of filters in list
+	FilterStack(const Filter::Context &context, const QList<Filter*> &filters);
 
-}
+	~FilterStack();
+
+	// reimplemented
+	virtual SendAction sendAction() const;
+	virtual QByteArray update(const QByteArray &data);
+	virtual QByteArray finalize();
+
+private:
+	QList<Filter*> filters_;
+};
+
+#endif

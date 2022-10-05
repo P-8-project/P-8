@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fanout, Inc.
+ * Copyright (C) 2017 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -17,17 +17,36 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILTERS_H
-#define FILTERS_H
+#ifndef IDFORMAT_H
+#define IDFORMAT_H
 
+#include <QByteArray>
 #include <QString>
-#include <QStringList>
 #include <QHash>
 
-namespace Filters {
+namespace IdFormat {
 
-// returns true to send and false to drop
-bool applyFilters(const QHash<QString, QString> &subscriptionMeta, const QHash<QString, QString> &publishMeta, const QStringList &filters);
+class ContentRenderer
+{
+public:
+	ContentRenderer(const QByteArray &defaultId, bool hex);
+
+	// return null array on error
+	QByteArray update(const QByteArray &data);
+	QByteArray finalize();
+
+	QString errorMessage() { return errorMessage_; }
+
+	QByteArray process(const QByteArray &data);
+
+private:
+	QByteArray defaultId_;
+	bool hex_;
+	QByteArray buf_;
+	QString errorMessage_;
+};
+
+QByteArray renderId(const QByteArray &data, const QHash<QString, QByteArray> &vars, QString *error = 0);
 
 }
 
