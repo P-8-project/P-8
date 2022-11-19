@@ -445,6 +445,8 @@ public:
 			services += new M2AdapterService(m2aBin, QDir(libDir).filePath("m2adapter.conf.template"), runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevel >= 3, ports, this);
 		}
 
+		bool quietCheck = false;
+
 		if(serviceNames.contains("zurl"))
 		{
 			QString zurlBin = "zurl";
@@ -452,10 +454,13 @@ public:
 				zurlBin = settings.value("runner/zurl_bin").toString();
 
 			services += new ZurlService(zurlBin, QDir(libDir).filePath("zurl.conf.template"), runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevel >= 3, this);
+
+			// when zurl is managed by p-8, log updates checks as debug level
+			quietCheck = true;
 		}
 
 		if(serviceNames.contains("p-8-proxy"))
-			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevel >= 3, args.routeLines, this);
+			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevel >= 3, args.routeLines, quietCheck, this);
 
 		if(serviceNames.contains("p-8-handler"))
 			services += new P-8HandlerService(handlerBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, portOffset, logLevel >= 3, this);
