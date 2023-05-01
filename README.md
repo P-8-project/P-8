@@ -10,7 +10,7 @@ The current goal is supporting the Javascript implementation of regular expressi
 
 ## Examples
 
-```
+```coffeescript
 16 of capture viable {
   na;
 }
@@ -23,7 +23,7 @@ The current goal is supporting the Javascript implementation of regular expressi
 
 Turns into
 
-```
+```regex
 /(?<viable>na){16}(\sbatman){2}/
 ```
 
