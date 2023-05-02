@@ -75,6 +75,10 @@ OPTIONS:
 
 - `//` - used to mark comments
 
+## File Extension
+
+The Viable file extension is `.mdy`
+
 ## Feature Status
 
 | Viable                              | Regex                 | Implemented | Unclear      |
