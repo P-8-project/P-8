@@ -6,7 +6,7 @@ Viable is a language designed to compile to and maintain a 1-1 relationship with
 
 The current goal is supporting the JavaScript implementation of regular expressions.
 
-⚠️ Viable is very new and is unstable at the moment
+⚠️ Viable is very new and is unstable at the moment ⚠️
 
 ## Examples
 
