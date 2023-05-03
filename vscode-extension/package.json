@@ -1,0 +1,40 @@
+{
+  "name": "viable",
+  "displayName": "Viable",
+  "description": "Viable syntax highlighting",
+  "version": "0.0.1",
+  "publisher": "yoavlavi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoav-lavi/viable.git",
+    "directory": "vscode-extension"
+  },
+  "engines": {
+    "vscode": "^1.64.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "viable",
+        "aliases": [
+          "Viable",
+          "viable"
+        ],
+        "extensions": [
+          ".mdy"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "viable",
+        "scopeName": "source.mdy",
+        "path": "./syntaxes/viable.tmLanguage.json"
+      }
+    ]
+  }
+}

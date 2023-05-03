@@ -120,6 +120,10 @@ OPTIONS:
 
 The Viable file extension is `.mdy`
 
+## Syntax Highlighting
+
+- Get the Viable VSCode extension [here](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
+
 ## Feature Status
 
 ✅ - Implemented
@@ -163,6 +167,7 @@ The Viable file extension is `.mdy`
 | no color output                     |                       | ✅          |
 | `char`                              | `.`                   | ✅          |
 | `some of`                           | `+`                   | ✅          |
+| syntax highlighting extension       |                       | ✅          |
 | enforce group close                 |                       | 🐣          |
 | tests                               |                       | 🐣          |
 | `not <space>;`                      | `\S`                  | ❌          |
@@ -174,7 +179,6 @@ The Viable file extension is `.mdy`
 | multiple ranges                     | `[a-zA-Z0-9]`         | ❌          |
 | general cleanup and modules         |                       | ❌          |
 | auto escape for non Viable patterns |                       | ❌          |
-| syntax highlighting extension       |                       | ❌          |
 | rust library / macro                |                       | ❌          |
 | TS/JS build step                    |                       | ❌          |
 | more robust parsing mechanism (ast) |                       | ❌          |
