@@ -123,9 +123,13 @@ The Viable file extension is `.mdy`
 ## Feature Status
 
 ✅ - Implemented
+
 🐣 - Partially Implemented
+
 ❌ - Not implemented
+
 ❓ - Unclear whether this will be imlemented
+
 ❔ - Unclear what the syntax will be
 
 | Viable                              | Regex                 | Status      |
