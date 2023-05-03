@@ -122,7 +122,9 @@ The Viable file extension is `.mdy`
 
 ## Syntax Highlighting
 
-- Get the Viable VSCode extension [here](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
+### VSCode
+
+Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
 
 ## Feature Status
 
