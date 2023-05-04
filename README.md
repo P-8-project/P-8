@@ -89,7 +89,7 @@ Turns into
 ```sh
 git clone https://github.com/yoav-lavi/viable.git
 cd viable
-cargo install --path .
+cargo install --path crates/viable_cli
 ```
 
 ## CLI Usage
