@@ -140,7 +140,12 @@ OPTIONS:
 
 The Viable file extension is `.mdy`
 
-## Syntax Highlighting
+## Crates
+
+- `viable` - The Viable compiler
+- `viable_cli` - A CLI wrapping the Viable compiler
+
+## Extensions
 
 ### VSCode
 
