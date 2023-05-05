@@ -84,6 +84,12 @@ Turns into
 
 ## Install
 
+### Cargo
+
+```sh
+cargo install viable_cli
+```
+
 ### From Source
 
 ```sh
@@ -142,15 +148,13 @@ The Viable file extension is `.mdy`
 
 ## Crates
 
-- `viable_compiler` - The Viable compiler [crates.io](https://crates.io/crates/viable_compiler) [docs.rs](https://docs.rs/viable_compiler/)
-- `viable_cli` - A CLI wrapping the Viable compiler
+- `viable_compiler` - The Viable compiler [📦](https://crates.io/crates/viable_compiler) [📖](https://docs.rs/viable_compiler/)
+- `viable_cli` - A CLI wrapping the Viable compiler [📦](https://crates.io/crates/viable_cli) [📖](https://docs.rs/crate/viable_cli/0.1.1)
 - `viable_wasm` - WASM binding for the Viable compiler
 
 ## Extensions
 
-### VSCode
-
-Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
+- [VSCode](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
 
 ## Feature Status
 
