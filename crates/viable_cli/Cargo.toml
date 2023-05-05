@@ -1,13 +1,13 @@
 [package]
 name = "viable_cli"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.58.0"
 
 [dependencies]
 clap = { version = "3.0.7", features = ["derive"] }
 colored = "2.0.0"
-viable_compiler = { version = "0.1.0", path = "../viable_compiler" }
+viable_compiler = { version = "0.1.1", path = "../viable_compiler" }
 
 [[bin]]
 name = "viable"

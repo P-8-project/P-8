@@ -1,6 +1,6 @@
 [package]
 name = "viable_wasm"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.58.0"
 
@@ -8,5 +8,5 @@ rust-version = "1.58.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-viable_compiler = { version = "0.1.0", path = "../viable_compiler" }
+viable_compiler = { version = "0.1.1", path = "../viable_compiler" }
 wasm-bindgen = "0.2.79"
