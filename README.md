@@ -154,9 +154,7 @@ The Viable file extension is `.mdy`
 
 ## Extensions
 
-### VSCode
-
-Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
+- [VSCode](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
 
 ## Feature Status
 
