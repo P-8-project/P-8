@@ -142,7 +142,7 @@ The Viable file extension is `.mdy`
 
 ## Crates
 
-- `viable` - The Viable compiler ([crates.io](https://crates.io/crates/viable_compiler))
+- `viable_compiler` - The Viable compiler ([crates.io](https://crates.io/crates/viable_compiler))
 - `viable_cli` - A CLI wrapping the Viable compiler
 - `viable_wasm` - WASM binding for the Viable compiler
 
