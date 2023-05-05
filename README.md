@@ -84,6 +84,12 @@ Turns into
 
 ## Install
 
+### Cargo
+
+```sh
+cargo install viable_cli
+```
+
 ### From Source
 
 ```sh
