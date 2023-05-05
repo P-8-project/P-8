@@ -144,6 +144,7 @@ The Viable file extension is `.mdy`
 
 - `viable` - The Viable compiler
 - `viable_cli` - A CLI wrapping the Viable compiler
+- `viable_wasm` - WASM binding for the Viable compiler
 
 ## Extensions
 
@@ -196,6 +197,7 @@ Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoa
 | `some of`                           | `+`                   | ✅          |
 | syntax highlighting extension       |                       | ✅          |
 | `over 5 of "A";`                    | `A{6,}`               | ✅          |
+| WASM binding                        |                       | ✅          |
 | enforce group close                 |                       | 🐣          |
 | tests                               |                       | 🐣          |
 | `not <space>;`                      | `\S`                  | ❌          |
@@ -208,7 +210,7 @@ Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoa
 | general cleanup and modules         |                       | ❌          |
 | auto escape for non Viable patterns |                       | ❌          |
 | rust library / macro                |                       | ❌          |
-| TS/JS build step                    |                       | ❌          |
+| TS / JS build step                  |                       | ❌          |
 | more robust parsing mechanism (ast) |                       | ❌          |
 | `not "A";`                          | `[^A]`                | ❔          |
 | `flags: global, multiline, ...`     | `/.../gm...`          | ❔          |
