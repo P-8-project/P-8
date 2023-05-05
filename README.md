@@ -144,6 +144,7 @@ The Viable file extension is `.mdy`
 
 - `viable` - The Viable compiler
 - `viable_cli` - A CLI wrapping the Viable compiler
+- `viable_wasm` - WASM binding for the Viable compiler
 
 ## Extensions
 
@@ -196,6 +197,7 @@ Get the extension [here](https://marketplace.visualstudio.com/items?itemName=yoa
 | `some of`                           | `+`                   | ✅          |
 | syntax highlighting extension       |                       | ✅          |
 | `over 5 of "A";`                    | `A{6,}`               | ✅          |
+| WASM binding                        |                       | ✅          |
 | enforce group close                 |                       | 🐣          |
 | tests                               |                       | 🐣          |
 | `not <space>;`                      | `\S`                  | ❌          |
