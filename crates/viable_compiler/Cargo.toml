@@ -1,5 +1,5 @@
 [package]
-name = "viable"
+name = "viable_compiler"
 description = "The Viable language compiler"
 homepage = "https://github.com/yoav-lavi/viable"
 repository = "https://github.com/yoav-lavi/viable"
