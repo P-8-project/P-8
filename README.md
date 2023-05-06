@@ -86,6 +86,10 @@ Turns into
 
 You can try Viable in your browser using the [playground](https://viable-playground.vercel.app/)
 
+## Documentation
+
+Read the documentation [here](https://yoav-lavi.github.io/viable/)
+
 ## Install
 
 ### Cargo
