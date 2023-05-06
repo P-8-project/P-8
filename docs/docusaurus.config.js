@@ -37,7 +37,7 @@ const config = {
         items: [
           {
             href: "/docs/install",
-            label: "Docs",
+            label: "Viable Documentation",
             position: "left",
           },
           {
