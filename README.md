@@ -82,7 +82,7 @@ Turns into
 /(?:\s{2})+.+;/
 ```
 
-## Try Viable
+## Playground
 
 You can try Viable in your browser using the [playground](https://viable-playground-yoav-lavi.vercel.app/)
 
