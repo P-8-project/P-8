@@ -84,7 +84,7 @@ Turns into
 
 ## Playground
 
-You can try Viable in your browser using the [playground](https://viable-playground-yoav-lavi.vercel.app/)
+You can try Viable in your browser using the [playground](https://viable-playground.vercel.app/)
 
 ## Install
 
