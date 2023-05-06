@@ -88,7 +88,7 @@ You can try Viable in your browser using the [playground](https://viable-playgro
 
 ## Documentation
 
-Read the documentation [here](yoav-lavi.github.io/viable/)
+Read the documentation [here](https://yoav-lavi.github.io/viable/)
 
 ## Install
 
