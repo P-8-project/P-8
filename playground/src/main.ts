@@ -64,6 +64,7 @@ const initEditors = async () => {
   monaco.languages.register({
     id: "viable",
   });
+
   monaco.languages.setMonarchTokensProvider("viable", {
     tokenizer: {
       root: [
