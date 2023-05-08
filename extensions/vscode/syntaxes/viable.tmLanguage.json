@@ -31,15 +31,11 @@
       "patterns": [
         {
           "name": "constant.character.viable",
-          "match": "(<space>|<newline>|<tab>|<return>|<feed>|<null>|<digit>|<word>|<vertical>)"
+          "match": "(<space>|<newline>|<tab>|<return>|<feed>|<null>|<digit>|<word>|<vertical>|<start>|<end>|<char>)"
         },
         {
           "name": "constant.character.viable",
           "match": "\\b[A-Za-z]\\b"
-        },
-        {
-          "name": "constant.character.viable",
-          "match": "\\b(start|end|char)\\b"
         }
       ]
     },
@@ -76,6 +72,17 @@
           "name": "string.quoted.single.viable",
           "begin": "'",
           "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.viable",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.viable",
+          "begin": "`",
+          "end": "`",
           "patterns": [
             {
               "name": "constant.character.escape.viable",
