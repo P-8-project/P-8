@@ -141,10 +141,11 @@ cargo install --path crates/viable_cli
 ## CLI Usage
 
 ```sh
-viable [OPTIONS] <PATH>
+viable [OPTIONS] [PATH]
 
 OPTIONS:
   -f, --file <FILE>    write to an output file
+  -r, --repl           starts the viable REPL
   -n, --no-color       print output with no color
   -V, --version        print version information
   -h, --help           print help information

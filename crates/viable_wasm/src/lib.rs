@@ -4,5 +4,13 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn compiler(source: &str) -> Result<String, JsValue> {
-    Ok(viable_compiler::compiler(source).expect_throw("Encountered a parsing error"))
+    let raw_output = viable_compiler::compiler(source);
+    if let Err(error) = raw_output {
+        return Err(JsValue::from(format!(
+            "Error: Unexpected {} on line {}",
+            error.token,
+            error.line_index + 1
+        )));
+    }
+    Ok(raw_output.unwrap())
 }

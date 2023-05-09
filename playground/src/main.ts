@@ -117,8 +117,8 @@ const initEditors = async () => {
     try {
       const regex = compiler(viableEditor.getValue());
       regexEditor.setValue(regex);
-    } catch {
-      regexEditor.setValue('Parsing error');
+    } catch (error) {
+      regexEditor.setValue(error as string);
     }
   };
 
