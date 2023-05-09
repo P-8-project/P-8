@@ -3,7 +3,7 @@
 ## Usage
 
 ```sh
-viable [OPTIONS] <PATH>
+viable [OPTIONS] [PATH]
 
 OPTIONS:
   -f, --file <FILE>    write to an output file
