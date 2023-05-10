@@ -168,7 +168,7 @@ dependencies = [
 
 [[package]]
 name = "viable_cli"
-version = "0.8.0"
+version = "0.9.0"
 dependencies = [
  "clap",
  "colored",
@@ -177,14 +177,14 @@ dependencies = [
 
 [[package]]
 name = "viable_compiler"
-version = "0.8.0"
+version = "0.9.0"
 dependencies = [
  "logos",
 ]
 
 [[package]]
 name = "viable_wasm"
-version = "0.8.0"
+version = "0.9.0"
 dependencies = [
  "viable_compiler",
  "wasm-bindgen",
