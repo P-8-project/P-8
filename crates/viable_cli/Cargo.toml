@@ -4,7 +4,7 @@ description = "A CLI wrapping the Viable language compiler"
 homepage = "https://github.com/yoav-lavi/viable"
 repository = "https://github.com/yoav-lavi/viable"
 readme = "README.md"
-version = "0.7.1"
+version = "0.8.0"
 edition = "2021"
 rust-version = "1.58.0"
 license = "MIT"
@@ -13,7 +13,7 @@ keywords = ["viable", "viablelang"]
 [dependencies]
 clap = { version = "3.0.7", features = ["derive"] }
 colored = "2.0.0"
-viable_compiler = { version = "0.7.0", path = "../viable_compiler" }
+viable_compiler = { version = "0.8.0", path = "../viable_compiler" }
 
 [[bin]]
 name = "viable"
