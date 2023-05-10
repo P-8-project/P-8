@@ -23,7 +23,7 @@
       "patterns": [
         {
           "name": "keyword.other.viable",
-          "match": "\\b(of|capture|to|of|some|match|over|option|not|either|any)\\b"
+          "match": "\\b(of|capture|to|of|some|match|over|option|not|either|any|ahead|behind)\\b"
         }
       ]
     },
