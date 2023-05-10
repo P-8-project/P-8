@@ -7,7 +7,7 @@ const config = {
   title: "Viable",
   tagline:
     "A language that compiles to regular expressions and aims to be more easily readable and maintainable",
-  url: "https://yoav-lavi.github.io/viable/",
+  url: "https://yoav-lavi.github.io/",
   baseUrl: "/viable/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
