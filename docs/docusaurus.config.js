@@ -35,7 +35,7 @@ const config = {
       navbar: {
         items: [
           {
-            href: "/docs/install",
+            href: "/docs/welcome",
             label: "Viable Documentation",
             position: "left",
           },
