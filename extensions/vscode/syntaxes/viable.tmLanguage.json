@@ -31,7 +31,7 @@
       "patterns": [
         {
           "name": "constant.character.viable",
-          "match": "(<whitespace>|<space>|<newline>|<tab>|<return>|<feed>|<null>|<digit>|<word>|<vertical>|<start>|<end>|<char>|<alphabet>)"
+          "match": "(<whitespace>|<space>|<newline>|<tab>|<return>|<feed>|<null>|<digit>|<word>|<vertical>|<start>|<end>|<char>|<alphabet>|<boundary>|<backspace>)"
         },
         {
           "name": "constant.character.viable",
@@ -49,6 +49,10 @@
     },
     "comments": {
       "patterns": [
+        {
+          "name": "comment.block.viable",
+          "match": "\\/\\*.*\\*\\/"
+        },
         {
           "name": "comment.line.double-slash.viable",
           "match": "//.*"
