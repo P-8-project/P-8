@@ -5,11 +5,21 @@
 
 
 <p align="center">
-  <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/yoav-lavi/viable/Rust/main">
-  <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
-  <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
-  <img alt="docs.rs" src="https://img.shields.io/docsrs/viable_compiler?label=docs.rs">
-  <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
+  <a href="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml">
+    <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/yoav-lavi/viable/Rust/main">
+  </a>
+  <a href="https://crates.io/crates/viable_compiler">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
+  </a>
+  <a href="https://crates.io/crates/viable_cli">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
+  </a>
+  <a href="https://docs.rs/viable_compiler/">
+    <img alt="docs.rs" src="https://img.shields.io/docsrs/viable_compiler?label=docs.rs">
+  </a>
+  <a href="https://github.com/yoav-lavi/viable/blob/main/LICENSE">
+    <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
+  </a>
 </p>
 
 Viable is a language designed to compile to and maintain a 1-1 relationship with regular expressions, while being more readable and maintainable.
