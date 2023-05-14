@@ -1,9 +1,13 @@
 P-8 Changelog
 =================
 
+v. 1.20.3 (2019-04-08)
+
+  * Fix Grip-Last values when route prefix is used.
+
 v. 1.20.2 (2019-03-25)
 
-  * WebSocket-Over-HTTP: fix memory leak when clients disconnect during close.
+  * WebSocket-Over-HTTP: fix mem leak when clients disconnect during close.
 
 v. 1.20.1 (2019-02-20)
 
