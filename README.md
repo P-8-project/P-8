@@ -1,5 +1,15 @@
+
 <p align="center">
   <img width="520" alt="code example" src="https://user-images.githubusercontent.com/14347895/154124756-ddbd3c84-f8b2-45bd-b624-2c510482c4e2.png">
+</p>
+
+
+<p align="center">
+  <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/yoav-lavi/viable/Rust/main">
+  <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
+  <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
+  <img alt="docs.rs" src="https://img.shields.io/docsrs/viable_compiler?label=docs.rs">
+  <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
 </p>
 
 Viable is a language designed to compile to and maintain a 1-1 relationship with regular expressions, while being more readable and maintainable.
