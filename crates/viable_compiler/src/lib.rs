@@ -13,7 +13,9 @@ use utils::format_line_comments;
 /**
 Compiles Viable source code to a regular expression.
 
-see also: [`ParseError`]
+# Errors
+
+Returns a [`ParseError`] upon encountering a syntax error
 
 # Example
 
