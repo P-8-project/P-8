@@ -26,6 +26,9 @@
   <a href="https://yoav-lavi.github.io/viable/docs/intro">
     <img alt="viable playground" src="https://img.shields.io/badge/viable-docs-blue">
   </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable">
+    <img alt="Visual Studio Code Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/yoavlavi.viable?label=vscode%20extension">
+  </a>
 </p>
 
 Viable is a language designed to compile to and maintain a 1-1 relationship with regular expressions, while being more readable and maintainable.
