@@ -1,12 +1,36 @@
+<h1 align="center">
+  Viable
+</h1>
+
 <p align="center">
   <img width="520" alt="code example" src="https://user-images.githubusercontent.com/14347895/154124756-ddbd3c84-f8b2-45bd-b624-2c510482c4e2.png">
+</p>
+
+
+<p align="center">
+  <a href="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml">
+    <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/yoav-lavi/viable/Rust/main">
+  </a>
+  <a href="https://crates.io/crates/viable_compiler">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
+  </a>
+  <a href="https://crates.io/crates/viable_cli">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
+  </a>
+  <a href="https://github.com/yoav-lavi/viable/blob/main/LICENSE">
+    <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
+  </a>
+  <a href="https://viable-playground.vercel.app">
+    <img alt="viable playground" src="https://img.shields.io/badge/viable-playground-brightgreen"
+  </a>
+  <a href="https://yoav-lavi.github.io/viable/docs/intro">
+    <img alt="viable playground" src="https://img.shields.io/badge/viable-docs-blue">
+  </a>
 </p>
 
 Viable is a language designed to compile to and maintain a 1-1 relationship with regular expressions, while being more readable and maintainable.
 
 The current goal is supporting the JavaScript implementation of regular expressions.
-
-⚠️ Viable is very new and is unstable at the moment ⚠️
 
 ## Examples
 
