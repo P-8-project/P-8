@@ -21,7 +21,7 @@
     <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
   </a>
   <a href="https://viable-playground.vercel.app">
-    <img alt="viable playground" src="https://img.shields.io/badge/viable-playground-brightgreen"
+    <img alt="viable playground" src="https://img.shields.io/badge/viable-playground-brightgreen">
   </a>
   <a href="https://yoav-lavi.github.io/viable/docs/intro">
     <img alt="viable playground" src="https://img.shields.io/badge/viable-docs-blue">
