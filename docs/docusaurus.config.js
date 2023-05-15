@@ -10,6 +10,7 @@ const config = {
   url: "https://yoav-lavi.github.io/",
   baseUrl: "/viable/",
   onBrokenLinks: "throw",
+  favicon: "/static/favicon.ico",
   onBrokenMarkdownLinks: "warn",
   organizationName: "yoav-lavi",
   projectName: "viable",
