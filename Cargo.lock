@@ -499,7 +499,7 @@ dependencies = [
 
 [[package]]
 name = "viable_compiler"
-version = "0.12.3"
+version = "0.12.4"
 dependencies = [
  "criterion",
  "pest",
@@ -508,7 +508,7 @@ dependencies = [
 
 [[package]]
 name = "viable_wasm"
-version = "0.12.3"
+version = "0.12.4"
 dependencies = [
  "viable_compiler",
  "wasm-bindgen",
