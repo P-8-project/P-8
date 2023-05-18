@@ -502,6 +502,7 @@ name = "viable_compiler"
 version = "0.13.1"
 dependencies = [
  "criterion",
+ "lazy_static",
  "pest",
  "pest_derive",
 ]
