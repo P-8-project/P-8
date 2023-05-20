@@ -35,16 +35,23 @@ const getEditorInitialValue = () => {
   return DEFAULT_EDITOR_VALUE;
 };
 
+const initialValue = getEditorInitialValue();
+
 export const initEditors = async () => {
   if (!viableEditorTarget || !regexEditorTarget) {
     return;
   }
 
   const viableEditor = editor.create(viableEditorTarget, {
-    value: getEditorInitialValue(),
+    value: initialValue,
     language: MELODY_LANGUAGE_ID,
     ...DEFAULT_EDITOR_SETTINGS,
   });
+
+  const lineNumber = initialValue.split('\n').length + 1;
+
+  viableEditor.setPosition({ lineNumber, column: 0 });
+  viableEditor.focus();
 
   const regexEditor = editor.create(regexEditorTarget, {
     value: '',
