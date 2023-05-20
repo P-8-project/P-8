@@ -55,6 +55,7 @@ export const initEditors = async () => {
 
   viableEditor.setPosition({ lineNumber, column });
   viableEditor.focus();
+  viableEditor.revealLineInCenter(lineNumber);
 
   const regexEditor = editor.create(regexEditorTarget, {
     value: '',
