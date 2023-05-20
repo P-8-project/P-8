@@ -12,7 +12,7 @@ keywords = ["viable", "viablelang", "language", "cli"]
 categories = ["command-line-utilities"]
 
 [dependencies]
-clap = { version = "3.0.7", features = ["derive"] }
+clap = { version = "3.1.6", features = ["derive"] }
 colored = "2.0.0"
 viable_compiler = { version = "0.13.3", path = "../viable_compiler" }
 
@@ -20,7 +20,7 @@ viable_compiler = { version = "0.13.3", path = "../viable_compiler" }
 assert_cmd = "2.0.4"
 assert_fs = "1.0.7"
 unindent = "0.1.8"
-tempfile = "3"
+tempfile = "3.3.0"
 
 [[bin]]
 name = "viable"
