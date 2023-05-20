@@ -48,9 +48,12 @@ export const initEditors = async () => {
     ...DEFAULT_EDITOR_SETTINGS,
   });
 
-  const lineNumber = initialValue.split('\n').length + 1;
+  const lines = initialValue.split('\n');
+  const lineNumber = lines.length;
+  const lastLine = lines[lines.length - 1];
+  const column = lastLine.length + 1;
 
-  viableEditor.setPosition({ lineNumber, column: 0 });
+  viableEditor.setPosition({ lineNumber, column });
   viableEditor.focus();
 
   const regexEditor = editor.create(regexEditorTarget, {
