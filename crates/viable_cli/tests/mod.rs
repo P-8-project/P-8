@@ -11,6 +11,7 @@ use unindent::unindent;
 use utils::TestResult;
 
 #[test]
+#[cfg_attr(miri, ignore)]
 fn cli_stdout_test() -> TestResult {
     let mut command = Command::cargo_bin("viable")?;
     let viable_file = NamedTempFile::new("test.mdy")?;
@@ -52,6 +53,7 @@ fn cli_stdout_test() -> TestResult {
 }
 
 #[test]
+#[cfg_attr(miri, ignore)]
 fn cli_file_test() -> TestResult {
     let mut command = Command::cargo_bin("viable")?;
     let viable_file = NamedTempFile::new("test.mdy")?;
