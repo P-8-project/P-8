@@ -3,14 +3,14 @@
   "description": "The Viable language playground",
   "display": "fullscreen",
   "theme_color": "#242933",
+  "start_url": "https://viable-playground.vercel.app",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "static/icon.png",
       "sizes": "192x192",
       "type": "image/png"
     }
   ],
   "name": "Viable Playground",
-  "short_name": "Viable Playground",
-  "start_url": "/"
+  "short_name": "Viable Playground"
 }
