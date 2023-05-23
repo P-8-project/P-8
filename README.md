@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml">
-    <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/yoav-lavi/viable/Rust/main">
+    <img alt="Rust CI" src="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml/badge.svg">
   </a>
   <a href="https://crates.io/crates/viable_compiler">
     <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
