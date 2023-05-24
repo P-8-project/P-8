@@ -24,7 +24,6 @@
   </a>
 </p>
 
-
 <p align="center">
 Viable is a language that compiles to ECMAScript regular expressions, while aiming to be more readable and maintainable.
 </p>
