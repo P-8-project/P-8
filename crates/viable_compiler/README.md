@@ -10,7 +10,7 @@ The Viable language compiler
 
 ```toml
 [dependencies]
-viable_compiler = "0.13.7"
+viable_compiler = "0.13.8"
 ```
 
 ## Usage
