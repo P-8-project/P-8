@@ -20,7 +20,7 @@
     <img alt="viable playground" src="https://img.shields.io/badge/viable-playground-brightgreen">
   </a>
   <a href="https://yoav-lavi.github.io/viable/book/">
-    <img alt="viable playground" src="https://img.shields.io/badge/viable-docs-blue">
+    <img alt="viable playground" src="https://img.shields.io/badge/viable-book-blue">
   </a>
 </p>
 
@@ -146,9 +146,9 @@ Turns into
 
 You can try Viable in your browser using the [playground](https://viable-playground.vercel.app/)
 
-## Documentation
+## Book
 
-Read the documentation [here](https://yoav-lavi.github.io/viable/book/)
+Read the book [here](https://yoav-lavi.github.io/viable/book/)
 
 ## Install
 
