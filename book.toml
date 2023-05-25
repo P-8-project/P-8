@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Viable"
+
+[output.html]
+git-repository-url = "https://github.com/yoav-lavi/viable"
+git-repository-icon = "fa-github"
