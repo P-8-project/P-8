@@ -2,8 +2,9 @@
   "name": "viable",
   "displayName": "Viable",
   "description": "Viable syntax highlighting",
-  "version": "0.13.6",
+  "version": "0.13.9",
   "publisher": "yoavlavi",
+  "icon": "viable.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/yoav-lavi/viable.git",
@@ -24,7 +25,8 @@
           "viable"
         ],
         "extensions": [
-          ".mdy"
+          ".mdy",
+          ".viable"
         ],
         "configuration": "./language-configuration.json"
       }

@@ -297,7 +297,7 @@ Assertions can be preceeded by `not` to create a negative assertion (equivalent 
 
 ## File Extension
 
-The Viable file extension is `.mdy`
+The Viable file extensions are `.mdy` and `.viable`
 
 ## Crates
 
