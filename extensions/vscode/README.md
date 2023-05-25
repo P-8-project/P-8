@@ -4,7 +4,8 @@
     <img alt="Viable Logo" height="250px" src="https://user-images.githubusercontent.com/14347895/157926614-8434c590-e810-494c-ac9d-3657e9aa4583.png">
 </p>
 
-Provides syntax highlighting for Viable. Supports `.mdy` and `.viable` files.
+Provides syntax highlighting and snipptets for Viable. 
+Supports `.mdy` and `.viable` files.
 
 ## Links
 
