@@ -17,6 +17,12 @@
     "Programming Languages"
   ],
   "contributes": {
+    "snippets": [
+      {
+        "language": "viable",
+        "path": "./snippets.json"
+      }
+    ],
     "languages": [
       {
         "id": "viable",
