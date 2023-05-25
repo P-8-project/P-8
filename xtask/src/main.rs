@@ -112,7 +112,7 @@ fn publish_cli() -> anyhow::Result<()> {
 }
 
 fn publish_compiler() -> anyhow::Result<()> {
-    let shell = shell_in_dir("crates/viable_cli")?;
+    let shell = shell_in_dir("crates/viable_compiler")?;
 
     cmd!(shell, "cargo publish").run()?;
 
