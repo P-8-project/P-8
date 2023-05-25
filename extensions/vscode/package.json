@@ -1,8 +1,8 @@
 {
   "name": "viable",
   "displayName": "Viable",
-  "description": "Viable syntax highlighting",
-  "version": "0.13.10",
+  "description": "Viable syntax highlighting and snippets",
+  "version": "0.13.11",
   "publisher": "yoavlavi",
   "icon": "viable.png",
   "repository": {
