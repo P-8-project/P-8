@@ -1,0 +1,54 @@
+// This is a generated file. Not intended for manual editing.
+package dev.tigr.viable.plugin.psi.impl;
+
+import java.util.List;
+import org.jetbrains.annotations.*;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
+import static dev.tigr.viable.plugin.psi.ViableTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import dev.tigr.viable.plugin.psi.*;
+
+public class ViableCaptureRuleImpl extends ASTWrapperPsiElement implements ViableCaptureRule {
+
+  public ViableCaptureRuleImpl(@NotNull ASTNode node) {
+    super(node);
+  }
+
+  public void accept(@NotNull ViableVisitor visitor) {
+    visitor.visitCaptureRule(this);
+  }
+
+  @Override
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof ViableVisitor) accept((ViableVisitor)visitor);
+    else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<ViableExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ViableExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<ViableLetRule> getLetRuleList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ViableLetRule.class);
+  }
+
+  @Override
+  @NotNull
+  public List<ViableOfRule> getOfRuleList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ViableOfRule.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getIdentifier() {
+    return findChildByType(IDENTIFIER);
+  }
+
+}

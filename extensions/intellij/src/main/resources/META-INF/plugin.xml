@@ -1,0 +1,33 @@
+<idea-plugin>
+    <id>dev.tigr.viable-intellij-plugin</id>
+    <name>Viable</name>
+    <vendor email="tigermouthbear@tigr.dev" url="https://tigr.dev/">Tigermouthbear</vendor>
+
+    <description><![CDATA[
+        Provides syntax highlighting for the <a href="https://github.com/yoav-lavi/viable">viable regex language</a>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Viable"
+                  implementationClass="dev.tigr.viable.plugin.ViableLanguageFileType"
+                  fieldName="INSTANCE"
+                  language="Viable"
+                  extensions="mdy;viable"/>
+
+        <lang.parserDefinition language="Viable"
+                               implementationClass="dev.tigr.viable.plugin.ViableParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory language="Viable"
+                                       implementationClass="dev.tigr.viable.plugin.ViableSyntaxHighlighterFactory"/>
+
+        <colorSettingsPage implementation="dev.tigr.viable.plugin.ViableColorSettingsPage"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
