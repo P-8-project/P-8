@@ -4,29 +4,6 @@ use crate::ast::enums::{
     QuantifierKind, Range, SpecialSymbol, Symbol, SymbolKind, VariableInvocation,
 };
 
-#[cfg(feature = "parallel")]
-use rayon::prelude::*;
-
-#[cfg(feature = "parallel")]
-const PARALLEL_MIN_LENGTH: usize = 5;
-
-#[cfg(feature = "parallel")]
-const PARALLEL_MAX_LENGTH: usize = 10;
-
-#[cfg(feature = "parallel")]
-pub fn ast_to_regex(ast: &ViableAst) -> String {
-    match ast {
-        ViableAst::Root(nodes) => nodes
-            .par_iter()
-            .with_min_len(PARALLEL_MIN_LENGTH)
-            .with_max_len(PARALLEL_MAX_LENGTH)
-            .map(node_to_regex)
-            .collect(),
-        ViableAst::Empty => String::new(),
-    }
-}
-
-#[cfg(not(feature = "parallel"))]
 pub fn ast_to_regex(ast: &ViableAst) -> String {
     match ast {
         ViableAst::Root(nodes) => nodes.iter().map(|node| node_to_regex(node)).collect(),
