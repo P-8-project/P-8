@@ -229,7 +229,7 @@ All quantifiers can be preceded by `lazy` to match the least amount of character
 
 - `<char>` - matches any single character. equivalent to regex `.`
 - `<whitespace>` - matches any kind of whitespace character. equivalent to regex `\s` or `[ \t\n\v\f\r]`
-- `<newline>` - matches a newline character. equivalent to regex `\n`  or `[0-9]`
+- `<newline>` - matches a newline character. equivalent to regex `\n`
 - `<tab>` - matches a tab character. equivalent to regex `\t`
 - `<return>` -  matches a carriage return character. equivalent to regex `\r`
 - `<feed>` - matches a form feed character. equivalent to regex `\f`
@@ -308,6 +308,7 @@ The Viable file extensions are `.mdy` and `.viable`
 ## Extensions
 
 - [VSCode](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
+- [IntelliJ](https://plugins.jetbrains.com/plugin/18693-viable)
 
 ## Performance
 
