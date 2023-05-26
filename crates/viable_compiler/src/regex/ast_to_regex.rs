@@ -1,5 +1,5 @@
 use super::utils::{mark_lazy, wrap_quantified};
-use crate::ast::enums::{
+use crate::ast::types::{
     Assertion, AssertionKind, Expression, Group, GroupKind, ViableAst, ViableAstNode, Quantifier,
     QuantifierKind, Range, SpecialSymbol, Symbol, SymbolKind, VariableInvocation,
 };
