@@ -6,7 +6,7 @@ use crate::ast::enums::{
 
 pub fn ast_to_regex(ast: &ViableAst) -> String {
     match ast {
-        ViableAst::Root(nodes) => nodes.iter().map(|node| node_to_regex(node)).collect(),
+        ViableAst::Root(nodes) => nodes.iter().map(node_to_regex).collect(),
         ViableAst::Empty => String::new(),
     }
 }
