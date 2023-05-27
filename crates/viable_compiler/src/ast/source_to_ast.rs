@@ -1,28 +1,24 @@
 use super::consts::{LAZY, NOT};
-use super::error_messages::ErrorMessage;
 use super::ident_parser::{IdentParser, Rule};
 use super::types::*;
 use super::utils::{
     alphabetic_first_char, first_inner, first_last_inner_str, last_inner, nth_inner, to_char,
     unquote_escape_literal, unquote_escape_raw,
 };
-use crate::errors::ParseError;
+use crate::errors::CompilerError;
+use anyhow::Result;
 use pest::iterators::Pairs;
 use pest::{iterators::Pair, Parser};
 use std::collections::HashMap;
 
-pub fn to_ast(source: &str) -> Result<ViableAst, ParseError> {
+pub fn to_ast(source: &str) -> Result<ViableAst> {
     if source.is_empty() {
         return Ok(ViableAst::Empty);
     }
 
-    let mut pairs = IdentParser::parse(Rule::root, source).map_err(|error| ParseError {
-        message: error.to_string(),
-    })?;
+    let mut pairs = IdentParser::parse(Rule::root, source)?;
 
-    let root_statements = pairs
-        .next()
-        .ok_or_else(|| ParseError::from(ErrorMessage::MissingRootNode))?;
+    let root_statements = pairs.next().ok_or(CompilerError::MissingRootNode)?;
 
     let mut variables: HashMap<String, ViableAst> = HashMap::new();
 
@@ -32,7 +28,7 @@ pub fn to_ast(source: &str) -> Result<ViableAst, ParseError> {
 pub fn pairs_to_ast(
     pairs: Pairs<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAst, ParseError> {
+) -> Result<ViableAst> {
     let mut nodes = Vec::new();
 
     for pair in pairs {
@@ -46,7 +42,7 @@ pub fn pairs_to_ast(
 fn create_ast_node(
     pair: Pair<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+) -> Result<ViableAstNode> {
     let node = match pair.as_rule() {
         Rule::raw => ViableAstNode::Atom(unquote_escape_raw(&pair)),
         Rule::literal => ViableAstNode::Atom(unquote_escape_literal(&pair)),
@@ -59,21 +55,21 @@ fn create_ast_node(
         Rule::variable_invocation => variable_invocation(&pair, variables)?,
         Rule::variable_declaration => variable_declaration(pair, variables)?,
         Rule::EOI => ViableAstNode::Skip,
-        _ => return Err(ErrorMessage::UnrecognizedSyntax.into()),
+        _ => return Err(CompilerError::UnrecognizedSyntax.into()),
     };
 
     Ok(node)
 }
 
-fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode, ParseError> {
+fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode> {
     let (negative, ident) = first_last_inner_str(pair)?;
 
     let negative = negative == NOT;
 
     if negative {
         match ident {
-            "start" => return Err(ErrorMessage::NegativeStartNotAllowed.into()),
-            "end" => return Err(ErrorMessage::NegativeEndNotAllowed.into()),
+            "start" => return Err(CompilerError::NegativeStartNotAllowed.into()),
+            "end" => return Err(CompilerError::NegativeEndNotAllowed.into()),
             _ => {}
         }
     }
@@ -143,18 +139,18 @@ fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode, ParseError> {
         "start" => ViableAstNode::SpecialSymbol(SpecialSymbol::Start),
         "end" => ViableAstNode::SpecialSymbol(SpecialSymbol::End),
 
-        _ => return Err(ErrorMessage::UnrecognizedSymbol.into()),
+        _ => return Err(CompilerError::UnrecognizedSymbol.into()),
     };
 
     Ok(symbol_node)
 }
 
-fn range(pair: Pair<Rule>) -> Result<ViableAstNode, ParseError> {
+fn range(pair: Pair<Rule>) -> Result<ViableAstNode> {
     let (first, end) = first_last_inner_str(pair.clone())?;
     let negative = first == NOT;
     let start = if negative {
         nth_inner(pair, 1)
-            .ok_or_else(|| ParseError::from(ErrorMessage::MissingNode))?
+            .ok_or(CompilerError::MissingNode)?
             .as_str()
     } else {
         first
@@ -179,7 +175,7 @@ fn range(pair: Pair<Rule>) -> Result<ViableAstNode, ParseError> {
 fn quantifier(
     pair: Pair<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+) -> Result<ViableAstNode> {
     let quantity = first_inner(pair.clone())?;
     let kind = first_inner(quantity.clone())?;
     let expression = create_ast_node(last_inner(pair)?, variables)?;
@@ -193,18 +189,18 @@ fn quantifier(
 
         // unexpected nodes
         ViableAstNode::SpecialSymbol(_) => {
-            return Err(ErrorMessage::UnexpectedSpecialSymbolInQuantifier.into())
+            return Err(CompilerError::UnexpectedSpecialSymbolInQuantifier.into())
         }
         ViableAstNode::Quantifier(_) => {
-            return Err(ErrorMessage::UnexpectedQuantifierInQuantifier.into())
+            return Err(CompilerError::UnexpectedQuantifierInQuantifier.into())
         }
         ViableAstNode::Assertion(_) => {
-            return Err(ErrorMessage::UnexpectedAssertionInQuantifier.into())
+            return Err(CompilerError::UnexpectedAssertionInQuantifier.into())
         }
         ViableAstNode::VariableInvocation(_) => {
-            return Err(ErrorMessage::UnexpectedVariableInvocationInQuantifier.into())
+            return Err(CompilerError::UnexpectedVariableInvocationInQuantifier.into())
         }
-        ViableAstNode::Skip => return Err(ErrorMessage::UnexpectedSkippedNodeInQuantifier.into()),
+        ViableAstNode::Skip => return Err(CompilerError::UnexpectedSkippedNodeInQuantifier.into()),
     };
 
     let lazy = quantity.as_str().starts_with(LAZY);
@@ -219,9 +215,9 @@ fn quantifier(
             let raw_amount = last_inner(kind)?.as_str().to_owned();
             let amount = raw_amount
                 .parse::<usize>()
-                .map_err(|_| ParseError::from(ErrorMessage::CouldNotParseAnAmount))?
+                .map_err(|_| CompilerError::CouldNotParseAnAmount)?
                 .checked_add(1)
-                .ok_or_else(|| ParseError::from(ErrorMessage::CouldNotParseAnAmount))?;
+                .ok_or(CompilerError::CouldNotParseAnAmount)?;
             ViableAstNode::Quantifier(Quantifier {
                 kind: QuantifierKind::Over(amount),
                 lazy,
@@ -249,13 +245,13 @@ fn quantifier(
 
             let parsed_start = start
                 .parse::<usize>()
-                .map_err(|_| ParseError::from(ErrorMessage::InvalidQuantifierRange))?;
+                .map_err(|_| CompilerError::InvalidQuantifierRange)?;
             let parsed_end = end
                 .parse::<usize>()
-                .map_err(|_| ParseError::from(ErrorMessage::InvalidQuantifierRange))?;
+                .map_err(|_| CompilerError::InvalidQuantifierRange)?;
 
             if parsed_start > parsed_end {
-                return Err(ErrorMessage::InvalidQuantifierRange.into());
+                return Err(CompilerError::InvalidQuantifierRange.into());
             }
 
             ViableAstNode::Quantifier(Quantifier {
@@ -268,16 +264,13 @@ fn quantifier(
             })
         }
 
-        _ => return Err(ErrorMessage::UnrecognizedSyntax.into()),
+        _ => return Err(CompilerError::UnrecognizedSyntax.into()),
     };
 
     Ok(quantifier_node)
 }
 
-fn group(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+fn group(pair: Pair<Rule>, variables: &mut HashMap<String, ViableAst>) -> Result<ViableAstNode> {
     let declaration = first_inner(pair.clone())?;
 
     let kind = first_inner(declaration.clone())?.as_str();
@@ -287,13 +280,13 @@ fn group(
         "capture" => GroupKind::Capture,
         "match" => GroupKind::Match,
 
-        _ => return Err(ErrorMessage::UnrecognizedGroup.into()),
+        _ => return Err(CompilerError::UnrecognizedGroup.into()),
     };
 
     let ident = nth_inner(declaration, 1).map(|ident| ident.as_str().trim().to_owned());
 
     if ident.is_some() && kind != GroupKind::Capture {
-        return Err(ErrorMessage::UnexpectedIdentifierForNonCaptureGroup.into());
+        return Err(CompilerError::UnexpectedIdentifierForNonCaptureGroup.into());
     }
 
     let block = last_inner(pair)?;
@@ -310,7 +303,7 @@ fn group(
 fn assertion(
     pair: Pair<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+) -> Result<ViableAstNode> {
     let assertion_declaration = first_inner(pair.clone())?;
 
     let (negative, kind) = first_last_inner_str(assertion_declaration)?;
@@ -320,7 +313,7 @@ fn assertion(
     let kind = match kind {
         "ahead" => AssertionKind::Ahead,
         "behind" => AssertionKind::Behind,
-        _ => return Err(ErrorMessage::UnrecognizedAssertion.into()),
+        _ => return Err(CompilerError::UnrecognizedAssertion.into()),
     };
 
     let block = last_inner(pair)?;
@@ -334,7 +327,7 @@ fn assertion(
     Ok(assertion_node)
 }
 
-fn negative_char_class(pair: &Pair<Rule>) -> Result<ViableAstNode, ParseError> {
+fn negative_char_class(pair: &Pair<Rule>) -> Result<ViableAstNode> {
     let class = last_inner(pair.clone())?;
     let negative_char_class_node = ViableAstNode::NegativeCharClass(class.as_str().to_owned());
     Ok(negative_char_class_node)
@@ -343,11 +336,11 @@ fn negative_char_class(pair: &Pair<Rule>) -> Result<ViableAstNode, ParseError> {
 fn variable_invocation(
     pair: &Pair<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+) -> Result<ViableAstNode> {
     let identifier = last_inner(pair.clone())?;
     let statements = match variables.get(identifier.as_str()) {
         Some(statements) => statements.clone(),
-        None => return Err(ErrorMessage::UninitializedVariable.into()),
+        None => return Err(CompilerError::UninitializedVariable.into()),
     };
     let variable_invocation_node = ViableAstNode::VariableInvocation(VariableInvocation {
         statements: Box::new(statements),
@@ -358,7 +351,7 @@ fn variable_invocation(
 fn variable_declaration(
     pair: Pair<Rule>,
     variables: &mut HashMap<String, ViableAst>,
-) -> Result<ViableAstNode, ParseError> {
+) -> Result<ViableAstNode> {
     let identifier = first_inner(pair.clone())?;
     let statements = last_inner(pair)?;
     let variable_ast = pairs_to_ast(statements.into_inner(), variables)?;
