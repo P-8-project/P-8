@@ -6,7 +6,7 @@
 A CLI wrapping the Viable language compiler
 </p>
 
-## Install
+# Install
 
 ```sh
 cargo install viable_cli
