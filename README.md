@@ -304,7 +304,6 @@ The Viable file extensions are `.mdy` and `.viable`
 - `viable_compiler` - The Viable compiler [📦](https://crates.io/crates/viable_compiler) [📖](https://docs.rs/viable_compiler)
 - `viable_cli` - A CLI wrapping the Viable compiler [📦](https://crates.io/crates/viable_cli) [📖](https://docs.rs/crate/viable_cli)
 - `viable_wasm` - WASM bindings for the Viable compiler
-- `viable_node` - NodeJS bindings for the Viable compiler
 
 ## Extensions
 
