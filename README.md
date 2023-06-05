@@ -310,6 +310,10 @@ The Viable file extensions are `.mdy` and `.viable`
 - [VSCode](https://marketplace.visualstudio.com/items?itemName=yoavlavi.viable)
 - [IntelliJ](https://plugins.jetbrains.com/plugin/18693-viable)
 
+## Packages
+
+- [NodeJS](https://www.npmjs.com/package/viablec)
+
 ## Performance
 
 Last measured on V0.13.3
