@@ -314,6 +314,10 @@ The Viable file extensions are `.mdy` and `.viable`
 
 - [NodeJS](https://www.npmjs.com/package/viablec)
 
+## Integrations
+
+- [Babel](https://www.npmjs.com/package/babel-plugin-viable)
+
 ## Performance
 
 Last measured on V0.13.3
