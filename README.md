@@ -316,7 +316,7 @@ The Viable file extensions are `.mdy` and `.viable`
 
 ## Integrations
 
-- [Babel](https://www.npmjs.com/package/babel-plugin-viable)
+- [Babel Plugin](https://www.npmjs.com/package/babel-plugin-viable)
 
 ## Performance
 
