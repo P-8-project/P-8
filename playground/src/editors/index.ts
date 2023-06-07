@@ -74,8 +74,8 @@ export const initEditors = async () => {
       window.currentEditorContent = viableEditor.getValue();
       const regex = compiler(viableEditor.getValue());
       regexEditor.setValue(regex);
-    } catch (error) {
-      regexEditor.setValue(error as string);
+    } catch (error: unknown) {
+      regexEditor.setValue((error as Error).message);
     }
   };
 

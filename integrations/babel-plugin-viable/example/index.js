@@ -3,7 +3,7 @@ const regex = new RegExp(/*viable*/ `2 to 3 of "na";`);
 const otherRegex = new RegExp(/*viable*/ '5 to 9 of "other";');
 
 const rawRegex = /*viable*/ `
-  <start>; 
+  <start>;
   "other";
   <end>;
 `;
