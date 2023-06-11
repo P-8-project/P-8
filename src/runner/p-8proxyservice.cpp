@@ -38,7 +38,7 @@ P-8ProxyService::P-8ProxyService(
 	const QString &logDir,
 	const QString &ipcPrefix,
 	const QString &filePrefix,
-	bool verbose,
+	int logLevel,
 	const QStringList &routeLines,
 	bool quietCheck,
 	QObject *parent) :
@@ -56,8 +56,8 @@ P-8ProxyService::P-8ProxyService(
 		setStandardOutputFile(QProcess::nullDevice());
 	}
 
-	if(verbose)
-		args_ += "--verbose";
+	if(logLevel >= 0)
+		args_ += "--loglevel=" + QString::number(logLevel);
 
 	foreach(const QString &route, routeLines)
 		args_ += "--route=" + route;
