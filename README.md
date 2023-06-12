@@ -171,6 +171,15 @@ cargo install --path crates/viable_cli
 
 ### Community
 
+- [Brew](https://formulae.brew.sh/formula/viable) (macOS and Linux)
+  <details><summary>Installation instructions</summary>
+  
+   ```sh
+   brew install viable
+   ```
+  
+  </details>
+
 - [Arch Linux](https://aur.archlinux.org/packages/viable) (maintained by [@ilai-deutel](https://github.com/ilai-deutel))
   <details><summary>Installation instructions</summary>
 
