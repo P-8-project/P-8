@@ -199,7 +199,19 @@ cargo install --path crates/viable_cli
 
   </details>
 
-- NixOS (soon, see [PR](https://github.com/NixOS/nixpkgs/pull/160985)) (maintained by [@jyooru](https://github.com/jyooru))
+- [NixOS](https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/misc/viable/default.nix) (maintained by [@jyooru](https://github.com/jyooru))
+  <details><summary>Installation instructions</summary>
+  
+  Should be the following once the registry is updated.
+  If you've successfuly installed via this method please open an issue and let me know. 
+  Thanks!
+  
+   ```sh
+   nix-env -i viable
+   ```
+  
+  </details>
+
 
 ## CLI Usage
 
