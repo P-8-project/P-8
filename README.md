@@ -243,6 +243,9 @@ OPTIONS:
     -r, --repl
             Start the Viable REPL
 
+    -t, --test <TEST>
+            Test the compiled regex against a string
+
     -V, --version
             Print version information
 ```
