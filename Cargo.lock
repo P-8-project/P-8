@@ -556,7 +556,7 @@ dependencies = [
 
 [[package]]
 name = "viable_compiler"
-version = "0.16.0"
+version = "0.16.1"
 dependencies = [
  "anyhow",
  "arbitrary",
