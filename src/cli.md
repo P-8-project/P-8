@@ -1,6 +1,6 @@
 # CLI
 
-```sh
+```
 USAGE:
     viable [OPTIONS] [INPUT_FILE_PATH]
 
