@@ -9,7 +9,7 @@
   </a>
   <a href="https://crates.io/crates/viable_compiler">
     <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
-  </a> 
+  </a>
   <a href="https://crates.io/crates/viable_cli">
     <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
   </a>
