@@ -17,7 +17,7 @@ pub fn node_to_regex(node: &ViableAstNode) -> String {
         ViableAstNode::Assertion(assertion) => transform_assertion(assertion),
         ViableAstNode::SpecialSymbol(special_symbol) => transform_special_symbol(special_symbol),
         ViableAstNode::Group(group) => transform_group(group),
-        ViableAstNode::Atom(atom) => String::from(atom),
+        ViableAstNode::Atom(atom) => atom.clone(),
         ViableAstNode::Symbol(symbol) => transform_symbol(symbol),
         ViableAstNode::Range(range) => transform_range(range),
         ViableAstNode::NegativeCharClass(negative_char_class) => {
@@ -33,7 +33,7 @@ pub fn node_to_regex(node: &ViableAstNode) -> String {
 fn expression_to_regex(expression: &Expression) -> String {
     match expression {
         Expression::Group(group) => transform_group(group),
-        Expression::Atom(atom) => String::from(atom),
+        Expression::Atom(atom) => atom.clone(),
         Expression::Range(range) => transform_range(range),
         Expression::Symbol(symbol) => transform_symbol(symbol),
         Expression::NegativeCharClass(negative_char_class) => {
