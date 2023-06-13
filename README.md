@@ -355,7 +355,7 @@ The Viable file extensions are `.mdy` and `.viable`
 ## Packages
 
 - [NodeJS](https://www.npmjs.com/package/viablec)
-- [Deno](https://deno.land/x/viable@v0.15.0)
+- [Deno](https://deno.land/x/viable@v0.16.0)
 
 ## Integrations
 
