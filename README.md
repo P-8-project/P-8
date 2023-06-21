@@ -6,7 +6,7 @@
 <p align="center">
   <a href="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml">
     <img alt="Rust CI" src="https://github.com/yoav-lavi/viable/actions/workflows/rust.yml/badge.svg">
-  </a>
+  </a> 
   <a href="https://crates.io/crates/viable_compiler">
     <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_compiler?label=compiler">
   </a>
