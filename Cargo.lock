@@ -556,7 +556,7 @@ dependencies = [
 
 [[package]]
 name = "viable_compiler"
-version = "0.16.1"
+version = "0.17.0"
 dependencies = [
  "arbitrary",
  "criterion",
@@ -568,7 +568,7 @@ dependencies = [
 
 [[package]]
 name = "viable_wasm"
-version = "0.16.0"
+version = "0.17.0"
 dependencies = [
  "viable_compiler",
  "wasm-bindgen",
