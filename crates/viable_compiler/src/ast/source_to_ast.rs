@@ -1,9 +1,9 @@
 use super::consts::{LAZY, NOT};
+use super::symbols::symbol;
 use super::types::{
     ast::{
         AsciiRange, Assertion, AssertionKind, Expression, Group, GroupKind, ViableAst,
-        ViableAstNode, NumericRange, Quantifier, QuantifierKind, Range, SpecialSymbol, Symbol,
-        SymbolKind, VariableInvocation,
+        ViableAstNode, NumericRange, Quantifier, QuantifierKind, Range, VariableInvocation,
     },
     pest::{IdentParser, Rule},
 };
@@ -68,90 +68,6 @@ fn create_ast_node(
     Ok(node)
 }
 
-fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode> {
-    let (negative, ident) = first_last_inner_str(pair)?;
-
-    let negative = negative == NOT;
-
-    if negative {
-        match ident {
-            "start" => return Err(CompilerError::NegativeStartNotAllowed),
-            "end" => return Err(CompilerError::NegativeEndNotAllowed),
-            _ => {}
-        }
-    }
-
-    let symbol_node = match ident {
-        "space" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Space,
-            negative,
-        }),
-        "newline" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Newline,
-            negative,
-        }),
-        "vertical" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Vertical,
-            negative,
-        }),
-        "word" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Word,
-            negative,
-        }),
-        "digit" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Digit,
-            negative,
-        }),
-        "whitespace" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Whitespace,
-            negative,
-        }),
-        "boundary" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Boundary,
-            negative,
-        }),
-        "alphabetic" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Alphabetic,
-            negative,
-        }),
-        "alphanumeric" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Alphanumeric,
-            negative,
-        }),
-        "return" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Return,
-            negative,
-        }),
-        "tab" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Tab,
-            negative,
-        }),
-        "null" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Null,
-            negative,
-        }),
-        "feed" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Feed,
-            negative,
-        }),
-        "char" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Char,
-            negative,
-        }),
-        "backspace" => ViableAstNode::Symbol(Symbol {
-            kind: SymbolKind::Backspace,
-            negative,
-        }),
-
-        "start" => ViableAstNode::SpecialSymbol(SpecialSymbol::Start),
-        "end" => ViableAstNode::SpecialSymbol(SpecialSymbol::End),
-
-        _ => return Err(CompilerError::UnrecognizedSymbol),
-    };
-
-    Ok(symbol_node)
-}
-
 fn range(pair: Pair<Rule>) -> Result<ViableAstNode> {
     let (first, end) = first_last_inner_str(pair.clone())?;
     let negative = first == NOT;
@@ -193,6 +109,7 @@ fn quantifier(
         ViableAstNode::Range(range) => Expression::Range(range),
         ViableAstNode::Symbol(symbol) => Expression::Symbol(symbol),
         ViableAstNode::NegativeCharClass(class) => Expression::NegativeCharClass(class),
+        ViableAstNode::UnicodeCategory(category) => Expression::UnicodeCategory(category),
 
         // unexpected nodes
         ViableAstNode::SpecialSymbol(_) => {
