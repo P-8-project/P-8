@@ -168,7 +168,7 @@ cargo install --path crates/viable_cli
 
 ### Binary
 
-- macOS binaries (aarch64 and x86_64) can be downloaded from the [release page](https://github.com/yoav-lavi/viable/releases)
+- macOS binaries (`aarch64` and `x86_64`) can be downloaded from the [release page](https://github.com/yoav-lavi/viable/releases)
 
 ### Community
 
