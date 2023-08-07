@@ -5,6 +5,7 @@ use crate::ast::types::ast::{
     UnicodeCategoryKind, VariableInvocation,
 };
 
+#[must_use]
 pub fn ast_to_regex(ast: &ViableAst) -> String {
     match ast {
         ViableAst::Root(nodes) => nodes.iter().map(node_to_regex).collect(),
