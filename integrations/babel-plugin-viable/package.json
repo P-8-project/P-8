@@ -2,7 +2,7 @@
   "name": "babel-plugin-viable",
   "version": "0.18.1",
   "main": "src/index.js",
-  "license": "MIT",
+  "license": "(MIT OR Apache-2.0)",
   "dependencies": {
     "viablec": "^0.18.1"
   },

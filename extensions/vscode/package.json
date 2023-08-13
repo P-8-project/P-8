@@ -3,6 +3,7 @@
   "displayName": "Viable",
   "description": "Viable syntax highlighting and snippets",
   "version": "0.18.1",
+  "license": "(MIT OR Apache-2.0)",
   "publisher": "yoavlavi",
   "icon": "viable-dark.png",
   "repository": {

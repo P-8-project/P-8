@@ -13,9 +13,6 @@
   <a href="https://crates.io/crates/viable_cli">
     <img alt="Crates.io" src="https://img.shields.io/crates/v/viable_cli?label=cli">
   </a>
-  <a href="https://github.com/yoav-lavi/viable/blob/main/LICENSE">
-    <img alt="Crates.io" src="https://img.shields.io/crates/l/viable_compiler">
-  </a>
   <a href="https://viable-playground.vercel.app">
     <img alt="viable playground" src="https://img.shields.io/badge/viable-playground-brightgreen">
   </a>
