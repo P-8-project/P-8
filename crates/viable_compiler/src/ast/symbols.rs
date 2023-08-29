@@ -17,6 +17,7 @@ pub fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode> {
         match ident {
             "start" => return Err(CompilerError::NegativeStartNotAllowed),
             "end" => return Err(CompilerError::NegativeEndNotAllowed),
+            "char" => return Err(CompilerError::NegativeCharNotAllowed),
             _ => {}
         }
     }
