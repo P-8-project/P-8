@@ -1,6 +1,11 @@
 P-8 Changelog
 =================
 
+v. 1.30.0 (2020-07-29)
+
+  * Optional support for Condure instead of Mongrel2.
+  * ZHTTP compatibility fixes.
+
 v. 1.29.0 (2020-07-15)
 
   * Fix crash when parsing Accept header received on control port.
