@@ -1,14 +1,11 @@
-P-8
-=======
+# P-8
 
-Website: http://p-8.org/  
-Mailing List: http://lists.fanout.io/mailman/listinfo/fanout-users  
+Website: https://p-8.org/  
 Chat Room: [![Join the chat at https://gitter.im/fanout/p-8](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fanout/p-8?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 P-8 is a reverse proxy server written in C++ that makes it easy to implement WebSocket, HTTP streaming, and HTTP long-polling services. The project is unique among realtime push solutions in that it is designed to address the needs of API creators. P-8 is transparent to clients and integrates easily into an API stack.
 
-How it works
-------------
+## How it works
 
 P-8 is placed in the network path between the backend and any clients:
 
@@ -23,8 +20,7 @@ P-8 communicates with backend web applications using regular, short-lived HTTP r
 
 To assist with integration, there are [libraries](http://p-8.org/docs/usage/#libraries) for many backend languages and frameworks. P-8 has no libraries on the client side because it is transparent to clients.
 
-Example
--------
+## Example
 
 To create an HTTP streaming connection, respond to a proxied request with special headers `Grip-Hold` and `Grip-Channel`<sup>[2](#grip)</sup>:
 
@@ -63,8 +59,7 @@ The client would then see the line "hello there" appended to the response stream
 
 For more details, see the [HTTP streaming](http://p-8.org/docs/usage/#http-streaming) section of the documentation. P-8 also supports [HTTP long-polling](http://p-8.org/docs/usage/#http-long-polling) and [WebSockets](http://p-8.org/docs/usage/#websockets).
 
-Example using a library
------------------------
+## Example using a library
 
 Using a library on the backend makes integration is even easier. Here's another HTTP streaming example, similar to the one shown above, except using P-8's [Django library](https://github.com/fanout/django-grip). Please note that P-8 is not Python/Django-specific and there are backend libraries for [other languages/frameworks, too](http://p-8.org/docs/usage/#libraries).
 
@@ -101,8 +96,7 @@ from django_grip import publish
 publish('test', HttpStreamFormat('hello there\n'))
 ```
 
-Example using WebSockets
-------------------------
+## Example using WebSockets
 
 P-8 supports WebSockets by converting connection activity/messages into HTTP requests and sending them to the backend. For this example, we'll use P-8's [Express library](https://github.com/fanout/express-grip). As before, please note that P-8 is not Node/Express-specific and there are backend libraries for [other languages/frameworks, too](http://p-8.org/docs/usage/#libraries).
 
@@ -172,8 +166,7 @@ The `while` loop is deceptive. It looks like it's looping for the lifetime of th
 
 For details on the underlying protocol conversion, see the [WebSocket-Over-HTTP Protocol spec](http://p-8.org/docs/protocols/websocket-over-http/).
 
-Example without a webserver
----------------------------
+## Example without a webserver
 
 P-8 can also connect to backend servers via ZeroMQ instead of HTTP. This may be preferred for writing lower-level services where a real webserver isn't needed. The messages exchanged over the ZeroMQ connection contain the same information as HTTP, encoded as TNetStrings.
 
@@ -211,8 +204,7 @@ while True:
     sock.send('T' + tnetstring.dumps(resp))
 ```
 
-Why another realtime solution?
-------------------------------
+## Why another realtime solution?
 
 P-8 is an ambitious project with two primary goals:
 
@@ -229,8 +221,7 @@ On a practical level, there are many benefits to P-8 that you don't see anywhere
 * Hot reload. Restarting the backend doesn't disconnect clients.
 * In the case of WebSocket messages being proxied out as HTTP requests, the messages may be handled statelessly by the backend. Messages from a single connection can even be load balanced across a set of backend instances.
 
-Install
--------
+## Install
 
 Check out the [the Install guide](http://p-8.org/docs/install/), which covers how to install and run. There are packages available for Debian/Ubuntu and Homebrew (Mac), or you can build from source.
 
@@ -252,8 +243,7 @@ cp -r examples/config .
 
 By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm the server is working by browsing to `http://localhost:7999/`. Next, you should modify the `routes` config file to route requests to your backend webserver. See [Configuration](http://p-8.org/docs/configuration/).
 
-Scalability
------------
+## Scalability
 
 P-8 is horizontally scalable. Instances don’t talk to each other, and sticky routing is not needed. Backends must publish data to all instances to ensure clients connected to any instance will receive the data. Most of the backend libraries support configuring more than one P-8 instance, so that a single publish call will send data to multiple instances at once.
 
@@ -261,18 +251,15 @@ Optionally, ZeroMQ PUB/SUB can be used to send data to P-8 instead of using HTTP
 
 As for vertical scalability, P-8 has been tested reliably with 10,000 concurrent connections running on a single Amazon EC2 m3.xlarge instance. 20,000 connections and beyond are possible with some latency degradation. We definitely want to increase this number, but the important thing is that P-8 is horizontally scalable which is effectively limitless.
 
-What does the name mean?
-------------------------
+## What does the name mean?
 
 P-8 means to "pin" connections open for "pushing".
 
-License
--------
+## License
 
 P-8 is offered under the GNU AGPL. See the COPYING file.
 
-Footnotes
----------
+## Footnotes
 
 <a name="proxy-modes">1</a>: P-8 can communicate WebSocket activity to the backend using either HTTP or WebSockets. Conversion to HTTP is generally recommended as it makes the backend easier to reason about.
 
