@@ -1,6 +1,12 @@
 P-8 Changelog
 =================
 
+v. 1.31.0 (2020-11-06)
+
+  * Use Condure instead of Mongrel2, by default.
+  * Ability to refresh WebSocket-over-HTTP sessions by channel.
+  * Fix crash when sending delayed WebSocket messages.
+
 v. 1.30.0 (2020-07-29)
 
   * Optional support for Condure instead of Mongrel2.
