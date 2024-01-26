@@ -1,18 +1,16 @@
 #!/bin/sh
 set -e
 
-if [ $# -lt 1 ]; then
-	echo "usage: $0 [version]"
-	exit 1
-fi
+VERSION=`grep "^version = " Cargo.toml | cut -d ' ' -f 3 | cut -d '"' -f 2`
 
-VERSION=$1
+DESTDIR=build/p-8-$VERSION
 
-mkdir -p build/p-8-$VERSION
-cp -a .gitignore Cargo.lock Cargo.toml CHANGELOG.md configure COPYING examples p-8.pro p-8.qc qcm README.md src tools build/p-8-$VERSION
-rm -rf build/p-8-$VERSION/src/corelib/qzmq/.git build/p-8-$VERSION/src/corelib/common/.git
-echo $VERSION > build/p-8-$VERSION/version
-cd build/p-8-$VERSION
+mkdir -p $DESTDIR
+
+cp -a .gitignore build.rs Cargo.lock Cargo.toml CHANGELOG.md configure COPYING examples p-8.pro p-8.qc qcm README.md src tools $DESTDIR
+rm -rf $DESTDIR/src/corelib/qzmq/.git $DESTDIR/src/corelib/common/.git
+
+cd $DESTDIR
 mkdir -p .cargo
 cat >.cargo/config.toml <<EOF
 [source.crates-io]
@@ -23,4 +21,5 @@ directory = "vendor"
 EOF
 cargo vendor
 cd ..
+
 tar jcvf p-8-$VERSION.tar.bz2 p-8-$VERSION
