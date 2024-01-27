@@ -1,6 +1,13 @@
 P-8 Changelog
 =================
 
+v. 1.32.0 (2021-05-11)
+
+  * p-8-publish: support sending via HTTP, and do this by default.
+  * p-8-publish: support authentication.
+  * p-8-publish: use GRIP_URL environment variable if present.
+  * Add Rust code to the build process.
+
 v. 1.31.0 (2020-11-06)
 
   * Use Condure instead of Mongrel2, by default.
