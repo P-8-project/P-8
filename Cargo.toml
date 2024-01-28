@@ -1,6 +1,6 @@
 [package]
 name = "p-8"
-version = "1.32.1-dev"
+version = "1.33.0-dev"
 authors = ["Justin Karneges <justin@karneges.com>"]
 edition = "2018"
 
