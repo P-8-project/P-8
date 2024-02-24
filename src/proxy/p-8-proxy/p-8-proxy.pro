@@ -14,6 +14,12 @@ PRE_TARGETDEPS += $$PWD/../libp-8-proxy.a
 LIBS += -L$$PWD/../../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
+CONFIG(release) {
+	LIBS += -L$$PWD/../../../target/release -lp-8 -ldl
+} else {
+	LIBS += -L$$PWD/../../../target/debug -lp-8 -ldl
+}
+
 include($$OUT_PWD/../../../conf.pri)
 include(p-8-proxy.pri)
 

@@ -15,6 +15,12 @@ PRE_TARGETDEPS += $$PWD/../libp-8-handler.a
 LIBS += -L$$PWD/../../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
+CONFIG(release) {
+	LIBS += -L$$PWD/../../../target/release -lp-8 -ldl
+} else {
+	LIBS += -L$$PWD/../../../target/debug -lp-8 -ldl
+}
+
 include($$PWD/../../../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR
