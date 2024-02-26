@@ -13,6 +13,8 @@ PRE_TARGETDEPS += $$PWD/../libp-8-handler.a
 LIBS += -L$$PWD/../../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
+include($$OUT_PWD/../../../conf.pri)
+
 CONFIG(debug) {
 	LIBS += -L$$PWD/../../../target/debug -lp-8 -ldl
 	PRE_TARGETDEPS += $$PWD/../../../target/debug/libp-8.a
@@ -21,7 +23,6 @@ CONFIG(debug) {
 	PRE_TARGETDEPS += $$PWD/../../../target/release/libp-8.a
 }
 
-include($$OUT_PWD/../../../conf.pri)
 include(p-8-handler.pri)
 
 unix:!isEmpty(BINDIR) {
