@@ -504,6 +504,7 @@ private slots:
 		config.routesFile = "routes";
 		config.sigIss = "p-8";
 		config.sigKey = "changeme";
+		config.connectionsMax = 20;
 		QVERIFY(engine->start(config));
 
 		wrapper->startHandler();
