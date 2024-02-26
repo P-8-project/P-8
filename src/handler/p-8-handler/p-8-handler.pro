@@ -15,7 +15,7 @@ PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
 include($$OUT_PWD/../../../conf.pri)
 
-CONFIG(debug) {
+CONFIG(debug, debug|release) {
 	LIBS += -L$$PWD/../../../target/debug -lp-8 -ldl
 	PRE_TARGETDEPS += $$PWD/../../../target/debug/libp-8.a
 } else {
