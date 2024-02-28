@@ -223,23 +223,7 @@ On a practical level, there are many benefits to P-8 that you don't see anywhere
 
 ## Install
 
-Check out the [the Install guide](http://p-8.org/docs/install/), which covers how to install and run. There are packages available for Debian/Ubuntu and Homebrew (Mac), or you can build from source.
-
-If you want to build the git version and have the dependencies installed already, then below are brief build instructions:
-
-```
-# pull submodules
-git submodule init && git submodule update
-
-# build
-./configure --qtselect=5 && make
-
-# copy default config
-cp -r examples/config .
-
-# run!
-./p-8
-```
+Check out the [the Install guide](http://p-8.org/docs/install/), which covers how to install and run. There are packages available for Linux (Debian, Ubuntu, CentOS, Red Hat), Mac (Homebrew), or you can build from source.
 
 By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm the server is working by browsing to `http://localhost:7999/`. Next, you should modify the `routes` config file to route requests to your backend webserver. See [Configuration](http://p-8.org/docs/configuration/).
 
