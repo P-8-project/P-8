@@ -10,7 +10,7 @@ P-8 is a reverse proxy server written in C++ that makes it easy to implement Web
 P-8 is placed in the network path between the backend and any clients:
 
 <p align="center">
-  <img src="http://p-8.org/image/p-8-abstract.png" alt="p-8-abstract"/>
+  <img src="https://p-8.org/image/p-8-abstract.png" alt="p-8-abstract"/>
 </p>
 
 P-8 communicates with backend web applications using regular, short-lived HTTP requests. This allows backend applications to be written in any language and use any webserver. There are two main integration points:
@@ -18,7 +18,7 @@ P-8 communicates with backend web applications using regular, short-lived HTTP r
 1. The backend must handle proxied requests. For HTTP, each incoming request is proxied to the backend. For WebSockets, the activity of each connection is translated into a series of HTTP requests<sup>[1](#proxy-modes)</sup> sent to the backend. P-8's behavior is determined by how the backend responds to these requests.
 2. The backend must tell P-8 to push data. Regardless of how clients are connected, data may be pushed to them by making an HTTP POST request to P-8's private control API (`http://localhost:5561/publish/` by default). P-8 will inject this data into any client connections as necessary.
 
-To assist with integration, there are [libraries](http://p-8.org/docs/usage/#libraries) for many backend languages and frameworks. P-8 has no libraries on the client side because it is transparent to clients.
+To assist with integration, there are [libraries](https://p-8.org/docs/usage/#libraries) for many backend languages and frameworks. P-8 has no libraries on the client side because it is transparent to clients.
 
 ## Example
 
@@ -57,11 +57,11 @@ curl -d '{ "items": [ { "channel": "test", "formats": { "http-stream": \
 
 The client would then see the line "hello there" appended to the response stream. Ta-da, transparent realtime push!
 
-For more details, see the [HTTP streaming](http://p-8.org/docs/usage/#http-streaming) section of the documentation. P-8 also supports [HTTP long-polling](http://p-8.org/docs/usage/#http-long-polling) and [WebSockets](http://p-8.org/docs/usage/#websockets).
+For more details, see the [HTTP streaming](https://p-8.org/docs/usage/#http-streaming) section of the documentation. P-8 also supports [HTTP long-polling](https://p-8.org/docs/usage/#http-long-polling) and [WebSockets](https://p-8.org/docs/usage/#websockets).
 
 ## Example using a library
 
-Using a library on the backend makes integration is even easier. Here's another HTTP streaming example, similar to the one shown above, except using P-8's [Django library](https://github.com/fanout/django-grip). Please note that P-8 is not Python/Django-specific and there are backend libraries for [other languages/frameworks, too](http://p-8.org/docs/usage/#libraries).
+Using a library on the backend makes integration is even easier. Here's another HTTP streaming example, similar to the one shown above, except using P-8's [Django library](https://github.com/fanout/django-grip). Please note that P-8 is not Python/Django-specific and there are backend libraries for [other languages/frameworks, too](https://p-8.org/docs/usage/#libraries).
 
 The Django library requires configuration in `settings.py`:
 ```python
@@ -98,7 +98,7 @@ publish('test', HttpStreamFormat('hello there\n'))
 
 ## Example using WebSockets
 
-P-8 supports WebSockets by converting connection activity/messages into HTTP requests and sending them to the backend. For this example, we'll use P-8's [Express library](https://github.com/fanout/express-grip). As before, please note that P-8 is not Node/Express-specific and there are backend libraries for [other languages/frameworks, too](http://p-8.org/docs/usage/#libraries).
+P-8 supports WebSockets by converting connection activity/messages into HTTP requests and sending them to the backend. For this example, we'll use P-8's [Express library](https://github.com/fanout/express-grip). As before, please note that P-8 is not Node/Express-specific and there are backend libraries for [other languages/frameworks, too](https://p-8.org/docs/usage/#libraries).
 
 The Express library requires configuration and setting up middleware handlers before and after any endpoints:
 ```javascript
@@ -164,7 +164,7 @@ What's particularly noteworthy is that the above endpoint is stateless. The app 
 
 The `while` loop is deceptive. It looks like it's looping for the lifetime of the WebSocket connection, but what it's really doing is looping through a batch of WebSocket messages that was just received via HTTP. Often this will be one message, and so the loop performs one iteration and then exits. Similarly, the `ws` object only exists for the duration of the handler invocation, rather than for the lifetime of the connection as you might expect. It may look like socket code, but it's all an illusion. :tophat:
 
-For details on the underlying protocol conversion, see the [WebSocket-Over-HTTP Protocol spec](http://p-8.org/docs/protocols/websocket-over-http/).
+For details on the underlying protocol conversion, see the [WebSocket-Over-HTTP Protocol spec](https://p-8.org/docs/protocols/websocket-over-http/).
 
 ## Example without a webserver
 
@@ -223,9 +223,9 @@ On a practical level, there are many benefits to P-8 that you don't see anywhere
 
 ## Install
 
-Check out the [the Install guide](http://p-8.org/docs/install/), which covers how to install and run. There are packages available for Linux (Debian, Ubuntu, CentOS, Red Hat), Mac (Homebrew), or you can build from source.
+Check out the [the Install guide](https://p-8.org/docs/install/), which covers how to install and run. There are packages available for Linux (Debian, Ubuntu, CentOS, Red Hat), Mac (Homebrew), or you can build from source.
 
-By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm the server is working by browsing to `http://localhost:7999/`. Next, you should modify the `routes` config file to route requests to your backend webserver. See [Configuration](http://p-8.org/docs/configuration/).
+By default, P-8 listens on port 7999 and requests are handled by its internal test handler. You can confirm the server is working by browsing to `http://localhost:7999/`. Next, you should modify the `routes` config file to route requests to your backend webserver. See [Configuration](https://p-8.org/docs/configuration/).
 
 ## Scalability
 
@@ -247,4 +247,4 @@ P-8 is offered under the GNU AGPL. See the COPYING file.
 
 <a name="proxy-modes">1</a>: P-8 can communicate WebSocket activity to the backend using either HTTP or WebSockets. Conversion to HTTP is generally recommended as it makes the backend easier to reason about.
 
-<a name="grip">2</a>: GRIP (Generic Realtime Intermediary Protocol) is the name of P-8's backend protocol. More about that [here](http://p-8.org/docs/protocols/grip/).
+<a name="grip">2</a>: GRIP (Generic Realtime Intermediary Protocol) is the name of P-8's backend protocol. More about that [here](https://p-8.org/docs/protocols/grip/).
