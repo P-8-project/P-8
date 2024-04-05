@@ -1,6 +1,11 @@
 P-8 Changelog
 =================
 
+v. 1.34.0 (2021-11-30)
+
+  * New config option: message_wait.
+  * Publish command for publishing via command socket.
+
 v. 1.33.1 (2021-08-09)
 
   * Build system fixes.
