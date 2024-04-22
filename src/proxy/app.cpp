@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2021 Fanout, Inc.
+ * Copyright (C) 2012-2022 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -304,6 +304,7 @@ public:
 		XffRule xffTrustedRule = parse_xffRule(settings.value("proxy/x_forwarded_for_trusted").toStringList());
 		QStringList origHeadersNeedMarkStr = settings.value("proxy/orig_headers_need_mark").toStringList();
 		trimlist(&origHeadersNeedMarkStr);
+		bool acceptP-8Route = settings.value("proxy/accept_p-8_route").toBool();
 		bool logFrom = settings.value("proxy/log_from").toBool();
 		bool logUserAgent = settings.value("proxy/log_user_agent").toBool();
 		QByteArray sigIss = settings.value("proxy/sig_iss", "p-8").toString().toUtf8();
@@ -383,6 +384,7 @@ public:
 		config.xffUntrustedRule = xffRule;
 		config.xffTrustedRule = xffTrustedRule;
 		config.origHeadersNeedMark = origHeadersNeedMark;
+		config.acceptP-8Route = acceptP-8Route;
 		config.logFrom = logFrom;
 		config.logUserAgent = logUserAgent;
 		config.sigIss = sigIss;

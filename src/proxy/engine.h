@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2021 Fanout, Inc.
+ * Copyright (C) 2012-2022 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -73,6 +73,7 @@ public:
 		XffRule xffUntrustedRule;
 		XffRule xffTrustedRule;
 		QList<QByteArray> origHeadersNeedMark;
+		bool acceptP-8Route;
 		bool logFrom;
 		bool logUserAgent;
 		QByteArray sigIss;
@@ -95,6 +96,7 @@ public:
 			acceptXForwardedProto(false),
 			setXForwardedProto(false),
 			setXForwardedProtocol(false),
+			acceptP-8Route(false),
 			logFrom(false),
 			logUserAgent(false),
 			updatesCheck("check"),

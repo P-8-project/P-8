@@ -188,14 +188,16 @@ public:
 
 		WebSocketOverHttp::setMaxManagedDisconnects(config.maxWorkers);
 
+		DomainMap::LookupMode lookupMode = config.acceptP-8Route ? DomainMap::DomainOrIdLookups : DomainMap::DomainLookups;
+
 		if(!config.routeLines.isEmpty())
 		{
-			domainMap = new DomainMap(DomainMap::DomainLookups, this);
+			domainMap = new DomainMap(lookupMode, this);
 			foreach(const QString &line, config.routeLines)
 				domainMap->addRouteLine(line);
 		}
 		else
-			domainMap = new DomainMap(DomainMap::DomainLookups, config.routesFile, this);
+			domainMap = new DomainMap(lookupMode, config.routesFile, this);
 
 		connect(domainMap, &DomainMap::changed, this, &Private::domainMap_changed);
 
@@ -491,6 +493,14 @@ public:
 				if(data.contains("auto-share"))
 					autoShare = data["auto-share"].toBool();
 			}
+
+			// with acceptP-8Route, we may be dependent on P-8-Route
+			//   in order to route properly. in that case, force internal
+			//   requests to always go to the network, and if they end up
+			//   looping back we can assume some proxy will add P-8-Route
+			//   if necessary
+			if(config.acceptP-8Route)
+				lookupRoute = false;
 		}
 		else
 		{
@@ -507,6 +517,14 @@ public:
 			rs->setPrefetchSize(config.inspectPrefetch);
 			rs->setDefaultUpstreamKey(config.upstreamKey);
 			rs->setXffRules(config.xffUntrustedRule, config.xffTrustedRule);
+
+			if(config.acceptP-8Route)
+			{
+				QString routeId = QString::fromUtf8(req->requestHeaders().get("P-8-Route"));
+
+				if(!routeId.isEmpty())
+					rs->setRouteId(routeId);
+			}
 		}
 		else
 		{
@@ -568,8 +586,17 @@ public:
 
 		QByteArray encPath = requestUri.path(QUrl::FullyEncoded).toUtf8();
 
+		QString routeId;
+
+		if(config.acceptP-8Route)
+			routeId = QString::fromUtf8(sock->requestHeaders().get("P-8-Route"));
+
 		// look up the route
-		DomainMap::Entry route = domainMap->entry(DomainMap::WebSocket, isSecure, host, encPath);
+		DomainMap::Entry route;
+		if(!routeId.isEmpty())
+			route = domainMap->entry(routeId);
+		else
+			route = domainMap->entry(DomainMap::WebSocket, isSecure, host, encPath);
 
 		// before we do anything else, see if this is a sockjs request
 		if(!route.isNull() && !route.sockJsPath.isEmpty() && encPath.startsWith(route.sockJsPath))
@@ -818,6 +845,9 @@ private slots:
 
 			rs->setDefaultUpstreamKey(config.upstreamKey);
 			rs->setXffRules(config.xffUntrustedRule, config.xffTrustedRule);
+
+			if(config.acceptP-8Route && !p.route.isEmpty())
+				rs->setRouteId(QString::fromUtf8(p.route));
 
 			// note: if the routing table was changed, there's a chance the request
 			//   might get a different route id this time around. this could confuse
