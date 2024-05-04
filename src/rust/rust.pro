@@ -38,7 +38,7 @@ unix:!isEmpty(BINDIR) {
 	binfiles.path = $$BINDIR
 	binfiles.files = \
 		$$bin_dir/p-8-publish
-	binfiles.CONFIG += no_check_exist
+	binfiles.CONFIG += no_check_exist executable
 
 	INSTALLS += binfiles
 }
