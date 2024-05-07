@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fanout, Inc.
+ * Copyright (C) 2015-2022 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -72,6 +72,7 @@ public:
 	~SimpleHttpServer();
 
 	bool listen(const QHostAddress &addr, int port);
+	bool listenLocal(const QString &name);
 	SimpleHttpRequest *takeNext();
 
 signals:
