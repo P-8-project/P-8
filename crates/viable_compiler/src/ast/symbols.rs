@@ -1,14 +1,12 @@
 use super::consts::{NOT, SYMBOL_NAMESPACE_DELIMITER};
-use super::types::ast::{
-    ViableAstNode, SpecialSymbolKind, Symbol, SymbolKind, UnicodeCategory, UnicodeCategoryKind,
-};
+use super::types::ast::{ViableAstNode, SpecialSymbolKind, Symbol, SymbolKind, UnicodeCategory, UnicodeCategoryKind};
 use super::utils::first_last_inner_str;
 use crate::ast::types::pest::Rule;
 use crate::errors::CompilerError;
 use crate::types::Result;
 use pest::iterators::Pair;
 
-pub fn symbol(pair: Pair<Rule>) -> Result<ViableAstNode> {
+pub fn symbol(pair: Pair<'_, Rule>) -> Result<ViableAstNode> {
     let (negative, ident) = first_last_inner_str(pair)?;
 
     let negative = negative == NOT;

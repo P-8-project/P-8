@@ -11,6 +11,7 @@ NodeJS bindings for the Viable language compiler
 ```sh
 npm install viablec
 ```
+
 or
 
 ```sh
@@ -20,7 +21,7 @@ yarn add viablec
 ## Usage
 
 ```js
-const { compiler } = require("viablec");
+const { compiler } = require('viablec');
 
 const source = `
   <start>;
@@ -48,7 +49,7 @@ const source = `
 
 try {
   const output = compiler(source);
-  new RegExp(output).test("v1.1.1"); // true
+  new RegExp(output).test('v1.1.1'); // true
 } catch (error) {
   // handle compilation error
 }

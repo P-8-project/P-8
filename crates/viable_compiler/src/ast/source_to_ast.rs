@@ -2,14 +2,14 @@ use super::consts::{LAZY, NOT};
 use super::symbols::symbol;
 use super::types::{
     ast::{
-        AsciiRange, Assertion, AssertionKind, Expression, Group, GroupKind, ViableAst,
-        ViableAstNode, NumericRange, Quantifier, QuantifierKind, Range, VariableInvocation,
+        AsciiRange, Assertion, AssertionKind, Expression, Group, GroupKind, ViableAst, ViableAstNode, NumericRange,
+        Quantifier, QuantifierKind, Range, VariableInvocation,
     },
     pest::{IdentParser, Rule},
 };
 use super::utils::{
-    alphabetic_first_char, first_inner, first_last_inner_str, last_inner, nth_inner, to_char,
-    unquote_escape_literal, unquote_escape_raw,
+    alphabetic_first_char, first_inner, first_last_inner_str, last_inner, nth_inner, to_char, unquote_escape_literal,
+    unquote_escape_raw,
 };
 use crate::errors::CompilerError;
 use crate::types::Result;
@@ -18,13 +18,18 @@ use pest::{iterators::Pair, Parser};
 use std::collections::HashMap;
 use std::hash::BuildHasher;
 
+/// Converts a source string to a Viable AST
+///
+/// # Errors
+///
+/// See [`CompilerError`]
 pub fn to_ast(source: &str) -> Result<ViableAst> {
     if source.is_empty() {
         return Ok(ViableAst::Empty);
     }
 
-    let mut pairs = IdentParser::parse(Rule::root, source)
-        .map_err(|error| CompilerError::ParseError(error.to_string()))?;
+    let mut pairs =
+        IdentParser::parse(Rule::root, source).map_err(|error| CompilerError::ParseError(error.to_string()))?;
 
     let root_statements = pairs.next().ok_or(CompilerError::MissingRootNode)?;
 
@@ -33,9 +38,9 @@ pub fn to_ast(source: &str) -> Result<ViableAst> {
     pairs_to_ast(root_statements.into_inner(), &mut variables)
 }
 
-pub fn pairs_to_ast<H: BuildHasher>(
-    pairs: Pairs<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn pairs_to_ast<T: BuildHasher>(
+    pairs: Pairs<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAst> {
     let mut nodes = Vec::new();
 
@@ -47,9 +52,9 @@ pub fn pairs_to_ast<H: BuildHasher>(
     Ok(ViableAst::Root(nodes))
 }
 
-fn create_ast_node<H: BuildHasher>(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn create_ast_node<T: BuildHasher>(
+    pair: Pair<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAstNode> {
     let node = match pair.as_rule() {
         Rule::raw => ViableAstNode::Atom(unquote_escape_raw(&pair)),
@@ -69,13 +74,11 @@ fn create_ast_node<H: BuildHasher>(
     Ok(node)
 }
 
-fn range(pair: Pair<Rule>) -> Result<ViableAstNode> {
+fn range(pair: Pair<'_, Rule>) -> Result<ViableAstNode> {
     let (first, end) = first_last_inner_str(pair.clone())?;
     let negative = first == NOT;
     let start = if negative {
-        nth_inner(pair, 1)
-            .ok_or(CompilerError::MissingNode)?
-            .as_str()
+        nth_inner(pair, 1).ok_or(CompilerError::MissingNode)?.as_str()
     } else {
         first
     };
@@ -96,9 +99,9 @@ fn range(pair: Pair<Rule>) -> Result<ViableAstNode> {
     Ok(range_node)
 }
 
-fn quantifier<H: BuildHasher>(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn quantifier<T: BuildHasher>(
+    pair: Pair<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAstNode> {
     let quantity = first_inner(pair.clone())?;
     let kind = first_inner(quantity.clone())?;
@@ -113,16 +116,10 @@ fn quantifier<H: BuildHasher>(
         ViableAstNode::UnicodeCategory(category) => Expression::UnicodeCategory(category),
 
         // unexpected nodes
-        ViableAstNode::SpecialSymbol(_) => {
-            return Err(CompilerError::UnexpectedSpecialSymbolInQuantifier)
-        }
-        ViableAstNode::Quantifier(_) => {
-            return Err(CompilerError::UnexpectedQuantifierInQuantifier)
-        }
+        ViableAstNode::SpecialSymbol(_) => return Err(CompilerError::UnexpectedSpecialSymbolInQuantifier),
+        ViableAstNode::Quantifier(_) => return Err(CompilerError::UnexpectedQuantifierInQuantifier),
         ViableAstNode::Assertion(_) => return Err(CompilerError::UnexpectedAssertionInQuantifier),
-        ViableAstNode::VariableInvocation(_) => {
-            return Err(CompilerError::UnexpectedVariableInvocationInQuantifier)
-        }
+        ViableAstNode::VariableInvocation(_) => return Err(CompilerError::UnexpectedVariableInvocationInQuantifier),
         ViableAstNode::Skip => return Err(CompilerError::UnexpectedSkippedNodeInQuantifier),
     };
 
@@ -193,10 +190,7 @@ fn quantifier<H: BuildHasher>(
     Ok(quantifier_node)
 }
 
-fn group<H: BuildHasher>(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
-) -> Result<ViableAstNode> {
+fn group<T: BuildHasher>(pair: Pair<'_, Rule>, variables: &mut HashMap<String, ViableAst, T>) -> Result<ViableAstNode> {
     let declaration = first_inner(pair.clone())?;
 
     let kind = first_inner(declaration.clone())?.as_str();
@@ -226,9 +220,9 @@ fn group<H: BuildHasher>(
     Ok(group_node)
 }
 
-fn assertion<H: BuildHasher>(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn assertion<T: BuildHasher>(
+    pair: Pair<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAstNode> {
     let assertion_declaration = first_inner(pair.clone())?;
 
@@ -253,15 +247,15 @@ fn assertion<H: BuildHasher>(
     Ok(assertion_node)
 }
 
-fn negative_char_class(pair: &Pair<Rule>) -> Result<ViableAstNode> {
+fn negative_char_class(pair: &Pair<'_, Rule>) -> Result<ViableAstNode> {
     let class = last_inner(pair.clone())?;
     let negative_char_class_node = ViableAstNode::NegativeCharClass(class.as_str().to_owned());
     Ok(negative_char_class_node)
 }
 
-fn variable_invocation<H: BuildHasher>(
-    pair: &Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn variable_invocation<T: BuildHasher>(
+    pair: &Pair<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAstNode> {
     let identifier = last_inner(pair.clone())?;
     let statements = match variables.get(identifier.as_str()) {
@@ -274,9 +268,9 @@ fn variable_invocation<H: BuildHasher>(
     Ok(variable_invocation_node)
 }
 
-fn variable_declaration<H: BuildHasher>(
-    pair: Pair<Rule>,
-    variables: &mut HashMap<String, ViableAst, H>,
+fn variable_declaration<T: BuildHasher>(
+    pair: Pair<'_, Rule>,
+    variables: &mut HashMap<String, ViableAst, T>,
 ) -> Result<ViableAstNode> {
     let identifier = first_inner(pair.clone())?;
     let statements = last_inner(pair)?;
