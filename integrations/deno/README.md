@@ -7,9 +7,7 @@ Deno bindings for the Viable language compiler
 ## Usage
 
 ```ts
-import init, { compiler } from 'https://deno.land/x/viable/viable_wasm.js';
-
-await init();
+import { compiler } from 'https://deno.land/x/viable/viable_wasm.js';
 
 const source = `
   <start>;
