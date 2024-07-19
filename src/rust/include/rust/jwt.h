@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Fanout, Inc.
+ * Copyright (C) 2022 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -26,9 +26,31 @@
  * $FANOUT_END_LICENSE$
  */
 
-pub mod ffi;
-pub mod jwt;
-pub mod list;
-pub mod publish_cli;
-pub mod timer;
-pub mod tnetstring;
+#ifndef RUST_JWT_H
+#define RUST_JWT_H
+
+#include <QtGlobal>
+
+extern "C"
+{
+	struct JwtBuffer
+	{
+		quint8 *data;
+		size_t len;
+	};
+
+	void *jwt_encoding_key_from_secret(const quint8 *data, size_t len);
+	void *jwt_encoding_key_from_ec_pem(const quint8 *data, size_t len);
+	void jwt_encoding_key_destroy(void *key);
+
+	void *jwt_decoding_key_from_secret(const quint8 *data, size_t len);
+	void *jwt_decoding_key_from_ec_pem(const quint8 *data, size_t len);
+	void jwt_decoding_key_destroy(void *key);
+
+	void jwt_str_destroy(char *s);
+
+	int jwt_encode(int alg, const char *claim, const void *key, char **out_token);
+	int jwt_decode(int alg, const char *token, const void *key, char **out_claim);
+}
+
+#endif

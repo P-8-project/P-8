@@ -29,6 +29,8 @@
 #ifndef RUST_TIMER_H
 #define RUST_TIMER_H
 
+#include <QtGlobal>
+
 extern "C"
 {
 	struct ExpiredTimer
