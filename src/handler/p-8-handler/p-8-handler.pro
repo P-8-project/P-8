@@ -13,8 +13,8 @@ PRE_TARGETDEPS += $$PWD/../libp-8-handler.a
 LIBS += -L$$PWD/../../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
-include($$OUT_PWD/../../../conf.pri)
 include($$OUT_PWD/../../rust/lib.pri)
+include($$OUT_PWD/../../../conf.pri)
 include(p-8-handler.pri)
 
 unix:!isEmpty(BINDIR) {

@@ -15,8 +15,8 @@ PRE_TARGETDEPS += $$PWD/../libp-8-proxy.a
 LIBS += -L$$PWD/../../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
 
-include($$PWD/../../../conf.pri)
 include($$PWD/../../rust/lib.pri)
+include($$PWD/../../../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR
 INCLUDEPATH += $$CORE_DIR
