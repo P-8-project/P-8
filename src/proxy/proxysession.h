@@ -60,6 +60,7 @@ public:
 	void setXffRules(const XffRule &untrusted, const XffRule &trusted);
 	void setOrigHeadersNeedMark(const QList<QByteArray> &names);
 	void setAcceptP-8Route(bool enabled);
+	void setCdnLoop(const QByteArray &value);
 	void setProxyInitialResponseEnabled(bool enabled);
 
 	void setInspectData(const InspectData &idata);

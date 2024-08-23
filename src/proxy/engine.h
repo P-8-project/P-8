@@ -78,6 +78,7 @@ public:
 		XffRule xffTrustedRule;
 		QList<QByteArray> origHeadersNeedMark;
 		bool acceptP-8Route;
+		QByteArray cdnLoop;
 		bool logFrom;
 		bool logUserAgent;
 		QByteArray sigIss;

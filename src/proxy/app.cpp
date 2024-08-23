@@ -299,6 +299,7 @@ public:
 		QStringList origHeadersNeedMarkStr = settings.value("proxy/orig_headers_need_mark").toStringList();
 		trimlist(&origHeadersNeedMarkStr);
 		bool acceptP-8Route = settings.value("proxy/accept_p-8_route").toBool();
+		QByteArray cdnLoop = settings.value("proxy/cdn_loop").toString().toUtf8();
 		bool logFrom = settings.value("proxy/log_from").toBool();
 		bool logUserAgent = settings.value("proxy/log_user_agent").toBool();
 		QByteArray sigIss = settings.value("proxy/sig_iss", "p-8").toString().toUtf8();
@@ -382,6 +383,7 @@ public:
 		config.xffTrustedRule = xffTrustedRule;
 		config.origHeadersNeedMark = origHeadersNeedMark;
 		config.acceptP-8Route = acceptP-8Route;
+		config.cdnLoop = cdnLoop;
 		config.logFrom = logFrom;
 		config.logUserAgent = logUserAgent;
 		config.sigIss = sigIss;

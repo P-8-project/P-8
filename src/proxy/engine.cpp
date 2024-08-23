@@ -395,6 +395,7 @@ public:
 			ps->setXffRules(config.xffUntrustedRule, config.xffTrustedRule);
 			ps->setOrigHeadersNeedMark(config.origHeadersNeedMark);
 			ps->setAcceptP-8Route(config.acceptP-8Route);
+			ps->setCdnLoop(config.cdnLoop);
 			ps->setProxyInitialResponseEnabled(true);
 
 			if(idata)
@@ -437,6 +438,7 @@ public:
 		ps->setXffRules(config.xffUntrustedRule, config.xffTrustedRule);
 		ps->setOrigHeadersNeedMark(config.origHeadersNeedMark);
 		ps->setAcceptP-8Route(config.acceptP-8Route);
+		ps->setCdnLoop(config.cdnLoop);
 
 		WsProxyItem *i = new WsProxyItem;
 		i->ps = ps;

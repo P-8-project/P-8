@@ -148,6 +148,7 @@ public:
 	XffRule xffTrustedRule;
 	QList<QByteArray> origHeadersNeedMark;
 	bool acceptP-8Route;
+	QByteArray cdnLoop;
 	bool proxyInitialResponse;
 	bool acceptAfterResponding;
 	AcceptRequest *acceptRequest;
@@ -314,7 +315,7 @@ public:
 			trustedClient = rs->trusted();
 			QHostAddress clientAddress = rs->request()->peerAddress();
 
-			ProxyUtil::manipulateRequestHeaders("proxysession", q, &requestData, trustedClient, route, sigIss, sigKey, acceptXForwardedProtocol, useXForwardedProto, useXForwardedProtocol, xffTrustedRule, xffRule, origHeadersNeedMark, acceptP-8Route, clientAddress, idata, route.grip, intReq);
+			ProxyUtil::manipulateRequestHeaders("proxysession", q, &requestData, trustedClient, route, sigIss, sigKey, acceptXForwardedProtocol, useXForwardedProto, useXForwardedProtocol, xffTrustedRule, xffRule, origHeadersNeedMark, acceptP-8Route, cdnLoop, clientAddress, idata, route.grip, intReq);
 
 			state = Requesting;
 			buffering = true;
@@ -1512,6 +1513,11 @@ void ProxySession::setOrigHeadersNeedMark(const QList<QByteArray> &names)
 void ProxySession::setAcceptP-8Route(bool enabled)
 {
 	d->acceptP-8Route = enabled;
+}
+
+void ProxySession::setCdnLoop(const QByteArray &value)
+{
+	d->cdnLoop = value;
 }
 
 void ProxySession::setProxyInitialResponseEnabled(bool enabled)
