@@ -61,7 +61,7 @@ For more details, see the [HTTP streaming](https://p-8.org/docs/usage/#http-stre
 
 ## Example using a library
 
-Using a library on the backend makes integration is even easier. Here's another HTTP streaming example, similar to the one shown above, except using P-8's [Django library](https://github.com/fanout/django-grip). Please note that P-8 is not Python/Django-specific and there are backend libraries for [other languages/frameworks, too](https://p-8.org/docs/usage/#libraries).
+Using a library on the backend makes integration even easier. Here's another HTTP streaming example, similar to the one shown above, except using P-8's [Django library](https://github.com/fanout/django-grip). Please note that P-8 is not Python/Django-specific and there are backend libraries for [other languages/frameworks, too](https://p-8.org/docs/usage/#libraries).
 
 The Django library requires configuration in `settings.py`:
 ```python
