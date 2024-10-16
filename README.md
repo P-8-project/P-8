@@ -241,7 +241,7 @@ P-8 means to "pin" connections open for "pushing".
 
 ## License
 
-P-8 is offered under the GNU AGPL. See the COPYING file.
+P-8 is offered under the Apache License, Version 2.0. See the LICENSE file.
 
 ## Footnotes
 
