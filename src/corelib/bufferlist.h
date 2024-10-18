@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Fanout, Inc.
- *
- * This file is part of P-8.
+ * Copyright (C) 2013 Fanout, Inc.
  *
  * $FANOUT_BEGIN_LICENSE:APACHE2$
  *
@@ -20,19 +18,40 @@
  * $FANOUT_END_LICENSE$
  */
 
-#ifndef HTTPREQUESTDATA_H
-#define HTTPREQUESTDATA_H
+#ifndef BUFFERLIST_H
+#define BUFFERLIST_H
 
-#include "../httpheaders.h"
-#include <QUrl>
+#include <QList>
+#include <QByteArray>
 
-class HttpRequestData
+class BufferList
 {
 public:
-	QString method;
-	QUrl uri;
-	HttpHeaders headers;
-	QByteArray body;
+	BufferList();
+
+	int size() const { return size_; }
+	bool isEmpty() const { return size_ == 0; }
+
+	QByteArray mid(int pos, int size = -1) const;
+
+	void clear();
+	void append(const QByteArray &buf);
+	QByteArray take(int size = -1);
+
+	QByteArray toByteArray(); // non-const because we rewrite the list
+
+	BufferList & operator+=(const QByteArray &buf)
+	{
+		append(buf);
+		return *this;
+	}
+
+private:
+	QList<QByteArray> bufs_;
+	int size_;
+	int offset_;
+
+	void findPos(int pos, int *bufferIndex, int *offset) const;
 };
 
 #endif

@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Fanout, Inc.
- *
- * This file is part of P-8.
+ * Copyright (C) 2014 Fanout, Inc.
  *
  * $FANOUT_BEGIN_LICENSE:APACHE2$
  *
@@ -20,19 +18,32 @@
  * $FANOUT_END_LICENSE$
  */
 
-#ifndef HTTPREQUESTDATA_H
-#define HTTPREQUESTDATA_H
+#ifndef LAYERTRACKER_H
+#define LAYERTRACKER_H
 
-#include "../httpheaders.h"
-#include <QUrl>
+#include <QList>
 
-class HttpRequestData
+class LayerTracker
 {
 public:
-	QString method;
-	QUrl uri;
-	HttpHeaders headers;
-	QByteArray body;
+	LayerTracker();
+
+	void reset();
+
+	void addPlain(int plain);
+	void specifyEncoded(int encoded, int plain);
+	int finished(int encoded);
+
+private:
+	class Item
+	{
+	public:
+		int plain;
+		int encoded;
+	};
+
+	int plain_;
+	QList<Item> items_;
 };
 
 #endif
