@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-use condure::channel;
-use condure::client::TestClient;
-use condure::executor::Executor;
-use condure::future::{AsyncReadExt, AsyncSender, AsyncTcpListener, AsyncTcpStream, AsyncWriteExt};
-use condure::reactor::Reactor;
 use criterion::{criterion_group, criterion_main, Criterion};
 use mio::net::TcpListener;
+use p-8::channel;
+use p-8::client::TestClient;
+use p-8::executor::Executor;
+use p-8::future::{AsyncReadExt, AsyncSender, AsyncTcpListener, AsyncTcpStream, AsyncWriteExt};
+use p-8::reactor::Reactor;
 use std::net::SocketAddr;
 use std::rc::Rc;
 use std::str;

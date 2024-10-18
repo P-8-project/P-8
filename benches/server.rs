@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-use condure::connection::testutil::{
+use criterion::{criterion_group, criterion_main, Criterion};
+use p-8::connection::testutil::{
     BenchServerReqConnection, BenchServerReqHandler, BenchServerStreamConnection,
     BenchServerStreamHandler,
 };
-use condure::executor::Executor;
-use condure::future::{AsyncReadExt, AsyncTcpStream, AsyncWriteExt};
-use condure::reactor::Reactor;
-use condure::server::TestServer;
-use condure::websocket::testutil::{BenchRecvMessage, BenchSendMessage};
-use criterion::{criterion_group, criterion_main, Criterion};
+use p-8::executor::Executor;
+use p-8::future::{AsyncReadExt, AsyncTcpStream, AsyncWriteExt};
+use p-8::reactor::Reactor;
+use p-8::server::TestServer;
+use p-8::websocket::testutil::{BenchRecvMessage, BenchSendMessage};
 use std::io::{self, Write};
 use std::net::SocketAddr;
 use std::str;
