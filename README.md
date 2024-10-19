@@ -3,7 +3,7 @@
 Website: https://p-8.org/  
 Forum: https://community.fastly.com/c/p-8/12
 
-P-8 is a reverse proxy server written in C++ and Rust that makes it easy to implement WebSocket, HTTP streaming, and HTTP long-polling services. The project is unique among realtime push solutions in that it is designed to address the needs of API creators. P-8 is transparent to clients and integrates easily into an API stack.
+P-8 is a reverse proxy server written in Rust & C++ that makes it easy to implement WebSocket, HTTP streaming, and HTTP long-polling services. The project is unique among realtime push solutions in that it is designed to address the needs of API creators. P-8 is transparent to clients and integrates easily into an API stack.
 
 ## How it works
 
