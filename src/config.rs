@@ -446,7 +446,7 @@ pub fn get_config_file(arg_config: &Path) -> Result<PathBuf, Box<dyn Error>> {
         config_files.push(PathBuf::from("./examples/config/p-8.conf"));
         // default
         config_files.push(PathBuf::from(format!(
-            "{:?}/p-8.conf",
+            "{}/p-8.conf",
             env!("CONFIG_DIR")
         )));
     }
