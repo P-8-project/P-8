@@ -44,6 +44,12 @@ pub fn start_services(settings: Settings) {
     {
         services.push(Box::new(P-8ProxyService::new(&settings)));
     }
+    if settings
+        .service_names
+        .contains(&String::from("p-8-handler"))
+    {
+        services.push(Box::new(P-8HandlerService::new(&settings)));
+    }
 
     let (sender, receiver) = channel();
     let mut threads: Vec<Option<JoinHandle<()>>> = vec![];
@@ -257,6 +263,46 @@ impl P-8ProxyService {
 }
 
 impl RunnerService for P-8ProxyService {
+    fn start(&mut self, sender: Sender<Result<(), ServiceError>>) -> Option<JoinHandle<()>> {
+        self.service.start(self.args.clone(), sender)
+    }
+}
+
+pub struct P-8HandlerService {
+    args: Vec<String>,
+    pub service: Service,
+}
+
+impl P-8HandlerService {
+    pub fn new(settings: &Settings) -> Self {
+        let mut args: Vec<String> = vec![];
+        let service_name = "handler";
+
+        args.push(settings.handler_bin.display().to_string());
+        args.push(format!("--config={}", settings.config_file.display()));
+
+        if settings.port_offset > 0 {
+            args.push(format!("--port-offset={}", settings.port_offset));
+        }
+        if !settings.ipc_prefix.is_empty() {
+            args.push(format!("--ipc-prefix={}", settings.ipc_prefix));
+        }
+        let log_level = match settings.log_levels.get("p-8-handler") {
+            Some(&x) => x as i8,
+            None => -1,
+        };
+        if log_level >= 0 {
+            args.push(format!("--loglevel={}", log_level));
+        }
+
+        Self {
+            service: Service::new(String::from(service_name)),
+            args,
+        }
+    }
+}
+
+impl RunnerService for P-8HandlerService {
     fn start(&mut self, sender: Sender<Result<(), ServiceError>>) -> Option<JoinHandle<()>> {
         self.service.start(self.args.clone(), sender)
     }
