@@ -22,9 +22,25 @@ condure_build.target = $$target_dir/condure
 condure_build.depends = rust_build
 condure_build.commands = @:
 
-p-8_build.target = $$target_dir/p-8
-p-8_build.depends = rust_build
-p-8_build.commands = @:
+m2adapter_build.target = $$target_dir/m2adapter
+m2adapter_build.depends = rust_build
+m2adapter_build.commands = @:
+
+proxy_build.target = $$target_dir/p-8-proxy
+proxy_build.depends = rust_build
+proxy_build.commands = @:
+
+handler_build.target = $$target_dir/p-8-handler
+handler_build.depends = rust_build
+handler_build.commands = @:
+
+runner_legacy_build.target = $$target_dir/p-8-legacy
+runner_legacy_build.depends = rust_build
+runner_legacy_build.commands = @:
+
+runner_build.target = $$target_dir/p-8
+runner_build.depends = rust_build
+runner_build.commands = @:
 
 publish_build.target = $$target_dir/p-8-publish
 publish_build.depends = rust_build
@@ -34,9 +50,25 @@ condure_bin.target = $$bin_dir/condure
 condure_bin.depends = condure_build
 condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/condure $$bin_dir/condure
 
-p-8_bin.target = $$root_dir/p-8
-p-8_bin.depends = p-8_build
-p-8_bin.commands = cp -a $$target_dir/p-8 $$root_dir/p-8
+m2adapter_bin.target = $$bin_dir/m2adapter
+m2adapter_bin.depends = m2adapter_build
+m2adapter_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/m2adapter $$bin_dir/m2adapter
+
+proxy_bin.target = $$bin_dir/p-8-proxy
+proxy_bin.depends = proxy_build
+proxy_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-proxy $$bin_dir/p-8-proxy
+
+handler_bin.target = $$bin_dir/p-8-handler
+handler_bin.depends = handler_build
+handler_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-handler $$bin_dir/p-8-handler
+
+runner_legacy_bin.target = $$root_dir/p-8-legacy
+runner_legacy_bin.depends = runner_legacy_build
+runner_legacy_bin.commands = cp -a $$target_dir/p-8-legacy $$root_dir/p-8-legacy
+
+runner_bin.target = $$root_dir/p-8
+runner_bin.depends = runner_build
+runner_bin.commands = cp -a $$target_dir/p-8 $$root_dir/p-8
 
 publish_bin.target = $$bin_dir/p-8-publish
 publish_bin.depends = publish_build
@@ -46,14 +78,26 @@ publish_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-publish $$bi
 QMAKE_EXTRA_TARGETS += \
 	rust_build \
 	condure_build \
-	p-8_build \
+	m2adapter_build \
+	proxy_build \
+	handler_build \
+	runner_legacy_build \
+	runner_build \
 	publish_build \
 	condure_bin \
-	p-8_bin \
+	m2adapter_bin \
+	proxy_bin \
+	handler_bin \
+	runner_legacy_bin \
+	runner_bin \
 	publish_bin
 
 PRE_TARGETDEPS += \
 	$$bin_dir/condure \
+	$$bin_dir/m2adapter \
+	$$bin_dir/p-8-proxy \
+	$$bin_dir/p-8-handler \
+	$$root_dir/p-8-legacy \
 	$$root_dir/p-8 \
 	$$bin_dir/p-8-publish
 
@@ -61,6 +105,10 @@ unix:!isEmpty(BINDIR) {
 	binfiles.path = $$BINDIR
 	binfiles.files = \
 		$$bin_dir/condure \
+		$$bin_dir/m2adapter \
+		$$bin_dir/p-8-proxy \
+		$$bin_dir/p-8-handler \
+		$$root_dir/p-8-legacy \
 		$$root_dir/p-8 \
 		$$bin_dir/p-8-publish
 	binfiles.CONFIG += no_check_exist executable
