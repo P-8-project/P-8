@@ -11,6 +11,7 @@ OBJECTS_DIR = $$OUT_PWD/_obj
 LIBS += -L$$PWD/../corelib -lp-8-core
 PRE_TARGETDEPS += $$PWD/../corelib/libp-8-core.a
 
+include($$OUT_PWD/../rust/lib.pri)
 include($$OUT_PWD/../../conf.pri)
 include(m2adapter.pri)
 
