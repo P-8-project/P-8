@@ -2,7 +2,7 @@ CONFIG += console
 CONFIG -= app_bundle
 QT -= gui
 QT += network
-TARGET = p-8
+TARGET = p-8-legacy
 DESTDIR = ../../..
 
 MOC_DIR = $$OUT_PWD/_moc

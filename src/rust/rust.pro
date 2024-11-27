@@ -26,6 +26,10 @@ publish_build.target = $$target_dir/p-8-publish
 publish_build.depends = rust_build
 publish_build.commands = @:
 
+p-8_build.target = $$target_dir/p-8
+p-8_build.depends = rust_build
+p-8_build.commands = @:
+
 condure_bin.target = $$bin_dir/condure
 condure_bin.depends = condure_build
 condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/condure $$bin_dir/condure
@@ -34,21 +38,29 @@ publish_bin.target = $$bin_dir/p-8-publish
 publish_bin.depends = publish_build
 publish_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-publish $$bin_dir/p-8-publish
 
+p-8_bin.target = $$bin_dir/p-8
+p-8_bin.depends = p-8_build
+p-8_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8 $$bin_dir/p-8
+
 QMAKE_EXTRA_TARGETS += \
 	rust_build \
 	condure_build \
 	publish_build \
+	p-8_build \
 	condure_bin \
+	p-8_bin \
 	publish_bin
 
 PRE_TARGETDEPS += \
 	$$bin_dir/condure \
+	$$bin_dir/p-8 \
 	$$bin_dir/p-8-publish
 
 unix:!isEmpty(BINDIR) {
 	binfiles.path = $$BINDIR
 	binfiles.files = \
 		$$bin_dir/condure \
+		$$bin_dir/p-8 \
 		$$bin_dir/p-8-publish
 	binfiles.CONFIG += no_check_exist executable
 
