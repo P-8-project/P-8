@@ -8,8 +8,8 @@ SRC_DIR = $$PWD/..
 QZMQ_DIR = $$SRC_DIR/qzmq
 RUST_DIR = $$SRC_DIR/../rust
 
-LIBS += -L$$SRC_DIR -lp-8-core
-PRE_TARGETDEPS += $$PWD/../libp-8-core.a
+LIBS += -L$$SRC_DIR -lp-8-cpp
+PRE_TARGETDEPS += $$PWD/../libp-8-cpp.a
 
 include($$PWD/../../rust/lib.pri)
 include($$PWD/../../../conf.pri)

@@ -5,17 +5,17 @@ QT *= network testlib
 
 TESTS_DIR = $$PWD
 SRC_DIR = $$PWD/..
-CORE_DIR = $$PWD/../../corelib
+CPP_DIR = $$PWD/../../cpp
 
 LIBS += -L$$SRC_DIR -lrunner
 PRE_TARGETDEPS += $$PWD/../librunner.a
 
-LIBS += -L$$PWD/../../corelib -lp-8-core
-PRE_TARGETDEPS += $$PWD/../../corelib/libp-8-core.a
+LIBS += -L$$PWD/../../cpp -lp-8-cpp
+PRE_TARGETDEPS += $$PWD/../../cpp/libp-8-cpp.a
 
 include($$PWD/../../../conf.pri)
 
 INCLUDEPATH += $$SRC_DIR
-INCLUDEPATH += $$CORE_DIR
+INCLUDEPATH += $$CPP_DIR
 
 DEFINES += NO_IRISNET
