@@ -1,14 +1,21 @@
-TEMPLATE = subdirs
+CONFIG += console
+CONFIG -= app_bundle
+QT -= gui
+QT += network
+TARGET = p-8-proxy
+DESTDIR = ../../bin
 
-libp-8_proxy.subdir = libp-8-proxy
-p-8_proxy.subdir = p-8-proxy
-p-8_proxy.depends = libp-8_proxy
-tests.subdir = tests
-tests.depends = libp-8_proxy
+MOC_DIR = $$OUT_PWD/_moc
+OBJECTS_DIR = $$OUT_PWD/_obj
 
-tests.CONFIG += no_default_install
+LIBS += -L$$PWD/../cpp -lp-8-cpp
+PRE_TARGETDEPS += $$PWD/../cpp/libp-8-cpp.a
 
-SUBDIRS += \
-	libp-8_proxy \
-	p-8_proxy \
-	tests
+include($$OUT_PWD/../rust/lib.pri)
+include($$OUT_PWD/../../conf.pri)
+include(proxy.pri)
+
+unix:!isEmpty(BINDIR) {
+	target.path = $$BINDIR
+	INSTALLS += target
+}

@@ -30,12 +30,6 @@ vendor
 /src/cpp/tests/*test/*test
 /src/m2adapter/Makefile
 /src/proxy/Makefile
-/src/proxy/libp-8-proxy/Makefile
-/src/proxy/p-8-proxy/Makefile
-/src/proxy/libp-8-proxy.a
-/src/proxy/tests/Makefile
-/src/proxy/tests/*test/Makefile
-/src/proxy/tests/*test/*test
 /src/handler/Makefile
 /src/handler/libp-8-handler/Makefile
 /src/handler/p-8-handler/Makefile
