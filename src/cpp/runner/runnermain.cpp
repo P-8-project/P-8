@@ -20,28 +20,43 @@
  * $FANOUT_END_LICENSE$
  */
 
-#ifndef APP_H
-#define APP_H
+#include <QCoreApplication>
+#include <QTimer>
+#include "runnerapp.h"
 
-#include <QObject>
-
-class App : public QObject
+class RunnerAppMain : public QObject
 {
 	Q_OBJECT
 
 public:
-	App(QObject *parent = 0);
-	~App();
+	RunnerApp *app;
 
-	void start();
+public slots:
+	void start()
+	{
+		app = new RunnerApp(this);
+		connect(app, &RunnerApp::quit, this, &RunnerAppMain::app_quit);
+		app->start();
+	}
 
-signals:
-	void quit(int returnCode = 0);
-
-private:
-	class Private;
-	friend class Private;
-	Private *d;
+	void app_quit(int returnCode)
+	{
+		delete app;
+		QCoreApplication::exit(returnCode);
+	}
 };
 
-#endif
+extern "C" {
+
+int runner_main(int argc, char **argv)
+{
+	QCoreApplication qapp(argc, argv);
+
+	RunnerAppMain appMain;
+	QTimer::singleShot(0, &appMain, SLOT(start()));
+	return qapp.exec();
+}
+
+}
+
+#include "runnermain.moc"

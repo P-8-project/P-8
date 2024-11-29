@@ -20,39 +20,28 @@
  * $FANOUT_END_LICENSE$
  */
 
-#include <QCoreApplication>
-#include <QTimer>
-#include "app.h"
+#ifndef M2ADAPTERAPP_H
+#define M2ADAPTERAPP_H
 
-class AppMain : public QObject
+#include <QObject>
+
+class M2AdapterApp : public QObject
 {
 	Q_OBJECT
 
 public:
-	App *app;
+	M2AdapterApp(QObject *parent = 0);
+	~M2AdapterApp();
 
-public slots:
-	void start()
-	{
-		app = new App(this);
-		connect(app, &App::quit, this, &AppMain::app_quit);
-		app->start();
-	}
+	void start();
 
-	void app_quit(int returnCode)
-	{
-		delete app;
-		QCoreApplication::exit(returnCode);
-	}
+signals:
+	void quit(int returnCode = 0);
+
+private:
+	class Private;
+	friend class Private;
+	Private *d;
 };
 
-int main(int argc, char **argv)
-{
-	QCoreApplication qapp(argc, argv);
-
-	AppMain appMain;
-	QTimer::singleShot(0, &appMain, SLOT(start()));
-	return qapp.exec();
-}
-
-#include "main.moc"
+#endif
