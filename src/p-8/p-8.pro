@@ -11,12 +11,18 @@ p-8_conf_inst.depends = ../../examples/config/p-8.conf
 QMAKE_EXTRA_TARGETS += p-8_conf_inst
 PRE_TARGETDEPS += p-8.conf.inst
 
-# install general lib files
+# install lib files
 
 libfiles.path = $$LIBDIR
 libfiles.files = internal.conf
 
+runnerlibfiles.path = $$LIBDIR/runner
+runnerlibfiles.files = $$PWD/../runner/*.template
+
 # install config files
+
+runnerconfigfiles.path = $$CONFIGDIR/runner
+runnerconfigfiles.files = $$PWD/../../examples/config/runner/certs
 
 routes.path = $$CONFIGDIR
 routes.extra = test -e $(INSTALL_ROOT)$$routes.path/routes || cp -f ../../examples/config/routes $(INSTALL_ROOT)$$routes.path/routes
@@ -24,4 +30,4 @@ routes.extra = test -e $(INSTALL_ROOT)$$routes.path/routes || cp -f ../../exampl
 p-8conf.path = $$CONFIGDIR
 p-8conf.extra = test -e $(INSTALL_ROOT)$$p-8conf.path/p-8.conf || cp -f p-8.conf.inst $(INSTALL_ROOT)$$p-8conf.path/p-8.conf
 
-INSTALLS += libfiles routes p-8conf
+INSTALLS += libfiles runnerlibfiles runnerconfigfiles routes p-8conf
