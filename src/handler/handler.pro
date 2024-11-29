@@ -1,14 +1,21 @@
-TEMPLATE = subdirs
+CONFIG += console
+CONFIG -= app_bundle
+QT -= gui
+QT += network
+TARGET = p-8-handler
+DESTDIR = ../../bin
 
-libp-8_handler.subdir = libp-8-handler
-p-8_handler.subdir = p-8-handler
-p-8_handler.depends = libp-8_handler
-tests.subdir = tests
-tests.depends = libp-8_handler
+MOC_DIR = $$OUT_PWD/_moc
+OBJECTS_DIR = $$OUT_PWD/_obj
 
-tests.CONFIG += no_default_install
+LIBS += -L$$PWD/../cpp -lp-8-cpp
+PRE_TARGETDEPS += $$PWD/../cpp/libp-8-cpp.a
 
-SUBDIRS += \
-	libp-8_handler \
-	p-8_handler \
-	tests
+include($$OUT_PWD/../rust/lib.pri)
+include($$OUT_PWD/../../conf.pri)
+include(handler.pri)
+
+unix:!isEmpty(BINDIR) {
+	target.path = $$BINDIR
+	INSTALLS += target
+}
