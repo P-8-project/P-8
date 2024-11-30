@@ -16,6 +16,7 @@ vendor
 .vscode
 
 /p-8
+/p-8-legacy
 /bin/*
 /conf.log
 /conf.pri
@@ -23,26 +24,14 @@ vendor
 /src/config.h
 /src/Makefile
 /src/cpp/Makefile
+/src/cpp/makedirs/Makefile
 /src/cpp/cpp/Makefile
-/src/cpp/libp-8-cpp.a
-/src/cpp/libp-8-cpptest.a
 /src/cpp/tests/Makefile
-/src/cpp/tests/*test/Makefile
-/src/cpp/tests/*test/*test
-/src/m2adapter/Makefile
-/src/proxy/Makefile
-/src/handler/Makefile
 /src/rust/Makefile
-/src/runner/Makefile
-/src/runner/tests/Makefile
-/src/runner/tests/*test/Makefile
-/src/runner/tests/*test/*test
 /src/runner/certs/*.crt
 /src/runner/certs/*.key
 /src/p-8/Makefile
 /src/p-8/*.inst
-/tools/Makefile
-/tools/publish/Makefile
 /config
 /run
 /log
