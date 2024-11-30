@@ -4,16 +4,18 @@ CONFIG += staticlib
 QT -= gui
 QT *= network testlib
 TARGET = p-8-cpptest
-DESTDIR = ..
+DESTDIR = ../../../target/cpp
 
-MOC_DIR = $$OUT_PWD/_moc
-OBJECTS_DIR = $$OUT_PWD/_obj
+cpp_build_dir = $$OUT_PWD/../../../target/cpp
+
+MOC_DIR = $$cpp_build_dir/test-moc
+OBJECTS_DIR = $$cpp_build_dir/test-obj
 
 SRC_DIR = $$PWD/..
 QZMQ_DIR = $$SRC_DIR/qzmq
 RUST_DIR = $$SRC_DIR/../rust
 
-PRE_TARGETDEPS += $$PWD/../libp-8-cpp.a
+PRE_TARGETDEPS += $$cpp_build_dir/libp-8-cpp.a
 
 include($$PWD/../../../conf.pri)
 
