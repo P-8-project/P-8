@@ -2,6 +2,9 @@ TEMPLATE = aux
 
 include($$OUT_PWD/../../conf.pri)
 
+bin_dir = $$PWD/../../bin
+root_dir = $$PWD/../..
+
 # generate p-8.conf for installation
 
 p-8_conf_inst.target = p-8.conf.inst
@@ -10,6 +13,23 @@ p-8_conf_inst.depends = ../../examples/config/p-8.conf
 
 QMAKE_EXTRA_TARGETS += p-8_conf_inst
 PRE_TARGETDEPS += p-8.conf.inst
+
+# install bin files
+
+unix:!isEmpty(BINDIR) {
+	binfiles.path = $$BINDIR
+	binfiles.files = \
+		$$bin_dir/condure \
+		$$bin_dir/m2adapter \
+		$$bin_dir/p-8-proxy \
+		$$bin_dir/p-8-handler \
+		$$root_dir/p-8-legacy \
+		$$root_dir/p-8 \
+		$$bin_dir/p-8-publish
+	binfiles.CONFIG += no_check_exist executable
+
+	INSTALLS += binfiles
+}
 
 # install lib files
 
