@@ -29,8 +29,8 @@ vendor
 /src/rust/Makefile
 /src/runner/certs/*.crt
 /src/runner/certs/*.key
-/src/p-8/Makefile
-/src/p-8/*.inst
+/postbuild/Makefile
+/postbuild/*.inst
 /config
 /run
 /log
