@@ -5,8 +5,8 @@ CONFIG -= debug_and_release debug
 
 include($$OUT_PWD/../../conf.pri)
 
-bin_dir = $$PWD/../../bin
 root_dir = $$PWD/../..
+bin_dir = $$root_dir/bin
 
 CONFIG(debug, debug|release) {
 	cargo_flags =
@@ -110,18 +110,3 @@ PRE_TARGETDEPS += \
 	$$root_dir/p-8-legacy \
 	$$root_dir/p-8 \
 	$$bin_dir/p-8-publish
-
-unix:!isEmpty(BINDIR) {
-	binfiles.path = $$BINDIR
-	binfiles.files = \
-		$$bin_dir/condure \
-		$$bin_dir/m2adapter \
-		$$bin_dir/p-8-proxy \
-		$$bin_dir/p-8-handler \
-		$$root_dir/p-8-legacy \
-		$$root_dir/p-8 \
-		$$bin_dir/p-8-publish
-	binfiles.CONFIG += no_check_exist executable
-
-	INSTALLS += binfiles
-}
