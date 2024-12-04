@@ -37,10 +37,10 @@ Settings::Settings(const QString &fileName) :
 	libdir_ = valueRaw("global/libdir").toString();
 	if(libdir_.isEmpty())
 	{
-		if(QFile::exists("src/p-8/p-8.pro"))
+		if(QFile::exists("src/bin/p-8.rs"))
 		{
 			// running in tree
-			libdir_ = QFileInfo("src/p-8").absoluteFilePath();
+			libdir_ = QFileInfo("src").absoluteFilePath();
 		}
 		else
 		{
