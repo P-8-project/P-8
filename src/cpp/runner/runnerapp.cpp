@@ -270,7 +270,7 @@ public:
 	void start()
 	{
 		QCoreApplication::setApplicationName("p-8");
-		QCoreApplication::setApplicationVersion(VERSION);
+		QCoreApplication::setApplicationVersion(Config::get().version);
 
 		QCommandLineParser parser;
 		parser.setApplicationDescription("Reverse proxy for realtime web services.");
@@ -324,7 +324,7 @@ public:
 			configFileList += QDir("examples/config").absoluteFilePath("p-8.conf");
 
 			// default
-			configFileList += QDir(CONFIGDIR).filePath("p-8.conf");
+			configFileList += QDir(Config::get().configDir).filePath("p-8.conf");
 		}
 
 		QString configFile;
@@ -381,7 +381,7 @@ public:
 			else
 			{
 				// use compiled value
-				libDir = QDir(LIBDIR).absoluteFilePath("runner");
+				libDir = QDir(Config::get().libDir).absoluteFilePath("runner");
 			}
 		}
 

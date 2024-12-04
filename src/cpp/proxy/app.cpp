@@ -183,7 +183,7 @@ public:
 	void start()
 	{
 		QCoreApplication::setApplicationName("p-8-proxy");
-		QCoreApplication::setApplicationVersion(VERSION);
+		QCoreApplication::setApplicationVersion(Config::get().version);
 
 		QCommandLineParser parser;
 		parser.setApplicationDescription("P-8 proxy component.");
@@ -226,7 +226,7 @@ public:
 
 		QString configFile = args.configFile;
 		if(configFile.isEmpty())
-			configFile = QDir(CONFIGDIR).filePath("p-8.conf");
+			configFile = QDir(Config::get().configDir).filePath("p-8.conf");
 
 		// QSettings doesn't inform us if the config file doesn't exist, so do that ourselves
 		{
@@ -344,7 +344,7 @@ public:
 			updatesCheck = "check";
 
 		Engine::Configuration config;
-		config.appVersion = VERSION;
+		config.appVersion = Config::get().version;
 		config.clientId = "p-8-proxy_" + QByteArray::number(QCoreApplication::applicationPid());
 		if(!services.contains("mongrel2") && (!condure_in_specs.isEmpty() || !condure_in_stream_specs.isEmpty() || !condure_out_specs.isEmpty()))
 		{
