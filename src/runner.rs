@@ -32,11 +32,12 @@ use std::sync::{Mutex, Once};
 use url::Url;
 
 use crate::config::{get_config_file, CustomConfig};
+use crate::version;
 
 #[derive(Parser, Clone)]
 #[command(
-    name = "P-8",
-    version,
+    name = "p-8",
+    version = version(),
     about = "Reverse proxy for realtime web services."
 )]
 pub struct CliArgs {
