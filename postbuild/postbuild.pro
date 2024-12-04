@@ -1,9 +1,66 @@
 TEMPLATE = aux
+CONFIG -= debug_and_release debug
 
 include($$OUT_PWD/../conf.pri)
 
 root_dir = $$PWD/..
 bin_dir = $$root_dir/bin
+
+CONFIG(debug, debug|release) {
+	cargo_flags =
+	target_dir = $$root_dir/target/debug
+} else {
+	cargo_flags = --release
+	target_dir = $$root_dir/target/release
+}
+
+# copy bin files
+
+condure_bin.target = $$bin_dir/condure
+condure_bin.depends = $$target_dir/condure
+condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/condure $$bin_dir/condure
+
+m2adapter_bin.target = $$bin_dir/m2adapter
+m2adapter_bin.depends = $$target_dir/m2adapter
+m2adapter_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/m2adapter $$bin_dir/m2adapter
+
+proxy_bin.target = $$bin_dir/p-8-proxy
+proxy_bin.depends = $$target_dir/p-8-proxy
+proxy_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-proxy $$bin_dir/p-8-proxy
+
+handler_bin.target = $$bin_dir/p-8-handler
+handler_bin.depends = $$target_dir/p-8-handler
+handler_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-handler $$bin_dir/p-8-handler
+
+runner_legacy_bin.target = $$root_dir/p-8-legacy
+runner_legacy_bin.depends = $$target_dir/p-8-legacy
+runner_legacy_bin.commands = cp -a $$target_dir/p-8-legacy $$root_dir/p-8-legacy
+
+runner_bin.target = $$root_dir/p-8
+runner_bin.depends = $$target_dir/p-8
+runner_bin.commands = cp -a $$target_dir/p-8 $$root_dir/p-8
+
+publish_bin.target = $$bin_dir/p-8-publish
+publish_bin.depends = $$target_dir/p-8-publish
+publish_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-publish $$bin_dir/p-8-publish
+
+QMAKE_EXTRA_TARGETS += \
+	condure_bin \
+	m2adapter_bin \
+	proxy_bin \
+	handler_bin \
+	runner_legacy_bin \
+	runner_bin \
+	publish_bin
+
+PRE_TARGETDEPS += \
+	$$bin_dir/condure \
+	$$bin_dir/m2adapter \
+	$$bin_dir/p-8-proxy \
+	$$bin_dir/p-8-handler \
+	$$root_dir/p-8-legacy \
+	$$root_dir/p-8 \
+	$$bin_dir/p-8-publish
 
 # generate p-8.conf for installation
 
