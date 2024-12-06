@@ -12,7 +12,7 @@ DESTDIR=build/p-8-$VERSION
 
 mkdir -p $DESTDIR
 
-cp -a .gitignore build.rs Cargo.lock Cargo.toml CHANGELOG.md configure examples LICENSE postbuild p-8.pro p-8.qc qcm README.md src tools $DESTDIR
+cp -a .gitignore build.rs Cargo.lock Cargo.toml CHANGELOG.md examples LICENSE postbuild README.md src tools $DESTDIR
 
 sed -i -e "s/^version = .*/version = \"$VERSION\"/g" $DESTDIR/Cargo.toml
 
