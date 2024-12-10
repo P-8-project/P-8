@@ -4,7 +4,6 @@ CONFIG += staticlib c++11
 QT -= gui
 QT += network
 TARGET = p-8-cpp
-DESTDIR = ../../target/cpp
 
 cpp_build_dir = $$OUT_PWD
 
