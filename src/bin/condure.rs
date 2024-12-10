@@ -18,7 +18,7 @@
 use clap::{Arg, ArgAction, Command};
 use log::{error, LevelFilter};
 use p-8::condure::{run, App, Config};
-use p-8::log::get_simple_logger;
+use p-8::log::{get_simple_logger, local_offset_check};
 use p-8::version;
 use p-8::{ListenConfig, ListenSpec};
 use std::error::Error;
@@ -386,7 +386,7 @@ fn main() {
         )
         .get_matches();
 
-    log::set_logger(get_simple_logger(None, false)).unwrap();
+    log::set_logger(get_simple_logger()).unwrap();
 
     log::set_max_level(LevelFilter::Info);
 
@@ -410,6 +410,8 @@ fn main() {
     };
 
     log::set_max_level(level);
+
+    local_offset_check();
 
     if *matches.get_one("sizes").unwrap() {
         for (name, size) in App::sizes() {
