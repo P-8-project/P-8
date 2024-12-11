@@ -375,7 +375,7 @@ public:
 		}
 		else
 		{
-			if(QFile::exists("src/p-8/p-8.pro"))
+			if(QFile::exists("src/bin/p-8.rs"))
 			{
 				// running in tree
 				libDir = QFileInfo("src/runner").absoluteFilePath();
