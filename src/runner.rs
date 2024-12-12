@@ -392,7 +392,11 @@ impl Settings {
             config_file: config_file_path.to_path_buf(),
             run_dir,
             log_file: args_data.log_file,
-            condure_bin: get_service_dir(exec_dir.into(), "condure", "bin/condure")?,
+            condure_bin: get_service_dir(
+                exec_dir.into(),
+                "p-8-condure",
+                "bin/p-8-condure",
+            )?,
             proxy_bin: get_service_dir(exec_dir.into(), "p-8-proxy", "bin/p-8-proxy")?,
             handler_bin: get_service_dir(
                 exec_dir.into(),
@@ -824,10 +828,10 @@ mod tests {
                 run_dir: exec_dir.clone().join("run"),
                 log_file: None,
                 certs_dir: PathBuf::from("./examples/config/runner/certs"),
-                condure_bin: if exec_dir.clone().join("bin/condure").exists() {
-                    exec_dir.clone().join("bin/condure")
+                condure_bin: if exec_dir.clone().join("bin/p-8-condure").exists() {
+                    exec_dir.clone().join("bin/p-8-condure")
                 } else {
-                    PathBuf::from("condure")
+                    PathBuf::from("p-8-condure")
                 },
                 proxy_bin: if exec_dir.clone().join("bin/p-8-proxy").exists() {
                     exec_dir.clone().join("bin/p-8-proxy")

@@ -15,9 +15,9 @@ RELEASE = $$(RELEASE)
 
 # copy bin files
 
-condure_bin.target = $$bin_dir/condure
-condure_bin.depends = $$target_dir/condure
-condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/condure $$bin_dir/condure
+condure_bin.target = $$bin_dir/p-8-condure
+condure_bin.depends = $$target_dir/p-8-condure
+condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-condure $$bin_dir/p-8-condure
 
 m2adapter_bin.target = $$bin_dir/m2adapter
 m2adapter_bin.depends = $$target_dir/m2adapter
@@ -53,7 +53,7 @@ QMAKE_EXTRA_TARGETS += \
 	publish_bin
 
 PRE_TARGETDEPS += \
-	$$bin_dir/condure \
+	$$bin_dir/p-8-condure \
 	$$bin_dir/m2adapter \
 	$$bin_dir/p-8-proxy \
 	$$bin_dir/p-8-handler \
@@ -75,7 +75,7 @@ PRE_TARGETDEPS += p-8.conf.inst
 unix:!isEmpty(BINDIR) {
 	binfiles.path = $$BINDIR
 	binfiles.files = \
-		$$bin_dir/condure \
+		$$bin_dir/p-8-condure \
 		$$bin_dir/m2adapter \
 		$$bin_dir/p-8-proxy \
 		$$bin_dir/p-8-handler \
