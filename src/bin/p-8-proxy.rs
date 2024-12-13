@@ -15,6 +15,7 @@
  */
 
 use p-8::call_c_main;
+use std::env;
 use std::process::ExitCode;
 
 #[cfg(target_os = "macos")]
@@ -36,5 +37,5 @@ extern "C" {
 }
 
 fn main() -> ExitCode {
-    unsafe { ExitCode::from(call_c_main(proxy_main)) }
+    unsafe { ExitCode::from(call_c_main(proxy_main, env::args_os())) }
 }
