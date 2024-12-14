@@ -19,12 +19,13 @@ use log::{error, info, LevelFilter};
 use p-8::log::{ensure_init_simple_logger, get_simple_logger, local_offset_check};
 use p-8::runner::{open_log_file, ArgsData, CliArgs, Settings};
 use p-8::service::start_services;
+use std::env;
 use std::error::Error;
 use std::process;
 
 fn process_args_and_run(args: CliArgs) -> Result<(), Box<dyn Error>> {
     let args_data = ArgsData::new(args)?;
-    let settings = Settings::new(args_data)?;
+    let settings = Settings::new(&env::current_dir()?, args_data)?;
 
     let log_file = match settings.log_file.clone() {
         Some(x) => match open_log_file(x) {
