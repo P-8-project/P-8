@@ -61,3 +61,38 @@ harness = false
 [[bench]]
 name = "client"
 harness = false
+
+[[bin]]
+name = "p-8-condure"
+test = false
+bench = false
+
+[[bin]]
+name = "m2adapter"
+test = false
+bench = false
+
+[[bin]]
+name = "p-8-proxy"
+test = false
+bench = false
+
+[[bin]]
+name = "p-8-handler"
+test = false
+bench = false
+
+[[bin]]
+name = "p-8-legacy"
+test = false
+bench = false
+
+[[bin]]
+name = "p-8"
+test = false
+bench = false
+
+[[bin]]
+name = "p-8-publish"
+test = false
+bench = false
