@@ -31,10 +31,6 @@ handler_bin.target = $$bin_dir/p-8-handler
 handler_bin.depends = $$target_dir/p-8-handler
 handler_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-handler $$bin_dir/p-8-handler
 
-runner_legacy_bin.target = $$root_dir/p-8-legacy
-runner_legacy_bin.depends = $$target_dir/p-8-legacy
-runner_legacy_bin.commands = cp -a $$target_dir/p-8-legacy $$root_dir/p-8-legacy
-
 runner_bin.target = $$root_dir/p-8
 runner_bin.depends = $$target_dir/p-8
 runner_bin.commands = cp -a $$target_dir/p-8 $$root_dir/p-8
@@ -48,7 +44,6 @@ QMAKE_EXTRA_TARGETS += \
 	m2adapter_bin \
 	proxy_bin \
 	handler_bin \
-	runner_legacy_bin \
 	runner_bin \
 	publish_bin
 
@@ -57,7 +52,6 @@ PRE_TARGETDEPS += \
 	$$bin_dir/m2adapter \
 	$$bin_dir/p-8-proxy \
 	$$bin_dir/p-8-handler \
-	$$root_dir/p-8-legacy \
 	$$root_dir/p-8 \
 	$$bin_dir/p-8-publish
 
@@ -79,7 +73,6 @@ unix:!isEmpty(BINDIR) {
 		$$bin_dir/m2adapter \
 		$$bin_dir/p-8-proxy \
 		$$bin_dir/p-8-handler \
-		$$root_dir/p-8-legacy \
 		$$root_dir/p-8 \
 		$$bin_dir/p-8-publish
 	binfiles.CONFIG += no_check_exist executable
