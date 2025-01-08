@@ -640,7 +640,7 @@ public:
 		}
 
 		if(serviceNames.contains("p-8-proxy"))
-			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("p-8-proxy", defaultLevel), args.routeLines, quietCheck, this);
+			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("p-8-proxy", defaultLevel), args.routeLines, quietCheck);
 
 		if(serviceNames.contains("p-8-handler"))
 			services += new P-8HandlerService(handlerBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, portOffset, logLevels.value("p-8-handler", defaultLevel));
