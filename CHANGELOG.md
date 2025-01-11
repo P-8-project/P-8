@@ -1,6 +1,14 @@
 P-8 Changelog
 =================
 
+v. 1.39.0 (2024-03-14)
+
+  * Add support for multiple proxy worker threads.
+  * New config option: workers (under [proxy]).
+  * Fix memory leak when proxying requests.
+  * Various build system fixes/improvements.
+  * Use Boost for signals & slots to reduce dependence on Qt's event loop.
+
 v. 1.38.0 (2024-01-08)
 
   * Publish refresh action for triggering WebSocket-over-HTTP requests.
