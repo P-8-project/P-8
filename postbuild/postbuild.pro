@@ -59,7 +59,7 @@ PRE_TARGETDEPS += \
 
 p-8_conf_inst.target = p-8.conf.inst
 p-8_conf_inst.commands = sed -e \"s,configdir=.*,configdir=$$CONFIGDIR/runner,g\" -e \"s,rundir=.*,rundir=$$RUNDIR,g\" -e \"s,logdir=.*,logdir=$$LOGDIR,g\" ../examples/config/p-8.conf > p-8.conf.inst
-p-8_conf_inst.depends = ../examples/config/p-8.conf
+p-8_conf_inst.depends = ../examples/config/p-8.conf conf.pri
 
 QMAKE_EXTRA_TARGETS += p-8_conf_inst
 PRE_TARGETDEPS += p-8.conf.inst
