@@ -105,35 +105,49 @@ fn env_or_default(name: &str, defaults: &HashMap<String, String>) -> String {
     }
 }
 
+fn write_if_different(dest: &Path, content: &[u8]) -> Result<(), Box<dyn Error>> {
+    let do_write = match fs::read(dest) {
+        Ok(v) => v != content,
+        Err(e) if e.kind() == io::ErrorKind::NotFound => true,
+        Err(e) => return Err(e.into()),
+    };
+
+    if do_write {
+        fs::write(dest, content)?;
+    }
+
+    Ok(())
+}
+
 fn write_cpp_conf_pri(
     dest: &Path,
     release: bool,
     include_paths: &[&Path],
     deny_warnings: bool,
 ) -> Result<(), Box<dyn Error>> {
-    let mut f = fs::File::create(dest)?;
+    let mut out = Vec::new();
 
-    writeln!(&mut f, "CONFIG -= debug_and_release")?;
+    writeln!(&mut out, "CONFIG -= debug_and_release")?;
 
     if release {
-        writeln!(&mut f, "CONFIG += release")?;
+        writeln!(&mut out, "CONFIG += release")?;
     } else {
-        writeln!(&mut f, "CONFIG += debug")?;
+        writeln!(&mut out, "CONFIG += debug")?;
     }
 
-    writeln!(&mut f)?;
+    writeln!(&mut out)?;
 
     for path in include_paths {
-        writeln!(&mut f, "INCLUDEPATH += {}", path.display())?;
+        writeln!(&mut out, "INCLUDEPATH += {}", path.display())?;
     }
 
-    writeln!(&mut f)?;
+    writeln!(&mut out)?;
 
     if deny_warnings {
-        writeln!(&mut f, "QMAKE_CXXFLAGS += \"-Werror\"")?;
+        writeln!(&mut out, "QMAKE_CXXFLAGS += \"-Werror\"")?;
     }
 
-    Ok(())
+    write_if_different(dest, &out)
 }
 
 fn write_postbuild_conf_pri(
@@ -144,15 +158,15 @@ fn write_postbuild_conf_pri(
     run_dir: &str,
     log_dir: &str,
 ) -> Result<(), Box<dyn Error>> {
-    let mut f = fs::File::create(dest)?;
+    let mut out = Vec::new();
 
-    writeln!(&mut f, "BINDIR = {}", bin_dir)?;
-    writeln!(&mut f, "LIBDIR = {}/p-8", lib_dir)?;
-    writeln!(&mut f, "CONFIGDIR = {}/p-8", config_dir)?;
-    writeln!(&mut f, "RUNDIR = {}/p-8", run_dir)?;
-    writeln!(&mut f, "LOGDIR = {}/p-8", log_dir)?;
+    writeln!(&mut out, "BINDIR = {}", bin_dir)?;
+    writeln!(&mut out, "LIBDIR = {}/p-8", lib_dir)?;
+    writeln!(&mut out, "CONFIGDIR = {}/p-8", config_dir)?;
+    writeln!(&mut out, "RUNDIR = {}/p-8", run_dir)?;
+    writeln!(&mut out, "LOGDIR = {}/p-8", log_dir)?;
 
-    Ok(())
+    write_if_different(dest, &out)
 }
 
 // returned vec size guaranteed >= 1
