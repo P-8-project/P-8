@@ -1,6 +1,11 @@
 P-8 Changelog
 =================
 
+v. 1.39.1 (2024-03-18)
+
+  * Regenerate p-8.conf.inst post-build to ensure up-to-date configuration.
+  * Update legacy runner use revised Qt linking logic, aligning with main branch improvements.
+
 v. 1.39.0 (2024-03-14)
 
   * Add support for multiple proxy worker threads.
