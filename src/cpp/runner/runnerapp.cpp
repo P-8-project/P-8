@@ -33,7 +33,7 @@
 #include "log.h"
 #include "settings.h"
 #include "listenport.h"
-#include "condureservice.h"
+#include "connmgrservice.h"
 #include "mongrel2service.h"
 #include "m2adapterservice.h"
 #include "zurlservice.h"
@@ -459,10 +459,10 @@ public:
 		if(fi.isFile())
 			m2aBin = fi.canonicalFilePath();
 
-		QString condureBin = "p-8-condure";
-		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-condure"));
+		QString connmgrBin = "p-8-connmgr";
+		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-connmgr"));
 		if(fi.isFile())
-			condureBin = fi.canonicalFilePath();
+			connmgrBin = fi.canonicalFilePath();
 
 		QString proxyBin = "p-8-proxy";
 		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-proxy"));
@@ -573,23 +573,29 @@ public:
 			filePrefix = ipcPrefix;
 		}
 
-		if(serviceNames.contains("condure") && (serviceNames.contains("mongrel2") || serviceNames.contains("m2adapter")))
+		if(serviceNames.contains("condure"))
 		{
-			log_error("cannot enable the condure service at the same time as mongrel2 or m2adapter");
+			serviceNames.removeAll("condure");
+			serviceNames += "connmgr";
+		}
+
+		if(serviceNames.contains("connmgr") && (serviceNames.contains("mongrel2") || serviceNames.contains("m2adapter")))
+		{
+			log_error("cannot enable the connmgr service at the same time as mongrel2 or m2adapter");
 			q->quit(1);
 			return;
 		}
 
-		if(serviceNames.contains("condure"))
+		if(serviceNames.contains("connmgr"))
 		{
 			QString certsDir = QDir(configDir).filePath("certs");
 
 			bool useClient = false;
 
-			if(!serviceNames.contains("zurl") && CondureService::hasClientMode(condureBin))
+			if(!serviceNames.contains("zurl") && ConnmgrService::hasClientMode(connmgrBin))
 				useClient = true;
 
-			services += new CondureService("condure", condureBin, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("condure", defaultLevel), certsDir, clientBufferSize, clientMaxConnections, allowCompression, ports, useClient);
+			services += new ConnmgrService("connmgr", connmgrBin, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("connmgr", defaultLevel), certsDir, clientBufferSize, clientMaxConnections, allowCompression, ports, useClient);
 		}
 
 		if(serviceNames.contains("mongrel2"))

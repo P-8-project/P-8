@@ -63,7 +63,7 @@ name = "client"
 harness = false
 
 [[bin]]
-name = "p-8-condure"
+name = "p-8-connmgr"
 test = false
 bench = false
 
