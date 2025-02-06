@@ -573,10 +573,34 @@ public:
 			filePrefix = ipcPrefix;
 		}
 
+		if(logLevels.contains("p-8-proxy"))
+		{
+			logLevels["proxy"] = logLevels["p-8-proxy"];
+			logLevels.remove("p-8-proxy");
+		}
+
+		if(logLevels.contains("p-8-handler"))
+		{
+			logLevels["handler"] = logLevels["p-8-handler"];
+			logLevels.remove("p-8-handler");
+		}
+
 		if(serviceNames.contains("condure"))
 		{
 			serviceNames.removeAll("condure");
 			serviceNames += "connmgr";
+		}
+
+		if(serviceNames.contains("p-8-proxy"))
+		{
+			serviceNames.removeAll("p-8-proxy");
+			serviceNames += "proxy";
+		}
+
+		if(serviceNames.contains("p-8-handler"))
+		{
+			serviceNames.removeAll("p-8-handler");
+			serviceNames += "handler";
 		}
 
 		if(serviceNames.contains("connmgr") && (serviceNames.contains("mongrel2") || serviceNames.contains("m2adapter")))
@@ -642,11 +666,11 @@ public:
 			quietCheck = true;
 		}
 
-		if(serviceNames.contains("p-8-proxy"))
-			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("p-8-proxy", defaultLevel), args.routeLines, quietCheck);
+		if(serviceNames.contains("proxy"))
+			services += new P-8ProxyService(proxyBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, logLevels.value("proxy", defaultLevel), args.routeLines, quietCheck);
 
-		if(serviceNames.contains("p-8-handler"))
-			services += new P-8HandlerService(handlerBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, portOffset, logLevels.value("p-8-handler", defaultLevel));
+		if(serviceNames.contains("handler"))
+			services += new P-8HandlerService(handlerBin, configFile, runDir, !args.mergeOutput ? logDir : QString(), ipcPrefix, filePrefix, portOffset, logLevels.value("handler", defaultLevel));
 
 		foreach(Service *s, services)
 		{

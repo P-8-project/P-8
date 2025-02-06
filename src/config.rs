@@ -359,7 +359,7 @@ impl CustomConfig {
                 "runner",
                 Runner {
                     rundir: String::new(),
-                    services: String::from("connmgr,p-8-proxy,p-8-handler"),
+                    services: String::from("connmgr,proxy,handler"),
                     http_port: String::from("7999"),
                     https_ports: String::from("443"),
                     local_ports: String::from("{rundir}/{ipc_prefix}server"),

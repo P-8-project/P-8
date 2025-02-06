@@ -36,23 +36,43 @@ pub struct Service {
     pub log_level: u8,
 }
 
-pub fn start_services(settings: Settings) {
-    let mut services: Vec<Box<dyn RunnerService>> = vec![];
-    if settings.service_names.contains(&String::from("connmgr"))
-        || settings.service_names.contains(&String::from("condure"))
-    {
-        services.push(Box::new(ConnmgrService::new(&settings)));
+pub fn start_services(mut settings: Settings) {
+    if let Some(value) = settings.log_levels.get("p-8-proxy") {
+        settings.log_levels.insert(String::from("proxy"), *value);
+        settings.log_levels.remove("p-8-proxy");
+    }
+    if let Some(value) = settings.log_levels.get("p-8-handler") {
+        settings.log_levels.insert(String::from("handler"), *value);
+        settings.log_levels.remove("p-8-handler");
+    }
+
+    if settings.service_names.contains(&String::from("condure")) {
+        settings.service_names.retain(|s| s != "condure");
+        settings.service_names.push(String::from("connmgr"));
     }
     if settings
         .service_names
         .contains(&String::from("p-8-proxy"))
     {
-        services.push(Box::new(P-8ProxyService::new(&settings)));
+        settings.service_names.retain(|s| s != "p-8-proxy");
+        settings.service_names.push(String::from("proxy"));
     }
     if settings
         .service_names
         .contains(&String::from("p-8-handler"))
     {
+        settings.service_names.retain(|s| s != "p-8-handler");
+        settings.service_names.push(String::from("handler"));
+    }
+
+    let mut services: Vec<Box<dyn RunnerService>> = vec![];
+    if settings.service_names.contains(&String::from("connmgr")) {
+        services.push(Box::new(ConnmgrService::new(&settings)));
+    }
+    if settings.service_names.contains(&String::from("proxy")) {
+        services.push(Box::new(P-8ProxyService::new(&settings)));
+    }
+    if settings.service_names.contains(&String::from("handler")) {
         services.push(Box::new(P-8HandlerService::new(&settings)));
     }
 
@@ -305,7 +325,7 @@ impl P-8ProxyService {
         if !settings.ipc_prefix.is_empty() {
             args.push(format!("--ipc-prefix={}", settings.ipc_prefix));
         }
-        let log_level = match settings.log_levels.get("p-8-proxy") {
+        let log_level = match settings.log_levels.get("proxy") {
             Some(&x) => x,
             None => settings.log_levels.get("default").unwrap().to_owned(),
         };
@@ -347,7 +367,7 @@ impl P-8HandlerService {
         if !settings.ipc_prefix.is_empty() {
             args.push(format!("--ipc-prefix={}", settings.ipc_prefix));
         }
-        let log_level = match settings.log_levels.get("p-8-handler") {
+        let log_level = match settings.log_levels.get("handler") {
             Some(&x) => x,
             None => settings.log_levels.get("default").unwrap().to_owned(),
         };
