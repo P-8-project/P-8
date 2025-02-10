@@ -19,9 +19,9 @@ use p-8::connection::testutil::{
     BenchServerReqConnection, BenchServerReqHandler, BenchServerStreamConnection,
     BenchServerStreamHandler,
 };
-use p-8::executor::Executor;
+use p-8::core::executor::Executor;
+use p-8::core::reactor::Reactor;
 use p-8::future::{AsyncReadExt, AsyncTcpStream, AsyncWriteExt};
-use p-8::reactor::Reactor;
 use p-8::server::TestServer;
 use p-8::websocket::testutil::{BenchRecvMessage, BenchSendMessage};
 use std::io::{self, Write};
