@@ -16,7 +16,7 @@
 
 use criterion::{criterion_group, criterion_main, Criterion};
 use mio::net::TcpListener;
-use p-8::client::TestClient;
+use p-8::connmgr::client::TestClient;
 use p-8::core::channel;
 use p-8::core::executor::Executor;
 use p-8::core::reactor::Reactor;
