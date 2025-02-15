@@ -17,7 +17,7 @@ RELEASE = $$(RELEASE)
 
 connmgr_bin.target = $$bin_dir/p-8-connmgr
 connmgr_bin.depends = $$target_dir/p-8-connmgr
-connmgr_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-connmgr $$bin_dir/p-8-connmgr
+connmgr_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-connmgr $$bin_dir/p-8-connmgr && ln -sf p-8-connmgr $$bin_dir/p-8-condure
 
 m2adapter_bin.target = $$bin_dir/m2adapter
 m2adapter_bin.depends = $$target_dir/m2adapter
@@ -84,7 +84,10 @@ unix:!isEmpty(BINDIR) {
 		$$bin_dir/p-8-publish
 	binfiles.CONFIG += no_check_exist executable
 
-	INSTALLS += binfiles
+	symlinks.path = $$BINDIR
+	symlinks.extra = ln -sf p-8-connmgr $(INSTALL_ROOT)$$symlinks.path/p-8-condure
+
+	INSTALLS += binfiles symlinks
 }
 
 # install lib files
