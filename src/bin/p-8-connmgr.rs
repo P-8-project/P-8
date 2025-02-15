@@ -19,7 +19,7 @@ use clap::{Arg, ArgAction, Command};
 use log::{error, LevelFilter};
 use p-8::connmgr::{run, App, Config, ListenConfig, ListenSpec};
 use p-8::core::log::{get_simple_logger, local_offset_check};
-use p-8::version;
+use p-8::core::version;
 use std::error::Error;
 use std::path::PathBuf;
 use std::process;
