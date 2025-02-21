@@ -22,9 +22,9 @@ use p-8::connmgr::connection::testutil::{
 use p-8::connmgr::server::TestServer;
 use p-8::connmgr::websocket::testutil::{BenchRecvMessage, BenchSendMessage};
 use p-8::core::executor::Executor;
+use p-8::core::io::{AsyncReadExt, AsyncWriteExt};
 use p-8::core::net::AsyncTcpStream;
 use p-8::core::reactor::Reactor;
-use p-8::future::{AsyncReadExt, AsyncWriteExt};
 use std::io::{self, Write};
 use std::net::SocketAddr;
 use std::str;
