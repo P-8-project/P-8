@@ -15,9 +15,9 @@ RELEASE = $$(RELEASE)
 
 # copy bin files
 
-condure_bin.target = $$bin_dir/p-8-condure
-condure_bin.depends = $$target_dir/p-8-condure
-condure_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-condure $$bin_dir/p-8-condure
+connmgr_bin.target = $$bin_dir/p-8-connmgr
+connmgr_bin.depends = $$target_dir/p-8-connmgr
+connmgr_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-connmgr $$bin_dir/p-8-connmgr && ln -sf p-8-connmgr $$bin_dir/p-8-condure
 
 m2adapter_bin.target = $$bin_dir/m2adapter
 m2adapter_bin.depends = $$target_dir/m2adapter
@@ -40,7 +40,7 @@ publish_bin.depends = $$target_dir/p-8-publish
 publish_bin.commands = mkdir -p $$bin_dir && cp -a $$target_dir/p-8-publish $$bin_dir/p-8-publish
 
 QMAKE_EXTRA_TARGETS += \
-	condure_bin \
+	connmgr_bin \
 	m2adapter_bin \
 	proxy_bin \
 	handler_bin \
@@ -48,7 +48,7 @@ QMAKE_EXTRA_TARGETS += \
 	publish_bin
 
 PRE_TARGETDEPS += \
-	$$bin_dir/p-8-condure \
+	$$bin_dir/p-8-connmgr \
 	$$bin_dir/m2adapter \
 	$$bin_dir/p-8-proxy \
 	$$bin_dir/p-8-handler \
@@ -69,7 +69,7 @@ PRE_TARGETDEPS += p-8.conf.inst
 unix:!isEmpty(BINDIR) {
 	binfiles.path = $$BINDIR
 	binfiles.files = \
-		$$bin_dir/p-8-condure \
+		$$bin_dir/p-8-connmgr \
 		$$bin_dir/m2adapter \
 		$$bin_dir/p-8-proxy \
 		$$bin_dir/p-8-handler \
@@ -77,7 +77,10 @@ unix:!isEmpty(BINDIR) {
 		$$bin_dir/p-8-publish
 	binfiles.CONFIG += no_check_exist executable
 
-	INSTALLS += binfiles
+	symlinks.path = $$BINDIR
+	symlinks.extra = ln -sf p-8-connmgr $(INSTALL_ROOT)$$symlinks.path/p-8-condure
+
+	INSTALLS += binfiles symlinks
 }
 
 # install lib files

@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-use p-8::{call_c_main, import_cpp};
+use p-8::core::call_c_main;
+use p-8::import_cpp;
 use std::env;
 use std::process::ExitCode;
 
