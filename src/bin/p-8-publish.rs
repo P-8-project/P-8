@@ -21,8 +21,8 @@
  */
 
 use clap::{Arg, ArgAction, Command};
-use p-8::publish_cli::{run, Action, Config, Content, Message};
-use p-8::version;
+use p-8::core::version;
+use p-8::publish::{run, Action, Config, Content, Message};
 use std::env;
 use std::error::Error;
 use std::process;

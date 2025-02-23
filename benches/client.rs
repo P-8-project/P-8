@@ -16,11 +16,12 @@
 
 use criterion::{criterion_group, criterion_main, Criterion};
 use mio::net::TcpListener;
-use p-8::channel;
-use p-8::client::TestClient;
-use p-8::executor::Executor;
-use p-8::future::{AsyncReadExt, AsyncSender, AsyncTcpListener, AsyncTcpStream, AsyncWriteExt};
-use p-8::reactor::Reactor;
+use p-8::connmgr::client::TestClient;
+use p-8::core::channel;
+use p-8::core::executor::Executor;
+use p-8::core::io::{AsyncReadExt, AsyncWriteExt};
+use p-8::core::net::{AsyncTcpListener, AsyncTcpStream};
+use p-8::core::reactor::Reactor;
 use std::net::SocketAddr;
 use std::rc::Rc;
 use std::str;
@@ -46,7 +47,7 @@ where
 
     executor
         .spawn(async move {
-            let s = AsyncSender::new(s);
+            let s = channel::AsyncSender::new(s);
             let listener = AsyncTcpListener::new(listener);
 
             for _ in 0..REQS_PER_ITER {
