@@ -22,11 +22,11 @@ cargo install --path crates/viable_cli
 
 - [Brew](https://formulae.brew.sh/formula/viable) (macOS and Linux)
   <details><summary>Installation instructions</summary>
-  
+
    ```sh
    brew install viable
    ```
-  
+
   </details>
 
 - [Arch Linux](https://aur.archlinux.org/packages/viable) (maintained by [@ilai-deutel](https://github.com/ilai-deutel))
@@ -48,17 +48,17 @@ cargo install --path crates/viable_cli
 
   </details>
 
-- [NixOS](https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/misc/viable/default.nix) (maintained by [@jyooru](https://github.com/jyooru))
+- [NixOS](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/me/viable/package.nix) (maintained by [@jyooru](https://github.com/jyooru))
   <details><summary>Installation instructions</summary>
-  
+
   Should be the following once the registry is updated.
-  
+
   If you've successfuly installed via this method please open an issue and let me know.
-  
+
   Thanks!
-  
+
    ```sh
    nix-env -i viable
    ```
-  
+
   </details>
