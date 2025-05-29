@@ -1,9 +1,9 @@
 [workspace]
 members = [
-  "crates/viable_cli",
-  "crates/viable_compiler",
-  "crates/viable_wasm",
-  "xtask",
+    "crates/viable_cli",
+    "crates/viable_compiler",
+    "crates/viable_wasm",
+    "xtask",
 ]
 resolver = "2"
 
