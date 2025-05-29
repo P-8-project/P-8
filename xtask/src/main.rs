@@ -179,12 +179,12 @@ fn wasm_node() -> anyhow::Result<()> {
     cmd!(shell, "wasm-pack build --target nodejs").run()?;
     cmd!(
         shell,
-        "sed -i '' 's/\"name\":.*/\"name\": \"viablec\",/g' ./pkg/package.json"
+        "sed -i 's/\"name\":.*/\"name\": \"viablec\",/g' ./pkg/package.json"
     )
     .run()?;
     cmd!(
         shell,
-        "sed -i '' 's/\"description\":.*/\"description\": \"NodeJS bindings for the Viable language compiler\",/g' ./pkg/package.json"
+        "sed -i 's/\"description\":.*/\"description\": \"NodeJS bindings for the Viable language compiler\",/g' ./pkg/package.json"
     )
     .run()?;
 
