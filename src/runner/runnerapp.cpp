@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2023 Fanout, Inc.
+ * Copyright (C) 2016-2025 Fanout, Inc.
  *
  * This file is part of P-8.
  *
@@ -30,6 +30,7 @@
 #include <QDir>
 #include <QUrl>
 #include <QUrlQuery>
+#include "rust/bindings.h"
 #include "processquit.h"
 #include "log.h"
 #include "settings.h"
@@ -458,23 +459,29 @@ public:
 
 		bool allowCompression = settings.value("runner/allow_compression").toBool();
 
+		QString targetDir;
+		if(ffi::is_debug_build())
+			targetDir = QDir(exeDir).filePath("target/debug");
+		else
+			targetDir = QDir(exeDir).filePath("target/release");
+
 		QString m2aBin = "m2adapter";
-		QFileInfo fi(QDir(exeDir).filePath("bin/m2adapter"));
+		QFileInfo fi(QDir(targetDir).filePath("m2adapter"));
 		if(fi.isFile())
 			m2aBin = fi.canonicalFilePath();
 
 		QString connmgrBin = "p-8-connmgr";
-		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-connmgr"));
+		fi = QFileInfo(QDir(targetDir).filePath("p-8-connmgr"));
 		if(fi.isFile())
 			connmgrBin = fi.canonicalFilePath();
 
 		QString proxyBin = "p-8-proxy";
-		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-proxy"));
+		fi = QFileInfo(QDir(targetDir).filePath("p-8-proxy"));
 		if(fi.isFile())
 			proxyBin = fi.canonicalFilePath();
 
 		QString handlerBin = "p-8-handler";
-		fi = QFileInfo(QDir(exeDir).filePath("bin/p-8-handler"));
+		fi = QFileInfo(QDir(targetDir).filePath("p-8-handler"));
 		if(fi.isFile())
 			handlerBin = fi.canonicalFilePath();
 
