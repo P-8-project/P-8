@@ -37,22 +37,22 @@ P-8ProxyService::P-8ProxyService(
 	bool quietCheck)
 {
 	args_ += binFile;
-	args_ += "--config=" + configFile;
+	args_ += "--config-file=" + configFile;
 
 	if(!ipcPrefix.isEmpty())
 		args_ += "--ipc-prefix=" + ipcPrefix;
 
 	if(!logDir.isEmpty())
 	{
-		args_ += "--logfile=" + QDir(logDir).filePath(filePrefix + "p-8-proxy.log");
+		args_ += "--log-file=" + QDir(logDir).filePath(filePrefix + "p-8-proxy.log");
 		setStandardOutputFile(QProcess::nullDevice());
 	}
 
 	if(logLevel >= 0)
-		args_ += "--loglevel=" + QString::number(logLevel);
+		args_ += "--log-level=" + QString::number(logLevel);
 
 	foreach(const QString &route, routeLines)
-		args_ += "--route=" + route;
+		args_ += "--routes=" + route;
 
 	if(quietCheck)
 		args_ += "--quiet-check";
